@@ -1116,3 +1116,54 @@ if ( is_array( $edifice_required_plugins ) ) {
 		}
 	}
 }
+
+
+
+
+// Hte custom code
+function custom_login_logo() {
+    $logo_url = get_site_url() . '/wp-content/uploads/2025/03/Logo.webp';
+    ?>
+    <style type="text/css">
+        body.login div#login h1 a {
+            background-image: url('<?php echo esc_url($logo_url); ?>'); /* Tự động lấy đường dẫn logo */
+            background-size: contain;
+            width: 320px !important;
+            height: 100px !important;
+        }
+    </style>
+<?php }
+add_action('login_enqueue_scripts', 'custom_login_logo');
+
+// Đổi URL khi click vào logo đăng nhập
+function custom_login_logo_url() {
+    return home_url(); // Trả về trang chủ website
+}
+add_filter('login_headerurl', 'custom_login_logo_url');
+
+// Đổi tooltip khi di chuột vào logo
+function custom_login_logo_title() {
+    return 'Trở về Trang chủ';
+}
+add_filter('login_headertext', 'custom_login_logo_title');
+
+// Text custom login
+function custom_login_message() {
+    $message = '<p style="text-align: center; font-size: 14px; color: #555;">
+        Quý khách hàng cần hỗ trợ vui lòng truy cập <a href="https://htecom.vn" target="_blank">HTECOM.VN</a> 
+        hoặc email <a href="mailto:support@htecom.vn">support@htecom.vn</a> 
+        hoặc gửi support ticket tại tài khoản CRM được cấp.
+    </p>';
+    return $message;
+}
+add_filter('login_message', 'custom_login_message');
+
+function custom_login_styles() { ?>
+    <style>
+        .login #login_error, .login .message {
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+<?php }
+add_action('login_enqueue_scripts', 'custom_login_styles');
