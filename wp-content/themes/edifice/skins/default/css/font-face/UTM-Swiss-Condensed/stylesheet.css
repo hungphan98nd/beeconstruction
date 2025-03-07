@@ -4,8 +4,6 @@
     font-display: swap;
     src: url('UTM-Swiss-Condensed.eot');
     src: url('UTM-Swiss-Condensed.eot?#iefix') format('embedded-opentype'),
-         url('UTM-Swiss-Condensed.woff2') format('woff2'),
-         url('UTM-Swiss-Condensed.woff') format('woff'),
          url('UTM-Swiss-Condensed.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
