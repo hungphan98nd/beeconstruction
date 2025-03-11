@@ -29,7 +29,7 @@
                 {
                     "slug": "text-dark",
                     "name": "Text dark",
-                    "color": "#1E2831"
+                    "color": "#3a3d44"
                 },
                 {
                     "slug": "text-light",
@@ -64,7 +64,7 @@
                 {
                     "slug": "text-hover-3",
                     "name": "Accent 3 hover",
-                    "color": "#3a3d44"
+                    "color": "#ddb837"
                 }
             ],
             "duotone": [
@@ -79,7 +79,7 @@
                 {
                     "colors": [
                         "#FFFFFF",
-                        "#1E2831"
+                        "#3a3d44"
                     ],
                     "slug": "bg-and-dark",
                     "name": "Background and dark color"
@@ -111,19 +111,19 @@
             "dropCap": true,
             "fontFamilies": [
                 {
-                    "fontFamily": "Roboto,sans-serif",
-                    "name": "Roboto,sans-serif",
+                    "fontFamily": "\"Acumin Pro\",sans-serif",
+                    "name": "\"Acumin Pro\",sans-serif",
                     "slug": "p-font"
-                },
-                {
-                    "fontFamily": "inherit",
-                    "name": "inherit",
-                    "slug": "post-font"
                 },
                 {
                     "fontFamily": "\"UTM Swiss Condensed\",sans-serif",
                     "name": "\"UTM Swiss Condensed\",sans-serif",
                     "slug": "h1-font"
+                },
+                {
+                    "fontFamily": "inherit",
+                    "name": "inherit",
+                    "slug": "logo-font"
                 }
             ]
         },
