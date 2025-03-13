@@ -173,8 +173,8 @@
 	// Move title with cursor
 	function mousemove_for_portfolio_small() {
 		if (jQuery( window ).width() > 1279 ) {
-			if ( jQuery('.content').find(".sc_blogger_lay_portfolio_grid_grid_style_7").length > 0 ) {
-				jQuery(".sc_blogger_lay_portfolio_grid_grid_style_7 .sc_blogger_item").each(function() {
+			if ( jQuery('.content').find(".sc_blogger_lay_portfolio_grid_grid_style_7, .sc_blogger_lay_portfolio_grid_grid_style_6").length > 0 ) {
+				jQuery(".sc_blogger_lay_portfolio_grid_grid_style_7 .sc_blogger_item, .sc_blogger_lay_portfolio_grid_grid_style_6 .sc_blogger_item").each(function() {
 					let $Target = jQuery(this);
 					let $TargetInner = $Target.find('.post_info_bl');
 					$Target.mousemove(function(event){
@@ -192,8 +192,8 @@
 	}
 	// Add wrap in portfolio style
 	function add_portfolio_image_wrap() {
-		if ( jQuery('.content').find(".sc_blogger_lay_portfolio_grid_grid_style_7").length > 0 ) {
-			var $item = jQuery(".sc_blogger_lay_portfolio_grid_grid_style_7 .sc_blogger_item:not(.inited_item)");
+		if ( jQuery('.content').find(".sc_blogger_lay_portfolio_grid_grid_style_7, .sc_blogger_lay_portfolio_grid_grid_style_6").length > 0 ) {
+			var $item = jQuery(".sc_blogger_lay_portfolio_grid_grid_style_7 .sc_blogger_item:not(.inited_item), .sc_blogger_lay_portfolio_grid_grid_style_6 .sc_blogger_item:not(.inited_item)");
 			$item.each(function() {
 				jQuery(this).addClass('inited_item');
 				jQuery(this).find(".bg_in").wrap('<div class="bg_in_wrap"></div>');

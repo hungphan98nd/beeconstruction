@@ -197,6 +197,17 @@ if ( ! function_exists( 'edifice_skin_trx_addons_sc_list' ) ) {
                 )
             )
         );
+        $list['blogger']['templates']['lay_portfolio']['style_17'] = array (
+            'title'  => esc_html__('Style 17', 'edifice'),
+            'args' => array( 'image_ratio' =>  '1:1','hover' => 'link' ),
+            'layout' => array (
+                'featured' => array (
+                    'bl' => array (
+                        'title', 'meta_categories', 'readmore'
+                    )
+                )
+            )
+        );
 
         // Grid portfolio
         // Grid Style 3
@@ -1078,6 +1089,18 @@ if ( ! function_exists( 'edifice_skin_trx_addons_sc_list' ) ) {
                         ),
                     )
                 ),
+            )
+        );
+
+        $list['blogger']['templates']['lay_portfolio_grid']['grid_style_6'] = array (
+            'title'  => esc_html__('Grid style 6', 'edifice'),
+            'args' => array( 'image_ratio' =>  '4:3','hover' => 'link' ),
+            'layout' => array (
+                'featured' => array (
+                    'bl' => array (
+                        'title', 'meta_categories', 'readmore'
+                    )
+                )
             )
         );
 
