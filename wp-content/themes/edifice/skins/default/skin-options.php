@@ -2586,7 +2586,6 @@ if ( ! function_exists( 'edifice_create_theme_options' ) ) {
 				)
 			);
 		}
-
 	}
 }
 
@@ -2840,21 +2839,21 @@ if ( ! function_exists( 'edifice_options_get_list_cpt_options' ) ) {
 			$title = ucfirst( $cpt );
 		}
 		return apply_filters( 'edifice_filter_get_list_cpt_options',
-								array_merge(
-                                    edifice_options_get_list_cpt_options_body( $cpt, $title ),
-                                    ('portfolio' == $cpt ? edifice_options_get_list_cpt_options_color( $cpt, $title ) : array()),
-                                    ('portfolio' == $cpt ? edifice_options_get_list_cpt_navigation( $cpt, $title ) : array()),
-                                    ('events' == $cpt ? edifice_options_get_list_cpt_options_color( $cpt, $title ) : array()),
-									edifice_options_get_list_cpt_options_header( $cpt, $title, 'list' ),
-									edifice_options_get_list_cpt_options_header( $cpt, $title, 'single' ),
-									edifice_options_get_list_cpt_options_sidebar( $cpt, $title, 'list' ),
-									edifice_options_get_list_cpt_options_sidebar( $cpt, $title, 'single' ),
-									edifice_options_get_list_cpt_options_footer( $cpt, $title ),
-									edifice_options_get_list_cpt_options_widgets( $cpt, $title )
-								),
-								$cpt,
-								$title
-							);
+			array_merge(
+	            edifice_options_get_list_cpt_options_body( $cpt, $title ),
+	            ('portfolio' == $cpt ? edifice_options_get_list_cpt_options_color( $cpt, $title ) : array()),
+	            ('portfolio' == $cpt ? edifice_options_get_list_cpt_navigation( $cpt, $title ) : array()),
+	            ('events' == $cpt ? edifice_options_get_list_cpt_options_color( $cpt, $title ) : array()),
+				edifice_options_get_list_cpt_options_header( $cpt, $title, 'list' ),
+				edifice_options_get_list_cpt_options_header( $cpt, $title, 'single' ),
+				edifice_options_get_list_cpt_options_sidebar( $cpt, $title, 'list' ),
+				edifice_options_get_list_cpt_options_sidebar( $cpt, $title, 'single' ),
+				edifice_options_get_list_cpt_options_footer( $cpt, $title ),
+				edifice_options_get_list_cpt_options_widgets( $cpt, $title )
+			),
+			$cpt,
+			$title
+		);
 	}
 }
 
@@ -3298,6 +3297,7 @@ if ( ! function_exists( 'edifice_options_get_list_cpt_options_widgets' ) ) {
 		);
 	}
 }
+
 
 
 // Return lists with choises when its need in the admin mode

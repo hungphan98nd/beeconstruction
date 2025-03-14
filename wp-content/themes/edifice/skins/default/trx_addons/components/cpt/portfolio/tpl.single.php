@@ -42,9 +42,6 @@ while ( have_posts() ) { the_post();
 				ob_start();
 			}
 			?><section class="portfolio_page_details_wrap<?php
-				if (in_array($meta['details_position'], array('right', 'left'))) {
-                    echo ' sc_column_fixed';
-                }
                 if (in_array($meta['details_style'], array('light'))) {
 				    echo ' light_style';
 				}
@@ -53,7 +50,6 @@ while ( have_posts() ) { the_post();
 				if (!empty($meta['subtitle'])) {
 					?><h5 class="portfolio_page_subtitle"><?php trx_addons_show_layout(trx_addons_prepare_macros($meta['subtitle'])); ?></h5><?php
 				}
-
                 if ( ! in_array($meta['details_style'], array('light'))) {
                     // Excerpt
                     if (has_excerpt()) {
@@ -100,7 +96,7 @@ while ( have_posts() ) { the_post();
 		}
 
 		// Post content
-		?><section class="portfolio_page_content_wrap"><?php
+		?><section class="portfolio_page_content_wrap hte-custom-portfolio-detail"><?php
 			// Gallery
 			if ( ! empty($meta['gallery']) && $meta['gallery_position'] != 'none') {
 				$images = explode('|', $meta['gallery']);
@@ -205,16 +201,23 @@ while ( have_posts() ) { the_post();
 				&& ( empty($meta['gallery']) || in_array($meta['gallery_position'], array('none', 'inside', 'bottom')) )
 				&& ( empty($meta['video']) || in_array($meta['video_position'], array('none', 'inside', 'bottom')) )
 			) {
-				?><div class="portfolio_page_featured"><?php
+				?><div class="portfolio_page_featured">
+					<div class="portfolio_featured_img"><?php
 					do_action('trx_addons_action_before_featured');
 					the_post_thumbnail(
-										apply_filters('trx_addons_filter_thumb_size', 'full', 'portfolio-single'),
-										trx_addons_seo_image_params(array(
-																		'alt' => get_the_title()
-																		))
-										);
+						apply_filters('trx_addons_filter_thumb_size', 'full', 'portfolio-single'),
+						trx_addons_seo_image_params(array(
+							'alt' => get_the_title()
+							))
+						);
 					do_action('trx_addons_action_after_featured');
-				?></div><?php
+					?></div><?php
+				
+				// Project details after the content
+				if ( in_array($meta['details_position'], array('right', 'bottom')) && !empty($details) ) {
+					trx_addons_show_layout($details);
+				} ?>
+				</div><?php
 			}
 
 			// Post content
@@ -264,11 +267,6 @@ while ( have_posts() ) { the_post();
 			}
 
 		?></section><!-- .entry-content --><?php
-
-		// Project details after the content
-		if ( in_array($meta['details_position'], array('right', 'bottom')) && !empty($details) ) {
-			trx_addons_show_layout($details);
-		}
 
         // Gallery after the content
         if ( $meta['gallery_position'] == 'bottom' && ! empty( $gallery ) ) {
