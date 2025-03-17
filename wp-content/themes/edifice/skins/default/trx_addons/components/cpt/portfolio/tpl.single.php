@@ -38,7 +38,7 @@ while ( have_posts() ) { the_post();
 
 		// Project details before the content
 		if ( ! empty($meta['subtitle']) || has_excerpt() || ( ! empty($meta['details']) && count($meta['details']) > 0 && ! empty($meta['details'][0]['title']) ) ) {
-			if (in_array($meta['details_position'], array('right', 'bottom'))) {
+			if (in_array($meta['details_position'], array('right','top','left','bottom'))) {
 				ob_start();
 			}
 			?><section class="portfolio_page_details_wrap<?php
@@ -89,7 +89,7 @@ while ( have_posts() ) { the_post();
                     ));
                 }
 			?></section><?php
-			if (in_array($meta['details_position'], array('right', 'bottom'))) {
+			if (in_array($meta['details_position'], array('right','top','left', 'bottom'))) {
 				$details = ob_get_contents();
 				ob_end_clean();
 			}
@@ -214,7 +214,7 @@ while ( have_posts() ) { the_post();
 					?></div><?php
 				
 				// Project details after the content
-				if ( in_array($meta['details_position'], array('right', 'bottom')) && !empty($details) ) {
+				if ( in_array($meta['details_position'], array('right','left','top', 'bottom')) && !empty($details) ) {
 					trx_addons_show_layout($details);
 				} ?>
 				</div><?php
