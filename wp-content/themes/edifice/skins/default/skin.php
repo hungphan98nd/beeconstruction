@@ -3869,19 +3869,30 @@ if (!function_exists('trx_addons_filter_load_tweenmax_404')) {
 		return is_404() ? true : $status;
 	}
 }
+
 // Add single portfolio navigation
 if ( !function_exists( 'edifice_single_portfolio_navigation' ) ) {
     add_filter('trx_addons_action_after_article', 'edifice_single_portfolio_navigation');
     function edifice_single_portfolio_navigation( $args ) {
         if( edifice_get_theme_option( 'cpt_navigation_portfolio' ) && 'portfolio.single' == $args ) {
+            $next_post = get_next_post();
+            $prev_post = get_previous_post();
+
+            $next_title = $next_post ? get_the_title( $next_post->ID ) : esc_html__('No next project', 'edifice');
+            $prev_title = $prev_post ? get_the_title( $prev_post->ID ) : esc_html__('No previous project', 'edifice');
+
             $post_nav = get_the_post_navigation( array(
-                'next_text' => '<span class="meta-nav" aria-hidden="true">' . esc_html__('Next Project', 'edifice') . '</span> ',
-                'prev_text' => '<span class="meta-nav" aria-hidden="true">' . esc_html__('Prev Project', 'edifice') . '</span> ',
+                'next_text' => '<span class="meta-nav" aria-hidden="true">' . esc_html__('Next', 'edifice') . '</span>
+                                <div class="nav-title">' . esc_html( $next_title ) . '</div>',
+                'prev_text' => '<span class="meta-nav" aria-hidden="true">' . esc_html__('Previous', 'edifice') . '</span>
+                                <div class="nav-title">' . esc_html( $prev_title ) . '</div>',
             ) );
+
             edifice_show_layout($post_nav);
         }
     }
 }
+
 // Display begin of the slider layout for some shortcodes
 if (!function_exists('edifice_skin_filter_sc_show_slider_args')) {
     add_filter( 'trx_addons_filter_sc_show_slider_args', 'edifice_skin_filter_sc_show_slider_args' );
