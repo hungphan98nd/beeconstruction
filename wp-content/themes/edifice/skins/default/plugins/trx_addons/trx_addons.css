@@ -32426,8 +32426,6 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
   }
 }
 
-
-
 /* Css style Portfolio details */
 .single-cpt_portfolio .portfolio_page_details_wrap {
   padding: 37px 40px 40px;
@@ -32472,4 +32470,52 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
 }
 .single-cpt_portfolio .hte-custom-portfolio-detail .portfolio_page_featured .portfolio_page_details_wrap {
   width: 33%;
+}
+.portfolio_page_gallery {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 1200px) {
+  .single-cpt_portfolio .portfolio_page_details_wrap {
+    padding: 37px 25px 40px;
+    background-color: var(--theme-color-text_dark) !important;
+  }
+
+  .single-cpt_portfolio .portfolio_page_subtitle {
+    margin-left: -25px;
+  }
+
+  .single.single-cpt_portfolio .portfolio_page_details_wrap .portfolio_page_description {
+    margin-top: 30px;
+  }
+
+  .portfolio_page.portfolio_page_details_right .portfolio_page_details_wrap .portfolio_page_description + .portfolio_page_details, .portfolio_page.portfolio_page_details_left .portfolio_page_details_wrap .portfolio_page_description + .portfolio_page_details {
+    padding-top: 30px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .single.single-cpt_portfolio .portfolio_page.portfolio_page_details_right .portfolio_page_content_wrap, .portfolio_page.portfolio_page_details_left .portfolio_page_content_wrap {
+    width: 100% !important;
+  }
+
+  .single-cpt_portfolio .portfolio_page_subtitle {
+    margin-left: -30px;
+  }
+}
+
+@media (max-width: 991px) {
+  .single-cpt_portfolio .hte-custom-portfolio-detail .portfolio_page_featured {
+    display: block;
+  }
+  .single-cpt_portfolio .hte-custom-portfolio-detail .portfolio_page_featured .portfolio_featured_img,
+  .single-cpt_portfolio .hte-custom-portfolio-detail .portfolio_page_featured .portfolio_page_details_wrap {
+    width: 100% !important;
+  }
+}
+@media (max-width: 767px) {
+  .single-cpt_portfolio .portfolio_page_details_wrap {
+    padding: 37px 25px 40px !important;
+    background-color: var(--theme-color-text_dark) !important;
+  }
 }

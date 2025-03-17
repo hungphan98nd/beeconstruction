@@ -67,12 +67,6 @@ if (!function_exists('trx_addons_cpt_services_init')) {
 				"std" => "",
 				"type" => "text"
 			),
-			"link2" => array(
-				"title" => esc_html__("Hte Custom",  'trx_addons'),
-				"desc" => wp_kses_data( __("Alternative link to the service's site. If empty - use this post's permalink", 'trx_addons') ),
-				"std" => "",
-				"type" => "text"
-			),
 		));
 		
 		// Register taxonomies and post types

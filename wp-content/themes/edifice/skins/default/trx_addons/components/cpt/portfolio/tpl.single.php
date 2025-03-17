@@ -22,7 +22,7 @@ while ( have_posts() ) { the_post();
 
         // Title
         if ( ! trx_addons_sc_layouts_showed('title') ) {
-            ?><h2 class="portfolio_page_title"><?php the_title(); ?></h2><?php
+            ?><h2 class="portfolio_page_title hunghung"><?php the_title(); ?></h2><?php
             // Meta
             if ( ! trx_addons_sc_layouts_showed('postmeta') ) {
                 ?><div class="portfolio_page_meta"><?php
@@ -205,7 +205,7 @@ while ( have_posts() ) { the_post();
 					<div class="portfolio_featured_img"><?php
 					do_action('trx_addons_action_before_featured');
 					the_post_thumbnail(
-						apply_filters('trx_addons_filter_thumb_size', 'full', 'portfolio-single'),
+						apply_filters('trx_addons_filter_thumb_size', '1000x900', 'portfolio-single'),
 						trx_addons_seo_image_params(array(
 							'alt' => get_the_title()
 							))
