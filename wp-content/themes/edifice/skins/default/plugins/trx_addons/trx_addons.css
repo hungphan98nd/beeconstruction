@@ -27435,7 +27435,7 @@ html.portfolio_preview_opened {
   font-size: 1.05rem;
   font-weight: 500;
   color: var(--theme-color-text_dark);
-  width: 30%;
+  width: 30% !important;
 }
 .portfolio_page .portfolio_page_details_wrap .portfolio_page_details .portfolio_page_details_item .portfolio_page_details_item_value {
   font-size: 1.05rem;
@@ -32429,6 +32429,7 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
 /* Css style Portfolio details */
 .single-cpt_portfolio .portfolio_page_details_wrap {
   padding: 37px 40px 40px;
+  margin-bottom: 0 !important;
   background-color: var(--theme-color-text_dark) !important;
 }
 .single-cpt_portfolio .portfolio_page_subtitle {
@@ -32473,6 +32474,14 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
 }
 .portfolio_page_gallery {
   margin-bottom: 0 !important;
+}
+.portfolio_page.portfolio_page_details_bottom .portfolio_page_details_wrap .portfolio_page_description, .portfolio_page.portfolio_page_details_top .portfolio_page_details_wrap .portfolio_page_description,
+.portfolio_page.portfolio_page_details_bottom .portfolio_page_details_wrap .portfolio_page_details, .portfolio_page.portfolio_page_details_top .portfolio_page_details_wrap .portfolio_page_details {
+  width: 100% !important;
+}
+
+.portfolio_page_details_bottom .portfolio_page_details_wrap {
+  margin-top: 0 !important; 
 }
 
 @media (max-width: 1200px) {
@@ -32521,6 +32530,16 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
   }
   .single-cpt_portfolio .portfolio_page_subtitle {
     margin-left: -20px;
+  }
+  .portfolio_page.portfolio_page_details_top .portfolio_page_details_wrap .portfolio_page_details .portfolio_page_details_item .portfolio_page_details_item_value, .portfolio_page.portfolio_page_details_bottom .portfolio_page_details_wrap .portfolio_page_details .portfolio_page_details_item .portfolio_page_details_item_value {
+    width: 60% !important;
+  }
+  .portfolio_page .portfolio_page_details_wrap .portfolio_page_details .portfolio_page_details_item .portfolio_page_details_item_title,
+  .portfolio_page_details_top .portfolio_page_details_item_title, .portfolio_page_details_bottom .portfolio_page_details_item_title {
+    width: 25% !important;
+  }
+  .portfolio_page .portfolio_page_details_wrap .portfolio_page_details .portfolio_page_details_item .portfolio_page_details_item_value {
+    margin-left: 10px;
   }
 }
 

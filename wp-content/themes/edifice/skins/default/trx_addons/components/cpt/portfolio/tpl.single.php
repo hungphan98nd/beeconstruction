@@ -50,20 +50,39 @@ while ( have_posts() ) { the_post();
 				if (!empty($meta['subtitle'])) {
 					?><h5 class="portfolio_page_subtitle"><?php trx_addons_show_layout(trx_addons_prepare_macros($meta['subtitle'])); ?></h5><?php
 				}
+
                 if ( ! in_array($meta['details_style'], array('light'))) {
                     // Excerpt
                     if (has_excerpt()) {
                         ?><div class="portfolio_page_description"><?php
                         the_excerpt();
                         ?></div><?php
-                    }
-                    // Details
-                    trx_addons_cpt_portfolio_show_details( array(
-                            'meta'  => $meta,
-                            'class' => 'portfolio_page_details',
-                            'share' => true
-                        )
-                    );
+                    } ?>
+
+                    <div class="hte-info-project-detail">
+	                    <div class="item">
+							<span class="portfolio_page_details_item_title">Name</span>
+							<span class="portfolio_page_title"><?php the_title(); ?></span> 
+						</div>
+						<div class="item">
+							<span class="portfolio_page_details_item_title">Date</span>
+							<span class="portfolio_page_title"><?php echo get_the_date(); ?></span> 
+						</div>
+						
+						<?php
+	                    // Details
+	                    trx_addons_cpt_portfolio_show_details( array(
+	                            'meta'  => $meta,
+	                            'class' => 'portfolio_page_details',
+	                            'share' => true
+	                        )
+	                    ); ?>
+	                    <div class="item author-portfolio">
+							<span class="portfolio_page_details_item_title">Author</span>
+							<span class="portfolio_page_title"><?php echo get_the_author(); ?></span> 
+						</div>
+					</div> <?php
+
                 } else if ( in_array($meta['details_style'], array('light')) ) {
                     // Details
                     trx_addons_cpt_portfolio_show_details( array(
