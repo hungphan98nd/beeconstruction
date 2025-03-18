@@ -2981,14 +2981,30 @@ if ( ! function_exists( 'edifice_trx_addons_seo_snippets' ) ) {
 	}
 }
 
-// Hide featured image in some post_types
+// // Hide featured image in some post_types hunghung
+// if ( ! function_exists( 'edifice_trx_addons_before_article' ) ) {
+// 	//Handler of the add_action( 'trx_addons_action_before_article', 'edifice_trx_addons_before_article', 10, 1 );
+// 	function edifice_trx_addons_before_article( $page = '' ) {
+// 		if ( in_array( $page, array( 'portfolio.single', 'services.single' ) ) ) {
+// 			if ( (int) edifice_get_theme_option( 'show_featured_image', 1 ) == 0 ) {
+// 				edifice_sc_layouts_showed( 'featured', true );
+// 			}
+// 		}
+// 	}
+// }
+
+// Hide featured image in some post_types and show title for services
 if ( ! function_exists( 'edifice_trx_addons_before_article' ) ) {
-	//Handler of the add_action( 'trx_addons_action_before_article', 'edifice_trx_addons_before_article', 10, 1 );
+	// Handler of the add_action( 'trx_addons_action_before_article', 'edifice_trx_addons_before_article', 10, 1 );
 	function edifice_trx_addons_before_article( $page = '' ) {
 		if ( in_array( $page, array( 'portfolio.single', 'services.single' ) ) ) {
 			if ( (int) edifice_get_theme_option( 'show_featured_image', 1 ) == 0 ) {
 				edifice_sc_layouts_showed( 'featured', true );
 			}
+		}
+
+		if ( $page === 'services.single' ) {
+			the_title( '<h3 class="service-title"><span class="sub-heading-service">Services</span>', '</h3>' );
 		}
 	}
 }
