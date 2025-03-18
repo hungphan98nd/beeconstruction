@@ -32551,3 +32551,28 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
     order: 1;
   }
 }
+
+/* Style Blog style */
+.single-post .post_meta_item.post_meta_likes:before {
+  border: none;
+  font-size: 37px;
+  color: #1E2831;
+}
+.single-post .post_meta_item.post_meta_likes .post_meta_number {
+  font-size: 14px;
+  color: var(--theme-color-text_dark);
+  transform: translate(-2px, -8px);
+  display: inline-block;
+}
+.single-post .nav-links-single .nav-arrow-label {
+  color: var(--theme-color-text_link);
+}
+.single-post .nav-links-single .nav-arrow-label:hover {
+  color: var(--theme-color-text_dark);
+}
+.single-post .comments_form_wrap form .submit {
+  background-color: var(--theme-color-text_dark);
+}
+.single-post .comments_form_wrap form .submit:hover {
+  background-color: var(--theme-color-text_link);
+}
