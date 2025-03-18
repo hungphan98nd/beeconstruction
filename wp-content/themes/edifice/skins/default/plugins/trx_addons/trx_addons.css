@@ -20410,6 +20410,7 @@ body:not(.mobile_layout) .sc_testimonials_plain .slider_container[data-slides-pe
 #hte-heading-style1 .elementor-heading-title .heading1 {
   text-transform: uppercase;
   min-width: 110px;
+  font-family: var(--theme-font-h3_font-family) !important;
 }
 @media (max-width: 1200px) {
   #hte-heading-style1 .elementor-heading-title .heading1 {
@@ -32575,4 +32576,33 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
 }
 .single-post .comments_form_wrap form .submit:hover {
   background-color: var(--theme-color-text_link);
+}
+
+
+
+/* Css hover carousel service hover */
+.sc_icons.sc_icons_decoration .sc_icons_item {
+  position: relative;
+}
+.sc_icons.sc_icons_decoration .sc_icons_item:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, #FFEC89 0%, #D3AE32 49%, #AC812D 100%);
+  z-index: -1;
+  transition: all .2s;
+}
+.sc_icons.sc_icons_decoration .sc_icons_item_title {
+  z-index: 1;
+  position: relative;
+}
+.sc_icons.sc_icons_decoration .sc_icons_item:hover:after {
+  left: 0;
+  width: 100%;
+}
+
+.sc_team_plain .trx_addons_hover_team .sc_team_item_title {
+  text-transform: capitalize;
 }
