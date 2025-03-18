@@ -32588,10 +32588,12 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
   position: absolute;
   content: '';
   top: 0;
-  right: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   background: linear-gradient(180deg, #FFEC89 0%, #D3AE32 49%, #AC812D 100%);
   z-index: -1;
+  opacity: 0;
   transition: all .2s;
 }
 .sc_icons.sc_icons_decoration .sc_icons_item_title {
@@ -32599,8 +32601,8 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
   position: relative;
 }
 .sc_icons.sc_icons_decoration .sc_icons_item:hover:after {
-  left: 0;
-  width: 100%;
+  opacity: 1;
+/*  width: 100%;*/
 }
 
 .sc_team_plain .trx_addons_hover_team .sc_team_item_title {
