@@ -32638,8 +32638,3 @@ h1.sc_item_title_tag + .sc_item_descr, h1.sc_item_title_tag + .sc_item_slider, h
 .sc_team_plain .trx_addons_hover_team .sc_team_item_title {
   text-transform: capitalize;
 }
-
-
-body {
-  background-color: red !important;
-}
