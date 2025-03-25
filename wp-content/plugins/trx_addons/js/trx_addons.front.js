@@ -1790,7 +1790,7 @@
 					if (TRX_ADDONS_STORAGE['menu_cache'] === undefined) TRX_ADDONS_STORAGE['menu_cache'] = [];
 					var id = $self.attr('id');
 					if (id === undefined) {
-						id = ('sc_layouts_menu_nav_' + Math.random()).replace('.', '');
+						id = 'sc_layouts_menu_nav_' + trx_addons_get_unique_id();
 						$self.attr('id', id);
 					}
 					TRX_ADDONS_STORAGE['menu_cache'].push('#'+id);
@@ -2007,7 +2007,7 @@
 					if ( speed !== 0 && ! $self.hasClass( 'parallax_inited' ) ) {
 						$self.addClass( 'parallax_inited' );
 						if ( ! id ) {
-							id = 'sc_parallax_wrap_' + ( '' + Math.random() ).replace( '.', '' );
+							id = 'sc_parallax_wrap_' + trx_addons_get_unique_id();
 							$self.attr( 'id', id );
 						}
 						var selector = '#' + id + ( $self.find( '> .wp-caption' ).length > 0 ? '>.wp-caption' : '' ) + '>img';
@@ -2130,7 +2130,7 @@
 						id = $self.attr( 'id' );
 					if ( ! $self.hasClass( 'trx_addons_intersection_inited' ) ) {
 						if ( ! id ) {
-							id = 'io-' + ( '' + Math.random() ).replace('.', '');
+							id = 'io-' + trx_addons_get_unique_id();
 							$self.attr( 'id', id );
 						}
 						$self.addClass( 'trx_addons_intersection_inited' );
@@ -2630,6 +2630,8 @@
 						|| $self.hasClass('trx_addons_noresize')
 						|| classes.indexOf('_resize') > 0
 						|| classes.indexOf('_noresize') > 0
+						|| $self.parent().is( 'rs-bgvideo' )
+						|| $self.parents( 'rs-slide' ).length > 0
 						|| $self.parents('div:hidden,section:hidden,article:hidden').length > 0
 					) {
 						return;
@@ -2694,7 +2696,7 @@
 			if ( TRX_ADDONS_STORAGE['resize_tag_iframe'] && $iframe_tags.length > 0 ) {
 				$iframe_tags.each(function() {
 					var $self = jQuery(this);
-					// If item now invisible
+					// If item now invisible or it's a video in the Revolution Slider or video is in the fullscreen mode
 					if (   $self.addClass('trx_addons_resize').parents('div:hidden,section:hidden,article:hidden').length > 0
 						|| $self.hasClass('trx_addons_noresize')
 						|| $self.parent().is( 'rs-bgvideo' )
@@ -2840,7 +2842,7 @@
 							$sticky = $self.parents('.trx_addons_video_sticky_inner').eq(0),
 							isInit = $wrap.hasClass('video_autoplay_inited'),
 							isInView = $wrap.isInViewport(),
-							id = ! isInit ? Math.random().toString(36).substr(2, 9) : $wrap.attr('data-uid');
+							id = ! isInit ? trx_addons_get_unique_id() : $wrap.attr('data-uid');
 
 						if ( ! isInit ) {
 							$self.attr( 'id', id );

@@ -24,10 +24,33 @@ jQuery(document).ready(function(){
 	});
 	jQuery('#trx_importer_form .trx_importer_part_pages input[type="checkbox"]').on('change', function() {
 		var all = jQuery(this).parents('.trx_importer_part_pages').find('input[type="checkbox"]').length,
-			checked = jQuery(this).parents('.trx_importer_part_pages').find('input[type="checkbox"]:checked').length;
+			checked = jQuery(this).parents('.trx_importer_part_pages').find('input[type="checkbox"]:checked').length,
+			need_posts = jQuery('#trx_importer_form .trx_importer_item[data-need-posts="1"]:checked').length;
 		jQuery('#trx_importer_form .trx_importer_item_posts')
-			.toggleClass( 'trx_addons_checkbox_particular', checked > 0 && checked < all )
-			.get(0).checked = checked > 0;
+			.toggleClass( 'trx_addons_checkbox_particular', checked > 0 && checked < all || checked == 0 && need_posts > 0 )
+			.get(0).checked = checked > 0 || need_posts > 0;
+	});
+
+	// Mark 'import_posts' as 'particular' if it's not selected and the item with data 'need-posts' is selected
+	jQuery('#trx_importer_form .trx_importer_item[data-need-posts="1"]').on('change', function() {
+		var posts = jQuery('#trx_importer_form .trx_importer_item_posts');
+		if ( jQuery('#trx_importer_form [name="demo_set"]:checked').val() == 'part' ) {
+			if ( jQuery(this).get(0).checked ) {
+				if ( ! posts.get(0).checked ) {
+					posts.get(0).checked = true;
+					posts.toggleClass('trx_addons_checkbox_particular', true);
+				}
+			} else {
+				var pages_all = jQuery('.trx_importer_part_pages input[type="checkbox"]').length,
+					pages_checked = jQuery('.trx_importer_part_pages input[type="checkbox"]:checked').length,
+					need_posts = jQuery('#trx_importer_form .trx_importer_item[data-need-posts="1"]:checked').length;
+				if ( posts.get(0).checked ) {
+					posts.get(0).checked = pages_checked > 0 || need_posts > 0;
+					posts.toggleClass('trx_addons_checkbox_particular', pages_checked > 0 && pages_checked < pages_all || pages_checked == 0 && need_posts > 0);
+				}
+				jQuery('#trx_importer_form .trx_importer_part_pages input[type="checkbox"]:checked').length
+			}
+		}
 	});
 
 	// Change demo type
@@ -37,7 +60,8 @@ jQuery(document).ready(function(){
 		var data = {
 			ajax_nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
 			action: 'trx_addons_importer_get_list_pages',
-			demo_type: type
+			demo_type: type,
+			is_admin_request: 1
 		};
 		jQuery.post(TRX_ADDONS_STORAGE['ajax_url'], data, function(response) {
 			var rez = {};
@@ -145,12 +169,12 @@ jQuery(document).ready(function(){
 		var demo_type = jQuery('#trx_importer_form [name="demo_type"]:checked').val();
 		var demo_set = jQuery('#trx_importer_form [name="demo_set"]:checked').val();
 		var demo_parts = '', demo_pages = '';
+		// Collect parts to be imported
 		jQuery(this).parents('form').find('input[type="checkbox"].trx_importer_item').each(function() {
 			var name = jQuery(this).attr('name');
-			// Collect parts to be imported
 			if (jQuery(this).get(0).checked) {
 				demo_parts += (demo_parts ? ',' : '') + name.substr(7); // Remove 'import_' from name - save only slug
-				// Collect pages to be import
+				// Collect pages to be import on step 'import_posts'
 				if (demo_set=='part' && name == 'import_posts') {
 					jQuery('.trx_importer_part_pages input[type="checkbox"]').each(function() {
 						if (jQuery(this).get(0).checked) {
@@ -158,6 +182,14 @@ jQuery(document).ready(function(){
 						}
 					});
 				}
+			} else {
+				jQuery('#trx_importer_progress .'+name).hide();
+			}
+		});
+		// Prepare steps for import
+		jQuery(this).parents('form').find('input[type="checkbox"].trx_importer_item').each(function() {
+			var name = jQuery(this).attr('name');
+			if (jQuery(this).get(0).checked) {
 				var step = {
 					action: name,
 					data: {
@@ -169,8 +201,6 @@ jQuery(document).ready(function(){
 					}
 				};
 				steps.push(step);
-			} else {
-				jQuery('#trx_importer_progress .'+name).hide();
 			}
 		});
 		// Move 'uploads' and 'thumbnails' to the end of the list
@@ -233,7 +263,8 @@ jQuery(document).ready(function(){
 			'ajax_nonce': TRX_ADDONS_STORAGE['ajax_nonce'],
 			'action': 'trx_addons_importer_start_import',
 			'importer_action': steps[idx].action,
-			'activate-multi': 1
+			'activate-multi': 1,
+			is_admin_request: 1
 		};
 		// Additional params depend current step
 		for (var i in steps[idx].data) {

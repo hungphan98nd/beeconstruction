@@ -3807,8 +3807,8 @@ class NavMenuWidget extends BaseWidget {
 				'label'     => __( 'Color', 'trx_addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .trx-addons-active-item .trx-addons-submenu-link,
-					 {{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .current-menu-ancestor .trx-addons-submenu-link' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .trx-addons-active-item > .trx-addons-submenu-link,
+					 {{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .current-menu-ancestor > .trx-addons-submenu-link' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -3822,10 +3822,10 @@ class NavMenuWidget extends BaseWidget {
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .trx-addons-active-item .trx-addons-submenu-link .trx-addons-dropdown-icon,
-					 {{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .current-menu-ancestor .trx-addons-submenu-link .trx-addons-dropdown-icon' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .trx-addons-active-item .trx-addons-submenu-link .trx-addons-dropdown-icon svg path,
-					 {{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .current-menu-ancestor .trx-addons-submenu-link .trx-addons-dropdown-icon svg path' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .trx-addons-active-item > .trx-addons-submenu-link .trx-addons-dropdown-icon,
+					 {{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .current-menu-ancestor > .trx-addons-submenu-link .trx-addons-dropdown-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .trx-addons-active-item > .trx-addons-submenu-link .trx-addons-dropdown-icon svg path,
+					 {{WRAPPER}} .trx-addons-main-nav-menu .trx-addons-submenu .current-menu-ancestor > .trx-addons-submenu-link .trx-addons-dropdown-icon svg path' => 'fill: {{VALUE}};',
 				),
 				'condition' => array(
 					'menu_type!' => 'custom',

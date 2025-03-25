@@ -246,6 +246,11 @@
   -ms-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.2);
 }
+.sc_layouts_menu_popup .sc_layouts_menu_nav.animated,
+.sc_layouts_menu_nav > li ul:not(.sc_item_filters_tabs).animated {
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
 
 .sc_layouts_menu_popup .sc_layouts_menu_nav {
   display: block;

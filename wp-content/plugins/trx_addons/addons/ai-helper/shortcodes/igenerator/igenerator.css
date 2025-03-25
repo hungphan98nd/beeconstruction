@@ -182,9 +182,9 @@
   -webkit-border-radius: var(--trx-addons-ai-helper-igenerator-button-border-radius);
   -ms-border-radius: var(--trx-addons-ai-helper-igenerator-button-border-radius);
   border-radius: var(--trx-addons-ai-helper-igenerator-button-border-radius);
-  -webkit-transition: background-color 0.3s ease, color 0.3s ease;
-  -ms-transition: background-color 0.3s ease, color 0.3s ease;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
   max-width: 50%;
   overflow: hidden;
   padding: 0 2em;
@@ -193,6 +193,40 @@
 }
 .sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button:not(.sc_igenerator_form_field_prompt_button_disabled):hover {
   background-color: #32a86e;
+}
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button.sc_igenerator_form_field_prompt_button_with_icon {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_image {
+  max-height: 1.25em;
+  width: auto;
+}
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_svg {
+  width: 1.25em;
+  height: 1.25em;
+  line-height: 1.25em;
+  text-align: center;
+}
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_svg svg {
+  -webkit-transition: fill 0.3s ease;
+  -ms-transition: fill 0.3s ease;
+  transition: fill 0.3s ease;
+}
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_icon {
+  font-size: 1.25em;
+  -webkit-transition: color 0.3s ease;
+  -ms-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_image + .sc_igenerator_form_field_prompt_button_text,
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_svg + .sc_igenerator_form_field_prompt_button_text,
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_icon + .sc_igenerator_form_field_prompt_button_text {
+  margin-left: 0.5em;
+}
+.sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button .sc_igenerator_form_field_prompt_button_text {
+  white-space: nowrap;
 }
 .sc_igenerator_form_field_prompt .sc_igenerator_form_field_prompt_button_disabled {
   background-color: #e4f7ed;
@@ -414,6 +448,9 @@
 .sc_igenerator_form_field_upload_image_decorator .theme_form_field_placeholder {
   text-overflow: ellipsis;
   color: var(--theme-color-input_light);
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .sc_igenerator_form_field_upload_image_decorator .sc_igenerator_form_field_upload_image_text {
   display: block;
@@ -437,11 +474,10 @@
   -webkit-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition: background-color 0.3s ease, color 0.3s ease;
-  -ms-transition: background-color 0.3s ease, color 0.3s ease;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
   padding: 0.3em 1em;
-  border: 1px solid var(--theme-color-input_bd_color);
   -webkit-border-radius: var(--trx-addons-ai-helper-igenerator-fields-border-radius);
   -ms-border-radius: var(--trx-addons-ai-helper-igenerator-fields-border-radius);
   border-radius: var(--trx-addons-ai-helper-igenerator-fields-border-radius);
@@ -523,6 +559,9 @@
   -webkit-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .sc_igenerator_form_field_tags_item:hover {
   color: #23282d;
@@ -541,7 +580,7 @@
   text-align: right;
 }
 .sc_igenerator_limits .sc_igenerator_limits_used {
-  white-space: nowrap;
+  display: block;
 }
 
 /* Message */
@@ -575,6 +614,8 @@
   color: #99302e;
 }
 .sc_igenerator_message_inner a {
+  display: inline-block;
+  vertical-align: top;
   font-weight: 500;
   color: #99302e;
   border-bottom: 1px dashed #99302e;
@@ -783,6 +824,9 @@
 }
 .sc_igenerator_image_link .sc_button_icon {
   font-size: 1em;
+  -webkit-transition: color 0.3s ease;
+  -ms-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 /* Layout Extended */
@@ -952,6 +996,9 @@
 .sc_igenerator_extended .sc_igenerator_form_field_model_wrap_with_settings .sc_igenerator_form_settings_field + .sc_igenerator_form_settings_field {
   margin-top: 0.5em;
 }
+.sc_igenerator_extended .sc_igenerator_form_field_model_wrap_with_settings .sc_igenerator_form_settings_field label {
+  display: block;
+}
 .sc_igenerator_extended .sc_igenerator_form_field_model_wrap_with_settings .sc_igenerator_form_settings_field_description {
   font-size: 0.8em;
   line-height: 1.5em;
@@ -1038,10 +1085,28 @@
   box-sizing: border-box;
   width: 100%;
 }
+.sc_igenerator_extended .sc_igenerator_form_field_generate .sc_igenerator_form_field_generate_button {
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
 .sc_igenerator_extended .sc_igenerator_form_field_generate .sc_igenerator_form_field_generate_button.sc_igenerator_form_field_disabled {
   opacity: 0.5;
   cursor: default;
   pointer-events: none;
+}
+.sc_igenerator_extended .sc_igenerator_form_field_generate .sc_igenerator_form_field_generate_button.sc_button_icon_left .sc_button_icon {
+  margin-right: 0.3em;
+}
+.sc_igenerator_extended .sc_igenerator_form_field_generate .sc_igenerator_form_field_generate_button .sc_button_icon {
+  -webkit-transition: color 0.3s ease;
+  -ms-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.sc_igenerator_extended .sc_igenerator_form_field_generate .sc_igenerator_form_field_generate_button .sc_button_icon svg {
+  -webkit-transition: fill 0.3s ease;
+  -ms-transition: fill 0.3s ease;
+  transition: fill 0.3s ease;
 }
 .sc_igenerator_extended .sc_igenerator_limits {
   padding-top: 1em;

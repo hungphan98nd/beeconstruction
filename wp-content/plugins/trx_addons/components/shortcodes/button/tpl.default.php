@@ -66,8 +66,12 @@ $args = get_query_var('trx_addons_args_sc_button');
 			if (!empty($item['image']) || !empty($item['icon'])) {
 				?><span class="sc_button_icon"><?php
 					if (!empty($item['image'])) {
-						$attr = trx_addons_getimagesize($item['image']);
-						?><img class="sc_icon_as_image" src="<?php echo esc_url($item['image']); ?>" alt="<?php esc_attr_e('Icon', 'trx_addons'); ?>"<?php echo (!empty($attr[3]) ? ' '.trim($attr[3]) : ''); ?>><?php
+						if (strpos($item['image'], '.svg') !== false) {
+							trx_addons_show_layout(trx_addons_get_svg_from_file($item['image']));
+						} else {
+							$attr = trx_addons_getimagesize($item['image']);
+							?><img class="sc_icon_as_image" src="<?php echo esc_url($item['image']); ?>" alt="<?php esc_attr_e('Icon', 'trx_addons'); ?>"<?php echo (!empty($attr[3]) ? ' '.trim($attr[3]) : ''); ?>><?php
+						}
 					} else if (trx_addons_is_url($item['icon'])) {
 						if (strpos($item['icon'], '.svg') !== false) {
 							trx_addons_show_layout(trx_addons_get_svg_from_file($item['icon']));

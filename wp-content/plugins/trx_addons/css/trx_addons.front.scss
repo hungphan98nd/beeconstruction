@@ -1362,6 +1362,7 @@ a.trx_addons_popup_link:before {
 	padding:0;
 	margin:0;
 	@include border-box;
+	@include transition-properties(background-color, border-color);
 }
 .trx_addons_popup .trx_addons_tabs_titles li.trx_addons_tabs_title > a {
 	display:block;
@@ -1373,6 +1374,11 @@ a.trx_addons_popup_link:before {
 	display: inline-block;
 	line-height:inherit;
 	margin-right:0.3em;
+	font-style: normal;
+
+	i:before {
+		@include transition-property(color);
+	}
 }
 .trx_addons_popup .trx_addons_tabs_titles li.trx_addons_tabs_title[data-disabled="true"] a,
 .trx_addons_popup .trx_addons_tabs_titles li.trx_addons_tabs_title[data-disabled="true"] a > i {
@@ -1861,6 +1867,8 @@ aside {
 		.post_title {
 			margin: -2px 0 4px 0;
 			text-align:left;
+		}
+		&:where(:not(.trx_addons_customizable)) .post_title {
 			line-height: 1.25em;
 			font-weight: 400;
 		}

@@ -9,7 +9,7 @@
 $args = get_query_var('trx_addons_args_sc_layouts_cart');
 
 $show_cart = trx_addons_is_preview( 'elementor' ) && get_post_type()==TRX_ADDONS_CPT_LAYOUTS_PT ? 'preview' : '';
-$allow_sc_styles_in_elementor = apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'trx_sc_layouts_cart' );
+$allow_sc_styles_in_elementor = apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'sc_layouts_cart' );
 $preview_show_cart = ! empty( $args['cart_preview'] )
 						&& trx_addons_is_preview( 'elementor' )
 						&& $allow_sc_styles_in_elementor
@@ -84,7 +84,7 @@ if ( ! empty( $show_cart ) ) {
 
 		?>
 		<?php if ( $allow_sc_styles_in_elementor && ! empty( $args['select_cart_icon'] ) && ! empty( $args['select_cart_icon']['value'] ) && class_exists( '\Elementor\Icons_Manager' ) ) { ?>
-			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icons_type_icons"<?php
+			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icon_type_icons"<?php
 				echo wp_kses( $button_link_data, 'trx_addons_kses_content' );
 			?>>
 				<?php
@@ -94,7 +94,7 @@ if ( ! empty( $show_cart ) ) {
 				?>
 			</span>
 		<?php } else { ?>
-			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icons_type_icons trx_addons_icon-basket"<?php
+			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icon_type_icons trx_addons_icon-basket"<?php
 				echo wp_kses( $button_link_data, 'trx_addons_kses_content' );
 			?>></span>
 		<?php } ?>
@@ -151,7 +151,7 @@ if ( ! empty( $show_cart ) ) {
 							sprintf( '<div id="%1$s" class="sc_layouts_cart_button_wrap">'
 										. '<span class="sc_layouts_cart_button_sonar"></span>'
 										. ( ! empty( $cart_url ) ? '<a href="' . esc_url( $cart_url ) . '"' : '<span' ) . ' class="sc_layouts_cart_button">'
-											. '<span class="sc_layouts_cart_button_icon sc_icons_type_icons trx_addons_icon-basket"></span>'
+											. '<span class="sc_layouts_cart_button_icon sc_icon_type_icons trx_addons_icon-basket"></span>'
 											. '<span class="sc_layouts_cart_items_short">%2$d</span>'
 										. ( ! empty( $cart_url ) ? '</a>' : '</span>' )
 										. '%3$s'

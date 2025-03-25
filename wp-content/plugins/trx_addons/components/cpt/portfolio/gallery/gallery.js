@@ -170,7 +170,7 @@
 		this.previewEl.appendChild( this.mediaContainer );
 		// Style
 		this.styleTag = document.createElement( 'style' );
-		this.stylePrefix = 'sc_portfolio_preview_style_' + ( '' + Math.random() ).replace('.', '');
+		this.stylePrefix = 'sc_portfolio_preview_style_' + trx_addons_get_unique_id();
 		this.previewEl.appendChild( this.styleTag );
 	};
 	
@@ -411,7 +411,7 @@
 				}
 				var id = jQuery( this ).addClass( 'preview_inited' ).attr( 'id' );
 				if ( ! id ) {
-					id = ('gallery_fx_' + Math.random()).replace( '.', '' );
+					id = 'gallery_fx_' + trx_addons_get_unique_id();
 					jQuery( this ).attr( 'id', id );
 				}
 				GalleryFxCollection[id] = new GalleryFx(

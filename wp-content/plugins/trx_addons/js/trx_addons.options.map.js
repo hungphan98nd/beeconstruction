@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
 							: 'openstreet';
 		this.map_id = map_wrapper.attr('id');
 		if ( ! this.map_id ) {
-			this.map_id = this.map_type + 'map_' + (''+Math.random()).replace('.', '');
+			this.map_id = this.map_type + 'map_' + trx_addons_get_unique_id();
 			map_wrapper.attr('id', this.map_id);
 		}
 		this.search_field = map_wrapper.parent().find('.trx_addons_options_map_search_text');

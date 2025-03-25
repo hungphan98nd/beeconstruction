@@ -95,7 +95,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 			 * @return void
 			 */
 			protected function allow_sc_styles_in_elementor() {
-				return apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'trx_sc_layouts_cart' );
+				return apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'sc_layouts_cart' );
 			}
 
 			/**
@@ -1197,19 +1197,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors' => [
-							'.sc_layouts_cart_panel_style_{{ID}} .trx_addons_button_close' => 'font-size: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
-						],
-					]
-				);
-
-				$this->start_controls_tabs( 'tabs_type_panel_close_icon_style' );
-
-				$this->start_controls_tab(
-					'tab_type_panel_close_icon_normal',
-					[
-						'label' => __( 'Normal', 'trx_addons' ),
-						'condition' => [
-							'type' => 'panel',
+							'.sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .trx_addons_button_close' => 'font-size: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 						],
 					]
 				);
@@ -1231,22 +1219,10 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 					]
 				);
 
-				$this->end_controls_tab();
-
-				$this->start_controls_tab(
-					'tab_type_panel_close_icon_hover',
-					[
-						'label' => __( 'Hover', 'trx_addons' ),
-						'condition' => [
-							'type' => 'panel',
-						],
-					]
-				);
-
 				$this->add_control(
 					'type_panel_close_icon_color_hover',
 					[
-						'label'     => __( 'Close Icon Color', 'trx_addons' ),
+						'label'     => __( 'Close Icon Hover', 'trx_addons' ),
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'.sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .trx_addons_button_close:hover' => 'color: {{VALUE}};',
@@ -1259,10 +1235,6 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						],
 					]
 				);
-
-				$this->end_controls_tab();
-
-				$this->end_controls_tabs();
 
 				$this->add_responsive_control(
 					'type_panel_close_icon_margin',
@@ -1652,7 +1624,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 					[
 						'name'      => 'panel_subtotal_label_style_typography',
 						'label' => __( 'Label Typography', 'trx_addons' ),
-						'selector'  => '.sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce.widget_shopping_cart .total',
+						'selector'  => '.sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce.widget_shopping_cart .total > strong',
 						'condition' => [
 							'type' => 'panel',
 						],
@@ -1665,7 +1637,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'label'     => __( 'Label Color', 'trx_addons' ),
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
-							'.sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce.widget_shopping_cart .total' => 'color: {{VALUE}};',
+							'.sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce.widget_shopping_cart .total > strong' => 'color: {{VALUE}};',
 						],
 						'condition' => [
 							'type' => 'panel',
@@ -1795,7 +1767,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce ul.product_list_widget li:nth-child(n + 2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce ul.product_list_widget li:nth-child(n + 2)' => 'margin-top: {{SIZE}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce ul.product_list_widget li:nth-child(n + 2)' => 'margin-top: {{SIZE}}{{UNIT}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1850,7 +1822,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} ul.cart_list li,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list li' => 'background-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list li' => 'background-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1889,7 +1861,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						],
 						'selectors' => [
 							'{{WRAPPER}} ul.cart_list li,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list li' => 'border-style: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list li' => 'border-style: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1905,7 +1877,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors'  => [
 							'{{WRAPPER}} ul.cart_list li,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list li' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list li' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1921,7 +1893,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} ul.cart_list li,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list li' => 'border-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list li' => 'border-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1938,7 +1910,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors' => [
 							'{{WRAPPER}} ul.cart_list li,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list li' => 'border-radius: {{SIZE}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list li' => 'border-radius: {{SIZE}}{{UNIT}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1952,7 +1924,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'label' => __( 'Product Name', 'trx_addons' ),
 						'name'      => 'cart_item_name_style_typography',
 						'selector'  => '{{WRAPPER}} .trx_addons_sc_layouts_cart_mini_cart_item_name,
-										 .sc_layouts_cart_panel_style_{{ID}} .trx_addons_sc_layouts_cart_mini_cart_item_name',
+										 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .trx_addons_sc_layouts_cart_mini_cart_item_name',
 						'condition' => [
 							'type!' => 'button',
 						],
@@ -1966,7 +1938,22 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .trx_addons_sc_layouts_cart_mini_cart_item_name,
-							 .sc_layouts_cart_panel_style_{{ID}} .trx_addons_sc_layouts_cart_mini_cart_item_name' => 'color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .trx_addons_sc_layouts_cart_mini_cart_item_name' => 'color: {{VALUE}};',
+						],
+						'condition' => [
+							'type!' => 'button',
+						],
+					]
+				);
+
+				$this->add_control(
+					'cart_item_name_style_hover',
+					[
+						'label'     => __( 'Product Name Hover', 'trx_addons' ),
+						'type'      => \Elementor\Controls_Manager::COLOR,
+						'selectors' => [
+							'{{WRAPPER}} .trx_addons_sc_layouts_cart_mini_cart_item_name:hover,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .trx_addons_sc_layouts_cart_mini_cart_item_name:hover' => 'color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1982,7 +1969,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem' ],
 						'selectors' => [
 							'{{WRAPPER}} .trx_addons_sc_layouts_cart_mini_cart_item_name,
-							 .sc_layouts_cart_panel_style_{{ID}} .trx_addons_sc_layouts_cart_mini_cart_item_name' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .trx_addons_sc_layouts_cart_mini_cart_item_name' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -1996,7 +1983,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'label' => __( 'Price & Quantity', 'trx_addons' ),
 						'name'      => 'cart_item_price_quantity_style_typography',
 						'selector'  => '{{WRAPPER}} .widget_shopping_cart_content ul.cart_list li .quantity,
-										 .sc_layouts_cart_panel_style_{{ID}} .widget_shopping_cart_content ul.cart_list li .quantity',
+										 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart_content ul.cart_list li .quantity',
 						'condition' => [
 							'type!' => 'button',
 						],
@@ -2010,9 +1997,9 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .widget_shopping_cart_content ul.cart_list li .quantity,
-							 .sc_layouts_cart_panel_style_{{ID}} .widget_shopping_cart_content ul.cart_list li .quantity,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart_content ul.cart_list li .quantity,
 							 {{WRAPPER}} .widget_shopping_cart_content ul.cart_list li .quantity .amount,
-							 .sc_layouts_cart_panel_style_{{ID}} .widget_shopping_cart_content ul.cart_list li .quantity .amount' => 'color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart_content ul.cart_list li .quantity .amount' => 'color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2042,7 +2029,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors' => [
 							'{{WRAPPER}} .widget_shopping_cart ul.cart_list li img,
-							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel .sc_layouts_cart_panel_widget .widget_shopping_cart ul.cart_list li img' => 'width: {{SIZE}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .sc_layouts_cart_panel_widget .widget_shopping_cart ul.cart_list li img' => 'width: {{SIZE}}{{UNIT}};',
 						],
 					]
 				);
@@ -2084,7 +2071,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						],
 						'selectors' => [
 							'{{WRAPPER}} ul.cart_list img,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list img' => 'border-style: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list img' => 'border-style: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2100,7 +2087,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors'  => [
 							'{{WRAPPER}} ul.cart_list img,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2116,7 +2103,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} ul.cart_list img,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list img' => 'border-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel ul.cart_list img' => 'border-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2133,7 +2120,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors' => [
 							'{{WRAPPER}} ul.cart_list img,
-							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel .sc_layouts_cart_panel_widget .widget_shopping_cart ul.cart_list li img' => 'border-radius: {{SIZE}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .sc_layouts_cart_panel_widget .widget_shopping_cart ul.cart_list li img' => 'border-radius: {{SIZE}}{{UNIT}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2149,9 +2136,9 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors'  => [
 							'{{WRAPPER}} .woocommerce ul.cart_list li .trx_addons_sc_layouts_cart_mini_cart_item_link_image,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce ul.cart_list li .trx_addons_sc_layouts_cart_mini_cart_item_link_image,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce ul.cart_list li .trx_addons_sc_layouts_cart_mini_cart_item_link_image,
 							 {{WRAPPER}} .woocommerce ul.cart_list li .trx_addons_sc_layouts_cart_mini_cart_item_image,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce ul.cart_list li .trx_addons_sc_layouts_cart_mini_cart_item_image' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce ul.cart_list li .trx_addons_sc_layouts_cart_mini_cart_item_image' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2203,8 +2190,8 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type' => \Elementor\Controls_Manager::SLIDER,
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors' => [
-							'{{WRAPPER}} ul.cart_list a.remove,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list a.remove' => 'font-size: {{SIZE}}{{UNIT}};',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list a.remove,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list a.remove' => 'font-size: {{SIZE}}{{UNIT}};',
 						],
 					]
 				);
@@ -2252,8 +2239,8 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 							],
 						],
 						'selectors' => [
-							'{{WRAPPER}} ul.cart_list > li,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list > li' => 'align-items: {{VALUE}};',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list > li,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list > li' => 'align-items: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2276,20 +2263,8 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						],
 						'selectors'  => [
 							'{{WRAPPER}} .sc_layouts_cart_widget .widget_shopping_cart ul.cart_list li a.remove,
-							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel .sc_layouts_cart_panel_widget .widget_shopping_cart ul.cart_list li a.remove' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .sc_layouts_cart_panel_widget .widget_shopping_cart ul.cart_list li a.remove' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
-						'condition' => [
-							'type!' => 'button',
-						],
-					]
-				);
-
-				$this->start_controls_tabs( 'tabs_cart_item_remove_icon_style' );
-
-				$this->start_controls_tab(
-					'tab_cart_item_remove_icon_normal',
-					[
-						'label' => __( 'Normal', 'trx_addons' ),
 						'condition' => [
 							'type!' => 'button',
 						],
@@ -2302,25 +2277,13 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'label'     => __( 'Icon Color', 'trx_addons' ),
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} ul.cart_list .mini_cart_item a.remove,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list .mini_cart_item a.remove' => '--var-trx_addons_sc_layouts_cart_item_close_color: {{VALUE}} !important;',
-							'{{WRAPPER}} ul.cart_list a.remove .sc_layouts_cart_item_close_icon,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list a.remove .sc_layouts_cart_item_close_icon' => 'color: {{VALUE}};',
-							'{{WRAPPER}} ul.cart_list a.remove svg,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list a.remove svg' => 'fill: {{VALUE}};',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list .mini_cart_item a.remove,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list .mini_cart_item a.remove' => '--var-trx_addons_sc_layouts_cart_item_close_color: {{VALUE}} !important;',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list a.remove .sc_layouts_cart_item_close_icon,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list a.remove .sc_layouts_cart_item_close_icon' => 'color: {{VALUE}};',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list a.remove svg,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list a.remove svg' => 'fill: {{VALUE}};',
 						],
-						'condition' => [
-							'type!' => 'button',
-						],
-					]
-				);
-
-				$this->end_controls_tab();
-
-				$this->start_controls_tab(
-					'tab_cart_item_remove_icon_hover',
-					[
-						'label' => __( 'Hover', 'trx_addons' ),
 						'condition' => [
 							'type!' => 'button',
 						],
@@ -2330,25 +2293,21 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 				$this->add_control(
 					'cart_item_remove_icon_color_hover',
 					[
-						'label'     => __( 'Icon Color', 'trx_addons' ),
+						'label'     => __( 'Icon Hover', 'trx_addons' ),
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} ul.cart_list .mini_cart_item a.remove:hover,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list .mini_cart_item a.remove:hover' => '--var-trx_addons_sc_layouts_cart_item_close_color: {{VALUE}} !important;',
-							'{{WRAPPER}} ul.cart_list a.remove:hover .sc_layouts_cart_item_close_icon,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list a.remove:hover .sc_layouts_cart_item_close_icon' => 'color: {{VALUE}};',
-							'{{WRAPPER}} ul.cart_list a.remove:hover svg,
-							 .sc_layouts_cart_panel_style_{{ID}} ul.cart_list a.remove:hover svg' => 'fill: {{VALUE}};',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list .mini_cart_item a.remove:hover,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list .mini_cart_item a.remove:hover' => '--var-trx_addons_sc_layouts_cart_item_close_color: {{VALUE}} !important;',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list a.remove:hover .sc_layouts_cart_item_close_icon,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list a.remove:hover .sc_layouts_cart_item_close_icon' => 'color: {{VALUE}};',
+							'{{WRAPPER}} .widget_shopping_cart ul.cart_list a.remove:hover svg,
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .widget_shopping_cart ul.cart_list a.remove:hover svg' => 'fill: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
 						],
 					]
 				);
-
-				$this->end_controls_tab();
-
-				$this->end_controls_tabs();
 
 				$this->end_controls_section();
 			}
@@ -2372,7 +2331,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 				$this->add_control(
 					'buttons_style_display',
 					[
-						'label'     => __( 'Icon Display', 'trx_addons' ),
+						'label'     => __( 'Buttons Display', 'trx_addons' ),
 						'type'      => \Elementor\Controls_Manager::SELECT,
 						'default'   => 'inline',
 						'options'   => [
@@ -2420,7 +2379,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'name'      => 'buttons_style_view_cart_typography',
 						'label'     => __( 'Typography', 'trx_addons' ),
 						'selector'  => '{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-									     .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)',
+									     .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)',
 						'condition' => [
 							'type!' => 'button',
 						],
@@ -2435,7 +2394,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
 						'selectors'  => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
 						'condition'  => [
 							'type!' => 'button',
@@ -2458,7 +2417,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						],
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-style: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-style: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2474,7 +2433,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors'  => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2491,7 +2450,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
 						'selectors'  => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
 						'condition'  => [
 							'type!' => 'button',
@@ -2518,7 +2477,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)' => '--theme-color-text_link: {{VALUE}}; background-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)' => '--theme-color-text_link: {{VALUE}}; background-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2533,7 +2492,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2548,7 +2507,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1)' => 'border-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2576,9 +2535,9 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(1),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(1)' => '--theme-color-text_hover: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons.buttons > a:nth-child(1)' => '--theme-color-text_hover: {{VALUE}};',
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(1):hover,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(1):hover' => 'background-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons.buttons > a:nth-child(1):hover' => 'background-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2593,7 +2552,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1):hover,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1):hover' => 'color: {{VALUE}}',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1):hover' => 'color: {{VALUE}}',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2608,7 +2567,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(1):hover,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(1):hover' => 'border-color: {{VALUE}}',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(1):hover' => 'border-color: {{VALUE}}',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2639,7 +2598,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'name'      => 'buttons_style_checkout_typography',
 						'label'     => __( 'Typography', 'trx_addons' ),
 						'selector'  => '{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-									     .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)',
+									     .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)',
 						'condition' => [
 							'type!' => 'button',
 						],
@@ -2654,7 +2613,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
 						'selectors'  => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
 						'condition'  => [
 							'type!' => 'button',
@@ -2677,7 +2636,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						],
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-style: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-style: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2693,7 +2652,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', 'em', 'rem', '%' ],
 						'selectors'  => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2710,7 +2669,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
 						'selectors'  => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						],
 						'condition'  => [
 							'type!' => 'button',
@@ -2737,7 +2696,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)' => '--theme-color-text_link: {{VALUE}}; background-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)' => '--theme-color-text_link: {{VALUE}}; background-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2752,7 +2711,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2767,7 +2726,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2)' => 'border-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2795,9 +2754,9 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(2),
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(2)' => '--theme-color-text_hover: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons.buttons > a:nth-child(2)' => '--theme-color-text_hover: {{VALUE}};',
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(2):hover,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons.buttons > a:nth-child(2):hover' => 'background-color: {{VALUE}};',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons.buttons > a:nth-child(2):hover' => 'background-color: {{VALUE}};',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2812,7 +2771,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2):hover,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2):hover' => 'color: {{VALUE}}',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2):hover' => 'color: {{VALUE}}',
 						],
 						'condition' => [
 							'type!' => 'button',
@@ -2827,7 +2786,7 @@ if (!function_exists('trx_addons_sc_layouts_cart_add_in_elementor')) {
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .woocommerce-mini-cart__buttons > a:nth-child(2):hover,
-							 .sc_layouts_cart_panel_style_{{ID}} .woocommerce-mini-cart__buttons > a:nth-child(2):hover' => 'border-color: {{VALUE}}',
+							 .sc_layouts_cart_panel_style_{{ID}}.sc_layouts_cart_panel.sc_layouts_panel .woocommerce-mini-cart__buttons > a:nth-child(2):hover' => 'border-color: {{VALUE}}',
 						],
 						'condition' => [
 							'type!' => 'button',

@@ -39,6 +39,7 @@ if ( count( $models ) > 0 ) {
 				data-igenerator-popup="<?php echo ! empty( $args['show_popup'] ) && (int) $args['show_popup'] > 0 ? '1' : ''; ?>"
 				data-igenerator-demo-images="<?php echo ! empty( $args['demo_images'] ) && ! empty( $args['demo_images'][0]['url'] ) ? '1' : ''; ?>"
 				data-igenerator-limit-exceed="<?php echo esc_attr( trx_addons_get_option( "ai_helper_sc_igenerator_limit_alert" . ( ! empty( $args['premium'] ) ? '_premium' : '' ) ) ); ?>"
+				data-igenerator-download-icon="<?php echo ! empty( $args['button_download_icon'] ) ? esc_attr( $args['button_download_icon'] ) : 'trx_addons_icon-download'; ?>"
 				data-igenerator-settings="<?php
 					echo esc_attr( trx_addons_encode_settings( array(
 						'number' => $args['number'],
@@ -195,7 +196,8 @@ if ( count( $models ) > 0 ) {
 											if ( ! empty( $args['show_settings'] ) && (int) $args['show_settings'] > 0 ) {
 
 												// Button "Settings"
-												?><a href="#" class="sc_igenerator_form_settings_button trx_addons_icon-sliders"></a><?php
+												$settings_icon = ! empty( $args['settings_button_icon'] ) && ! trx_addons_is_off( $args['settings_button_icon'] ) ? $args['settings_button_icon'] : 'trx_addons_icon-sliders';
+												?><a href="#" class="sc_igenerator_form_settings_button <?php echo esc_attr( $settings_icon ) ?>"></a><?php
 
 												// Popup with settings
 												?><div class="sc_igenerator_form_settings"><?php
@@ -514,7 +516,8 @@ if ( count( $models ) > 0 ) {
 									"type" => "default",
 									"size" => "small",
 									"text_align" => "none",
-									"icon" => "trx_addons_icon-magic",
+									"icon" => ! empty( $args['button_icon'] ) ? $args['button_icon'] : "trx_addons_icon-magic",
+									"image" => ! empty( $args['button_image'] ) ? $args['button_image'] : "",
 									"icon_position" => "left",
 									"title" => ! empty( $args['button_text'] ) ? $args['button_text'] : esc_html__( 'Generate', 'trx_addons' ),
 									"link" => '#',

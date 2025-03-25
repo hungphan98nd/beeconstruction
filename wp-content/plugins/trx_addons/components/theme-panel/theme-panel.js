@@ -426,7 +426,8 @@ jQuery(document).ready( function() {
 				trx_addons_add_to_url( TRX_ADDONS_STORAGE['ajax_url'], { 'activate-multi': 1 } ), {
 					'action': 'trx_addons_check_plugin_state',
 					'nonce': TRX_ADDONS_STORAGE['ajax_nonce'],
-					'slug': link.data('slug')
+					'slug': link.data('slug'),
+					is_admin_request: 1
 				},
 				function(response) {
 					if (check_again && !check_again_timer) {

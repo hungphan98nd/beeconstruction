@@ -505,7 +505,8 @@
 					nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
 					parent_type: parent_type,
 					parent_value: parent_val,
-					list_not_selected: list_not_selected
+					list_not_selected: list_not_selected,
+					is_admin_request: 1
 				};
 
 				jQuery.post( TRX_ADDONS_STORAGE['ajax_url'], data, function(response) {
@@ -1005,7 +1006,7 @@
 		}
 		// If we are in iOS and the video from Youtube - try to create player and start the video
 		if ( trx_addons_browser_is_ios() && iframe_html.indexOf( 'youtu' ) > 0 && iframe_html.indexOf( 'autoplay=1' ) > 0 && typeof YT != 'undefined' ) {
-			var id = 'trx_addons_yt_player_' + Math.floor( Math.random() * 100000 );
+			var id = 'trx_addons_yt_player_' + trx_addons_get_unique_id();
 			$cont.html( iframe_html.replace( /<iframe[\s]+[\s\S]+<\/iframe>/, '<div class="trx_addons_yt_player" id="' + id + '"></div>' ) );
 			var src = iframe_html.split('?');
 			var video_id = src[0].substring( src[0].indexOf('/embed/') + 7 );
@@ -1366,7 +1367,7 @@
 	// ((..)) to the <b>..</b>
 	// ||     to the <br>
 	// ^N     to the <sup>N</sup>
-	window.trx_addons_prepare_macros = function(str) {
+	window.trx_addons_prepare_macros = function(str, args) {
 		if ( ! str || typeof str != 'string' ) {
 			return str;
 		}
@@ -1385,7 +1386,11 @@
 								'border': 'border-width',
 								'radius': 'border-radius',
 								'padding': 'padding',
-								'margin': 'margin'
+								'margin': 'margin',
+								'top': 'top',
+								'left': 'left',
+								'right': 'right',
+								'bottom': 'bottom'
 							},
 							'common'
 						),
@@ -1423,13 +1428,17 @@
 									TRX_ADDONS_STORAGE['fetch_images'] = {};
 								}
 								if ( ! TRX_ADDONS_STORAGE['fetch_images'][ atts['id'] ] ) {
+									args['class'] = ( args['class'] ? args['class'] + ' ' : '' ) + 'trx_addons_image_placeholder trx_addons_image_' + atts['id'];
 									jQuery.get( TRX_ADDONS_STORAGE['rest_url'] + 'wp/v2/media/' + atts['id'] + '/', function(response) {
 										if ( response && response['media_details'] && response['media_details']['sizes'] ) {
 											TRX_ADDONS_STORAGE['fetch_images'][ atts['id'] ] = response;
+											jQuery('.trx_addons_image_' + atts['id'] )
+												.removeClass( 'trx_addons_image_placeholder' )
+												.attr( 'src', get_url_by_size( response, atts['thumb'] ? '-' + atts['thumb'] : '-tiny' ) );
 										}
 									} );
 								} else {
-									atts['url'] = get_url_by_size( TRX_ADDONS_STORAGE['fetch_images'][ atts['id'] ], atts['thumb'] ? '-' + atts['thumb'] : 'full' );
+									atts['url'] = get_url_by_size( TRX_ADDONS_STORAGE['fetch_images'][ atts['id'] ], atts['thumb'] ? '-' + atts['thumb'] : '-tiny' );
 								}
 							}
 						}
@@ -1437,6 +1446,7 @@
 								? '<img src="' + atts['url'] + '"'
 									+ ( atts['id'] ? ' id="trx_addons_image_' + atts['id'] + '"' : '' )
 									+ ( atts['alt'] ? ' alt="' + atts['alt'] + '"' : '' )
+									+ ( args['class'] || atts['class'] ? ' class="' + ( args['class'] ? args['class'] + ' ' : '' ) + ( ( atts['class'] ? atts['class'] : '' ) ) + '"' : '' )
 									+ ' style="'
 										+ trx_addons_get_css_from_atts( atts, trx_addons_object_merge( allowed_css, image_css ) )
 										+ ( atts['css'] ? atts['css'] : '' )
@@ -1449,7 +1459,7 @@
 							atts['name'] = 'icon-' + atts['name'];
 						}
 						return atts['name']
-								? '<span class="' + atts['name'] + '"'
+								? '<span class="' + atts['name'] + ( args['class'] ? ' ' + args['class'] : '' ) + ( atts['class'] ? ' ' + atts['class'] : '' ) + '"'
 									+ ' style="'
 										+ trx_addons_get_css_from_atts( atts, trx_addons_object_merge( allowed_css, icon_css ) )
 										+ ( atts['css'] ? atts['css'] : '' )
@@ -1639,18 +1649,41 @@
 		return rez;
 	};
 
+	// Return a tag name if the token is an icon
+	function trx_addons_is_icon_tag( token ) {
+		var tag = '';
+		if ( token.slice(0, 3) == '<i ' || token.slice(0, 3) == '<i>' ) {
+			tag = 'i';
+		} else if ( token.slice(0, 4) == '<svg' ) {
+			tag = 'svg';
+		} else if ( token.slice(0, 52) == '<span class="trx-addons-advanced-title-item-icon-svg' ) {
+			tag = 'span';
+		}
+		return tag;
+	}
+
+	// Return a tag name if the token is an image
+	function trx_addons_is_image_tag( token ) {
+		var tag = '';
+		if ( token.slice(0, 4) == '<img' ) {
+			tag = 'img';
+		}
+		return tag;
+	}
+
 	// Get a next token from the string (character or a tag)
 	// If a tag is <i>...</i> - return it as a single token
 	function trx_addons_get_next_token( str, pos ) {
-		var token = '';
+		var token = '', tag = '';
 		if ( pos < str.length ) {
 			if ( str[pos] == '<' ) {
 				while ( pos < str.length && str[pos] != '>' ) {
 					token += str[pos++];
 				}
 				token += str[pos++];
-				if ( token.slice(0, 3) == '<i ' || token.slice(0, 3) == '<i>' || token.slice(0, 4) == '<svg' ) {
-					while ( pos < str.length && token.indexOf('</i>') == -1 && token.indexOf('</svg>') == -1 ) {
+				tag = trx_addons_is_icon_tag( token );
+				if ( tag ) {
+					while ( pos < str.length && token.indexOf('</' + tag + '>') == -1 ) {
 						token += str[pos++];
 					}
 				}
@@ -1666,7 +1699,7 @@
 		var rez = '', token = '', in_word = false, cnt = 0, is_icon = false, is_space = false;
 		for ( var i = 0; i < txt.length; i++ ) {
 			token = trx_addons_get_next_token( txt, i );
-			is_icon = token.slice(0, 3) == '<i ' || token.slice(0, 3) == '<i>' || token.slice(0, 4) == '<img' || token.slice(0, 4) == '<svg';
+			is_icon = trx_addons_is_icon_tag( token ) || trx_addons_is_image_tag( token );
 			is_space = token == ' ' || /^[\s]*$/.test(token);
 			if ( in_word ) {
 				if ( token.slice(0, 1) == '<' || is_space ) {
@@ -1697,7 +1730,7 @@
 		if ( after_word === undefined ) after_word = '';
 		for ( var i = 0; i < txt.length; i++ ) {
 			token = trx_addons_get_next_token( txt, i );
-			is_icon = token.slice(0, 3) == '<i ' || token.slice(0, 3) == '<i>' || token.slice(0, 4) == '<img' || token.slice(0, 4) == '<svg';
+			is_icon = trx_addons_is_icon_tag( token ) || trx_addons_is_image_tag( token );
 			is_space = token == ' ' || /^[\s]*$/.test(token);
 			if ( in_word ) {
 				if ( token.slice(0, 1) == '<' || is_space ) {
@@ -1751,7 +1784,12 @@
 				.replace( /"/g, '&quot;' )
 				.replace( /'/g, '&#039;' );
 	};
-	
+
+	// Return an unique ID
+	window.trx_addons_get_unique_id = function() {
+		return Math.random().toString(16).slice(2, 9);
+	};
+
 
 	/* Colors functions
 	---------------------------------------------------------------- */
@@ -1873,7 +1911,7 @@
 	};
 	
 	window.trx_addons_color_picker = function(){
-		var id = arguments[0]!==undefined ? arguments[0] : "iColorPicker"+Math.round(Math.random()*1000);
+		var id = arguments[0] !== undefined ? arguments[0] : 'iColorPicker_' + trx_addons_get_unique_id();
 		var colors = arguments[1]!==undefined ? arguments[1] : 
 		'#f00,#ff0,#0f0,#0ff,#00f,#f0f,#fff,#ebebeb,#e1e1e1,#d7d7d7,#cccccc,#c2c2c2,#b7b7b7,#acacac,#a0a0a0,#959595,'
 		+'#ee1d24,#fff100,#00a650,#00aeef,#2f3192,#ed008c,#898989,#7d7d7d,#707070,#626262,#555,#464646,#363636,#262626,#111,#000,'

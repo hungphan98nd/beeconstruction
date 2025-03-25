@@ -174,11 +174,12 @@
 	@include border-box;
 	@include box-shadow(1px 1px 2px 0px rgba(0,0,0,0.2));
 
-	// Menu blink once after animation if next rows are uncommented
-	// &.animated {
-	// 	-webkit-animation-fill-mode: unset;
-	// 	animation-fill-mode: unset;
-	// }
+	// Menu blink once after animation without next rules
+	// (if .animated class is not contain animation-fill-mode: forwards|both)
+	&.animated {
+		-webkit-animation-fill-mode: forwards;
+		animation-fill-mode: forwards;
+	}
 }
 .sc_layouts_menu_popup .sc_layouts_menu_nav {
 	display:block;

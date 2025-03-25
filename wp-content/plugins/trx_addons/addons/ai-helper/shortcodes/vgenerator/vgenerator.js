@@ -289,6 +289,7 @@ jQuery( document ).ready( function() {
 							setTimeout( function() {
 								var currentDate = new Date();
 								var timestamp = currentDate.getTime();
+								var icon = $form.data( 'vgenerator-download-icon' ) || 'trx_addons_icon-download';
 								var html = '<div class="sc_vgenerator_columns_wrap">';
 								for ( var i = 0; i < rez.data.video.length; i++ ) {
 									html += '<div class="sc_vgenerator_video sc_vgenerator_videos_item ' 
@@ -325,7 +326,7 @@ jQuery( document ).ready( function() {
 															+ ' class="sc_vgenerator_video_link sc_button sc_button_default sc_button_size_small sc_button_with_icon sc_button_icon_left"'
 															+ ' data-elementor-open-lightbox="no"'
 															+ '>'
-																+ '<span class="sc_button_icon"><span class="trx_addons_icon-download"></span></span>'
+																+ ( icon && ! trx_addons_is_off( icon ) ? '<span class="sc_button_icon"><span class="' + icon + '"></span></span>' : '' )
 																+ '<span class="sc_button_text"><span class="sc_button_title">' + TRX_ADDONS_STORAGE['msg_ai_helper_download'] + '</span></span>'
 															+ '</a>'
 														: ''
@@ -494,6 +495,9 @@ jQuery( document ).ready( function() {
 
             // Show message
 			function show_message( msg, type ) {
+				if ( msg.indexOf( '<p>' ) == -1 ) {
+					msg = '<p>' + msg + '</p>';
+				}
 				$form
 					.find( '.sc_vgenerator_message_inner' )
 						.html( msg )

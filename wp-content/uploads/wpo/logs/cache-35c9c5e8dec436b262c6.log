@@ -1,0 +1,17 @@
+[2025-03-24 10:44:06 : INFO] - Full Cache Purge triggered by: plugin activation/deactivation 
+[2025-03-24 10:44:06 : INFO] - Full Cache Purge triggered by: WPO_Page_Cache::disable 
+[2025-03-24 10:44:06 : INFO] - Full Cache Purge triggered by: WP_Optimize_Minify_Cache_Functions::purge_others 
+[2025-03-24 10:44:08 : INFO] - Pruning the Cache log file 
+[2025-03-25 01:22:02 : INFO] - Cache for URL: http://localhost/beeconstruction/?p=36251 has been purged, triggered by action: save_post 
+[2025-03-25 01:22:02 : INFO] - Cache for blog post has been purged due to updates to post with Title: "Auto Draft" and URL: http://localhost/beeconstruction/?p=36251, triggered by action: save_post 
+[2025-03-25 01:22:02 : INFO] - Cache for previous post (with URL: http://localhost/beeconstruction/kitchens-and-dining-rooms-become-more-expensive-yet-beautiful/) adjacent to post with id: 36251 has been purged, triggered by action: save_post 
+[2025-03-25 01:22:02 : INFO] - Cache for all archives page associated with post_type: post and Title: "Auto Draft" have been purged, triggered by action: save_post 
+[2025-03-25 06:49:51 : INFO] - Cache for URL: http://localhost/beeconstruction/?p=36252 has been purged, triggered by action: save_post 
+[2025-03-25 06:49:51 : INFO] - Cache for blog post has been purged due to updates to post with Title: "Auto Draft" and URL: http://localhost/beeconstruction/?p=36252, triggered by action: save_post 
+[2025-03-25 06:49:51 : INFO] - Cache for previous post (with URL: http://localhost/beeconstruction/kitchens-and-dining-rooms-become-more-expensive-yet-beautiful/) adjacent to post with id: 36252 has been purged, triggered by action: save_post 
+[2025-03-25 06:49:51 : INFO] - Cache for all archives page associated with post_type: post and Title: "Auto Draft" have been purged, triggered by action: save_post 
+[2025-03-25 07:50:11 : INFO] - Full Cache Purge triggered by action: after_switch_theme 
+[2025-03-25 07:53:27 : INFO] - Full Cache Purge triggered by action: customize_save_after 
+[2025-03-25 07:55:50 : INFO] - Full Cache Purge triggered by action: after_switch_theme 
+[2025-03-25 07:55:52 : INFO] - Full Cache Purge triggered by action: after_switch_theme 
+[2025-03-25 07:55:55 : INFO] - Full Cache Purge triggered by action: after_switch_theme 

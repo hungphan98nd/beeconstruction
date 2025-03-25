@@ -67,7 +67,7 @@ jQuery( document ).ready(function() {
 			$obj.each( function( idx ) {
 				var id = $obj.eq( idx ).attr( 'id' );
 				if ( ! id ) {
-					$id = 'sc_popup_' + ('' + Math.random()).replace('.', '');
+					$id = 'sc_popup_' + trx_addons_get_unique_id();
 					$obj.eq( idx ).attr( 'id', id );
 				}
 				if ( ! popup_html.hasOwnProperty( id ) ) {

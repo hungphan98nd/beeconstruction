@@ -11,7 +11,7 @@
 		height: 750px;
 		max-height: 90vh;
 		overflow: hidden;
-		background-color: #fff;
+		background-color: var(--e-a-bg-default);
 		border-radius: none;
 	}
 
@@ -20,9 +20,9 @@
 		@include abs-lt;
 		@include border-box;
 		width: 100%;
-		border: 1px solid $border_color;
+		border-bottom: var(--e-a-border);
 		padding: 10px 15px;
-		color: #333;
+		color: var(--e-a-color-txt-active);
 	}
 
 	// Logo
@@ -56,7 +56,7 @@
 	.trx_addons_button_close_icon {
 		&:before,
 		&:after {
-			border-color: #333;
+			border-color: var(--e-a-color-txt);
 		}
 	}
 	p {
@@ -81,8 +81,8 @@
 		&:after {
 			content: ' ';
 			display: block;
-			@include box(1px, 20px);
-			background-color: $border_color;
+			@include box(0px, 20px);
+			border-right: var(--e-a-border);
 			@include abs-rc;
 		}
 	}
@@ -224,7 +224,7 @@
 			@include border-sharp;
 			color: var(--e-a-color-txt);
 			border: none;
-			border-bottom: 1px solid $border_color;
+			border-bottom: var(--e-a-border);
 		}
 	}
 	.trx_addons_elementor_templates_library_categories {
@@ -236,13 +236,13 @@
 		display: block;
 		padding: 4px 25px 4px 0;
 		position: relative;
-		color: $text_dark;
+		color: var(--e-a-color-txt);
 
 		&:hover {
-			color: $accent_hover;
+			color: var(--e-a-color-txt-accent);
 		}
 		&.trx_addons_elementor_templates_library_category_active {
-			color: $accent_color;
+			color: var(--e-a-color-txt-active);
 		}
 	}
 	.trx_addons_elementor_templates_library_category_total {
@@ -280,7 +280,7 @@
 			@include border-sharp;
 			color: var(--e-a-color-txt);
 			border: none;
-			border-bottom: 1px solid $border_color;
+			border-bottom: var(--e-a-border);
 		}
 	}
 	.trx_addons_elementor_templates_library_categories {
@@ -306,11 +306,15 @@
 				background-color: var(--e-a-bg-hover);
 				color: var(--e-a-color-txt-hover);
 			}
+			&:checked {
+				background-color: var(--e-a-bg-active);
+				color: var(--e-a-color-txt-active);
+			}
+			// &.trx_addons_elementor_templates_library_category_active {
+			// 	background-color: var(--e-a-bg-active);
+			// 	color: var(--e-a-color-txt-active);
+			// }
 		}
-		// &[value="all"],
-		// option[value="all"] {
-		// 	color: #ccc;
-		// }
 		.trx_addons_elementor_templates_library_category_total {
 			@include abs-rc;
 		}
@@ -379,7 +383,7 @@
 	width: 100%;
 	@include border-box;
 	@include border-radius(4px);
-	border: 1px solid $border_color;
+	border: var(--e-a-border);
 	position: relative;
 	margin-bottom: 20px;
 	overflow: hidden;
@@ -425,7 +429,7 @@
 	}
 	span {
 		font-size: 20px;
-		color: #ccc;
+		color: var(--e-a-color-txt);
 	}
 }
 .trx_addons_elementor_templates_library_item_footer {
@@ -439,8 +443,8 @@
 	@include flex-align-items(center);
 	@include border-box;
 	padding: 10px 40px 10px 10px;
-	background-color: #fff;
-	border-top: 1px solid $border_color;
+	background-color: var(--e-a-bg-default);
+	border-top: var(--e-a-border);
 
 	.trx_addons_elementor_templates_library_item_loading & {
 		pointer-events: none;
@@ -507,16 +511,15 @@
 	width: 100%;
 	padding: 1em 0;
 	text-align: center;
-	border-top: 1px solid $border_color;
+	border-top: var(--e-a-border);
 }
 .trx_addons_elementor_templates_library_page {
 	display: inline-block;
 	padding: 0.5em 1em;
 	margin-right: 0.5em;
-	border: 1px solid $tab_border_color;
+	border: var(--e-a-border);
 	@include border-radius(4px);
-	background-color: $tab_background_color;
-	color: $tab_text_color;
+	color: var(--e-a-color-txt);
 	text-decoration: none;
 	cursor: pointer;
 
@@ -525,9 +528,10 @@
 	}
 	&:hover {
 		color: var(--e-a-color-primary-bold);
+		background-color: var(--e-a-bg-hover);
 	}
 	&.trx_addons_elementor_templates_library_page_active {
-		background-color: $tab_background_active;
+		background-color: var(--e-a-bg-active);
 		color: var(--e-a-color-primary-bold);
 	}
 }
@@ -652,7 +656,7 @@
 		max-width: 1200px;
 		max-height: 90vh;
 		overflow: hidden;
-		background-color: #fff;
+		background-color: var(--e-a-bg-default);
 		border-radius: none;
 	}
 
@@ -661,10 +665,10 @@
 		@include abs-lt;
 		@include border-box;
 		width: 100%;
-		border: 1px solid $border_color;
+		border-bottom: var(--e-a-border);
 		padding: 10px 15px;
-		color: #333;
-		background-color: #fff;
+		color: var(--e-a-color-txt-active);
+		background-color: var(--e-a-bg-default);
 	}
 
 	// Title
@@ -682,7 +686,7 @@
 	.trx_addons_button_close_icon {
 		&:before,
 		&:after {
-			border-color: #333;
+			border-color: var(--e-a-color-txt);
 		}
 	}
 	p {

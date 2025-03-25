@@ -71,8 +71,7 @@
 		//----------------------------------------------------------
 
 		// Change a behaviour to AJAX for the button 'Add to Cart' placed inside the popup 'Quick View'
-		function trx_addons_woocommerce_add_to_cart_ajax( type ) {
-			var $popup = $body.find( ( type == 'popup_yith' ? '>#yith-quick-view-modal' : '>.mfp-wrap' ) );
+		function trx_addons_woocommerce_add_to_cart_ajax( $popup, type ) {
 			if ( $popup.length ) {
 				var $bt = $popup.find( '.single_add_to_cart_button' );
 				if ( $bt.length ) {
@@ -86,11 +85,14 @@
 			}
 		}
 		if ( trx_addons_apply_filters( 'trx_addons_filter_ajax_add_to_cart_in_quick_view', true ) ) {
-			jQuery( document.body ).on( 'woosq_loaded', function() {
-				trx_addons_woocommerce_add_to_cart_ajax( 'popup_wpc' );
+			jQuery( document.body ).on( 'woosq_loaded', function( e ) {
+				trx_addons_woocommerce_add_to_cart_ajax( $body.find( '>.mfp-wrap' ), e.type );
 			} );
-			$document.on( 'qv_loader_stop', function() {
-				trx_addons_woocommerce_add_to_cart_ajax( 'popup_yith' );
+			$document.on( 'qv_loader_stop', function( e ) {
+				trx_addons_woocommerce_add_to_cart_ajax( $body.find( '>#yith-quick-view-modal' ), e.type );
+			} );
+			$document.on( 'trx_qv_loaded', function( e ) {
+				trx_addons_woocommerce_add_to_cart_ajax( $body.find( '.trx-addons-woo-products-quick-view-modal' ), e.type );
 			} );
 		}
 
@@ -102,18 +104,18 @@
 			$document.trigger( 'action.init_hidden_elements', [$body] );
 		} );
 
-		$document.on( 'action.init_hidden_elements qv_loader_stop', function( e, cont ) {
+		$document.on( 'action.init_hidden_elements qv_loader_stop trx_qv_loaded', function( e, cont ) {
 			if ( ! cont ) cont = $body;
-			trx_addons_woocommerce_init_variations( e.type == 'qv_loader_stop' ? 'popup_yith' : 'init_hidden', cont );
+			trx_addons_woocommerce_init_variations( cont, e.type );
 		} );
 
 		// Check available product variations
-		function trx_addons_woocommerce_init_variations( type, cont ) {
+		function trx_addons_woocommerce_init_variations( cont, type ) {
 			cont.find( '.variations_form.cart:not(.inited)' ).each( function() {
 				var form = jQuery(this).addClass('inited');
 				var trx_addons_attribs = form.find('.trx_addons_attrib_item');
 				if ( trx_addons_attribs.length === 0 ) return;
-				
+
 				// First check after variation form inited
 				form.on( 'wc_variation_form', function( variation_form ) {
 					form.on( 'check_variations', function() {

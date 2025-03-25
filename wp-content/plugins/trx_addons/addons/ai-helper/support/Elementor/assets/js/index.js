@@ -125,6 +125,7 @@
 					purpose: options.purpose_title,
 					// ai_helper: options.ai_helper,
 					content: JSON.stringify( content ),
+					is_admin_request: 1
 				}, function( response ) {
 					if ( response ) {
 						self.replaceTexts( response );
@@ -141,7 +142,8 @@
 					action: 'trx_addons_ai_helper_elementor_generate_text_fetch',
 					thread_id: data.thread_id,
 					run_id: data.run_id,
-					content: JSON.stringify( content ),//after test - remove
+					content: JSON.stringify( content ),  //after test - remove
+					is_admin_request: 1
 				}, function( response ) {
 					if ( response ) {
 						self.replaceTexts( response );

@@ -18,13 +18,13 @@
 				jQuery( 'body' ).addClass( 'trx_addons_smoke_present' );
 				$self.data( 'smoke-container', $window );
 			} else if ( $self.hasClass( 'trx_addons_smoke_place_section' ) ) {
-				$container = $self.closest( '.elementor-section' ).addClass( 'trx_addons_smoke_present' );
+				$container = $self.closest( '.elementor-section,.e-con:not(.e-child)' ).addClass( 'trx_addons_smoke_present' );
 				$self
 					.prependTo( $container )
 					.data( 'smoke-container', $container );
 			} else if ( $self.hasClass( 'trx_addons_smoke_place_column' ) ) {
-				$container = $self.closest( '.elementor-column' ).addClass( 'trx_addons_smoke_present' );
-				$self.closest( '.elementor-section' ).addClass( 'trx_addons_smoke_present_in_column' );
+				$container = $self.closest( '.elementor-column,.e-con.e-child' ).addClass( 'trx_addons_smoke_present' );
+				$self.closest( '.elementor-section,.e-con.e-parent' ).addClass( 'trx_addons_smoke_present_in_column' );
 				$self
 					.prependTo( $container )
 					.data( 'smoke-container', $container );

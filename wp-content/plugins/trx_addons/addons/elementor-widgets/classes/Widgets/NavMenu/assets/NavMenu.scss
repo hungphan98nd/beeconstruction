@@ -115,7 +115,7 @@ $badge_static: true;
 .trx-addons-mega-nav-item {
 	position: relative;
 
-	& > .trx-addons-submenu {
+	&:not(.trx-addons-active-menu) > .trx-addons-submenu {
 		display: none;
 	}
 	& > ul.trx-addons-mega-content-container {
@@ -228,8 +228,10 @@ body.elementor-use-container .trx-addons-main-nav-menu li > .trx-addons-mega-con
 .trx-addons-mobile-menu-container {
 	width: 100%;
 }
-
 .trx-addons-mobile-menu-container .trx-addons-main-mobile-menu {
+	width: 100%;
+}
+.trx-addons-mobile-menu-container .trx-addons-submenu {
 	width: 100%;
 }
 
@@ -240,13 +242,21 @@ body.elementor-use-container .trx-addons-main-nav-menu li > .trx-addons-mega-con
 }
 
 .trx-addons-mobile-menu-container .trx-addons-mobile-menu,
-.trx-addons-mobile-menu-container .trx-addons-submenu {
+.trx-addons-mobile-menu-container :not(.trx-addons-active-menu) > .trx-addons-submenu {
 	display: none;
+}
+
+.trx-addons-mobile-menu-container .trx-addons-mobile-menu,
+.trx-addons-mobile-menu-container .trx-addons-submenu {
 	@include flex-direction(column);
 }
 
 .trx-addons-mobile-menu-container .trx-addons-nav-menu-item {
 	@include flex-direction(column);
+
+	.trx-addons-menu-link {
+		height: unset;
+	}
 }
 
 .trx-addons-mobile-menu-align-flex-start {
@@ -602,8 +612,8 @@ body.elementor-use-container .trx-addons-main-nav-menu li > .trx-addons-mega-con
 }
 
 .trx-addons-active-menu,
-.trx-addons-active-menu:not(.trx-addons-mega-nav-item)>.trx-addons-submenu,
-.trx-addons-active-menu.trx-addons-mega-nav-item>.trx-addons-mega-content-container {
+.trx-addons-active-menu:not(.trx-addons-mega-nav-item) > .trx-addons-submenu,
+.trx-addons-active-menu.trx-addons-mega-nav-item > .trx-addons-mega-content-container {
 	display: -webkit-flex !important;
 	display: -ms-flexbox !important;
 	display: flex !important;
@@ -1263,8 +1273,8 @@ body.elementor-use-container .trx-addons-main-nav-menu li > .trx-addons-mega-con
 	--trx-addons-nav-menu-submenu-offset-x: 2px;
 	--trx-addons-nav-menu-submenu-offset-y: 2px;
 }
-.trx-addons-nav-menu-item .trx-addons-submenu,
-.trx-addons-nav-menu-item .trx-addons-mega-content-container {
+.trx-addons-nav-menu .trx-addons-submenu,
+.trx-addons-nav-menu .trx-addons-mega-content-container {
 	-webkit-transition: 0.5s all ease-in-out;
 	transition: 0.5s all ease-in-out;
 	-webkit-transition-delay: 0.1s;

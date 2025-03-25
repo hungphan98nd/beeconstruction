@@ -280,10 +280,11 @@ label.required span.sc_form_field_title:after {
 [class*="sc_input_hover_"] input[type="search"],
 [class*="sc_input_hover_"] select,
 [class*="sc_input_hover_"] textarea {
-	@include font(1em !important, 1.25em, 400, normal);
+	//@include font(1em !important, 1.25em, 400, normal);
+	@include font(1em, 1.25em, 400, normal);
 	letter-spacing: 1px;
 	text-align:left !important;
-	padding:1.4em !important;
+	padding:1.4em;	// !important;
 	width:100%;
 }
 [class*="sc_input_hover_"] input:focus,

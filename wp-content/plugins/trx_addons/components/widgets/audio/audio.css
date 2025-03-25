@@ -67,7 +67,7 @@
 }
 
 .trx_addons_audio_player.with_cover .mejs-controls {
-  background: none !important;
+  background: none;
 }
 
 .trx_addons_audio_player.without_cover {
@@ -157,6 +157,10 @@
   font-size: 1.4rem;
   line-height: 1em;
   font-weight: 400;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  text-align: center;
   display: inline-block;
   vertical-align: top;
   margin-top: -1px;

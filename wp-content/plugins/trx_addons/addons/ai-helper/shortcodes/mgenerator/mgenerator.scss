@@ -116,7 +116,7 @@
 		@include abs-pos( 4px, 4px, 4px, auto );
 		@include border-box;
 		@include border-radius(var(--trx-addons-ai-helper-mgenerator-button-border-radius));
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 		max-width: 50%;
 		overflow: hidden;
 		padding: 0 2em;
@@ -125,6 +125,34 @@
 
 		&:not(.sc_mgenerator_form_field_disabled):hover {
 			background-color: $success_hover;
+		}
+		&.sc_mgenerator_form_field_prompt_button_with_icon {	// To override the theme rules
+			@include flex;
+		}
+		.sc_mgenerator_form_field_prompt_button_image {
+			max-height: 1.25em;
+			width: auto;
+		}
+		.sc_mgenerator_form_field_prompt_button_svg {
+			@include square(1.25em);
+
+			svg {
+				@include transition-property(fill);
+			}
+		}
+		.sc_mgenerator_form_field_prompt_button_icon {
+			font-size: 1.25em;
+			@include transition-property(color);
+		}
+		.sc_mgenerator_form_field_prompt_button_image,
+		.sc_mgenerator_form_field_prompt_button_svg,
+		.sc_mgenerator_form_field_prompt_button_icon {
+			& + .sc_mgenerator_form_field_prompt_button_text {
+				margin-left: 0.5em;
+			}
+		}
+		.sc_mgenerator_form_field_prompt_button_text {
+			white-space: nowrap;
 		}
 	}
 	.sc_mgenerator_form_field_disabled {
@@ -247,6 +275,9 @@
 		}
 	}
 }
+.sc_mgenerator_form_settings_field label {
+	display: block;
+}
 
 /* Upload field */
 .sc_mgenerator_form_field_upload_audio_decorator {
@@ -267,6 +298,7 @@
 	.theme_form_field_placeholder {
 		text-overflow: ellipsis;
 		color: var(--theme-color-input_light);
+		@include transition-colors;
 	}
 
 	.sc_mgenerator_form_field_upload_audio_text {
@@ -281,9 +313,9 @@
 	.sc_mgenerator_form_field_upload_audio_button {
 		@include abs-rc( 0.5em );
 		@include border-box;
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 		padding: 0.3em 1em;
-		border: 1px solid var(--theme-color-input_bd_color);
+		// border: 1px solid var(--theme-color-input_bd_color);
 		@include border-radius(var(--trx-addons-ai-helper-mgenerator-fields-border-radius));
 
 		&:before {
@@ -350,7 +382,8 @@
 		text-align: right;
 	}
 	.sc_mgenerator_limits_used {
-		white-space: nowrap;
+		// white-space: nowrap;
+		display: block;
 	}
 }
 
@@ -386,6 +419,8 @@
 		color: $error_dark;
 	}
 	a {
+		display: inline-block;
+		vertical-align: top;
 		font-weight: 500;
 		color: $error_dark;
 		border-bottom: 1px dashed $error_dark;

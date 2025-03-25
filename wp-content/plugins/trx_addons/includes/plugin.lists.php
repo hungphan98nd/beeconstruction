@@ -69,6 +69,35 @@ if ( ! function_exists( 'trx_addons_get_list_months' ) ) {
 	}
 }
 
+if ( ! function_exists( 'trx_addons_get_list_style_types' ) ) {
+	/**
+	 * Return list of types for the <ol> and <ul> tags
+	 *
+	 * @param bool $prepend_inherit  If true - add 'Inherit' item to the beginning of the list
+	 * 
+	 * @return array          List of types
+	 */
+	function trx_addons_get_list_style_types( $prepend_inherit = false ) {
+		$list = array(
+			'none'		=> esc_html__( 'None', 'trx_addons' ),
+			'disc'		=> esc_html__( 'Disc', 'trx_addons' ),
+			'circle'	=> esc_html__( 'Circle', 'trx_addons' ),
+			'square'	=> esc_html__( 'Square', 'trx_addons' ),
+			'decimal'	=> esc_html__( 'Decimal', 'trx_addons' ),
+			'decimal-open-zero'	=> esc_html__( 'Decimal Open Zero', 'trx_addons' ),
+			'disclosure-open' => esc_html__( 'Disclosure Open', 'trx_addons' ),
+			'disclosure-closed' => esc_html__( 'Disclosure Closed', 'trx_addons' ),
+			'lower-alpha'	=> esc_html__( 'Lower Alpha', 'trx_addons' ),
+			'upper-alpha'	=> esc_html__( 'Upper Alpha', 'trx_addons' ),
+			'lower-roman'	=> esc_html__( 'Lower Roman', 'trx_addons' ),
+			'upper-roman'	=> esc_html__( 'Upper Roman', 'trx_addons' ),
+		);
+		return $prepend_inherit 
+				? trx_addons_array_merge( array( 'inherit' => esc_html__( 'Inherit', 'trx_addons' ) ), $list )
+				: $list;
+	}
+}
+
 if ( ! function_exists( 'trx_addons_get_list_taxonomies_all' ) ) {
 	/**
 	 * Return list of allowed custom post's taxonomies

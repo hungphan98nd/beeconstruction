@@ -3,7 +3,7 @@
 Plugin Name: ThemeREX Addons
 Plugin URI: http://themerex.net
 Description: Add many widgets, shortcodes and custom post types for your theme
-Version: 2.34.3.1
+Version: 2.34.4
 Author: ThemeREX
 Author URI: http://themerex.net
 Text Domain: trx_addons
@@ -14,7 +14,7 @@ Domain Path: /languages
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Current version
-if ( ! defined( 'TRX_ADDONS_VERSION' ) ) define( 'TRX_ADDONS_VERSION', '2.34.3.1' );
+if ( ! defined( 'TRX_ADDONS_VERSION' ) ) define( 'TRX_ADDONS_VERSION', '2.34.4' );
 
 // Hooks order for the plugin and theme on action 'after_setup_theme'
 // 1 - plugin's components and/or theme register hooks for next filters
@@ -28,20 +28,20 @@ if ( ! defined( 'TRX_ADDONS_VERSION' ) ) define( 'TRX_ADDONS_VERSION', '2.34.3.1
 // 6 - plugin include components (shortcodes, widgets, CPT, etc.) filtered by theme hooks
 
 // Plugin's storage
-if ( ! defined('TRX_ADDONS_PLUGIN_DIR') )				define('TRX_ADDONS_PLUGIN_DIR', plugin_dir_path(__FILE__));
-if ( ! defined('TRX_ADDONS_PLUGIN_URL') )				define('TRX_ADDONS_PLUGIN_URL', plugin_dir_url(__FILE__));
-if ( ! defined('TRX_ADDONS_PLUGIN_BASE') )				define('TRX_ADDONS_PLUGIN_BASE',dirname(plugin_basename(__FILE__)));
+if ( ! defined('TRX_ADDONS_PLUGIN_DIR') )				define( 'TRX_ADDONS_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
+if ( ! defined('TRX_ADDONS_PLUGIN_URL') )				define( 'TRX_ADDONS_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
+if ( ! defined('TRX_ADDONS_PLUGIN_BASE') )				define( 'TRX_ADDONS_PLUGIN_BASE', dirname( plugin_basename( __FILE__ ) ) );
 
-if ( ! defined('TRX_ADDONS_PLUGIN_DIR_INCLUDES') )		define('TRX_ADDONS_PLUGIN_DIR_INCLUDES', TRX_ADDONS_PLUGIN_DIR . 'includes/');
-if ( ! defined('TRX_ADDONS_PLUGIN_DIR_CLASSES') )		define('TRX_ADDONS_PLUGIN_DIR_CLASSES', TRX_ADDONS_PLUGIN_DIR_INCLUDES . 'classes/');
+if ( ! defined('TRX_ADDONS_PLUGIN_DIR_INCLUDES') )		define( 'TRX_ADDONS_PLUGIN_DIR_INCLUDES', TRX_ADDONS_PLUGIN_DIR . 'includes/' );
+if ( ! defined('TRX_ADDONS_PLUGIN_DIR_CLASSES') )		define( 'TRX_ADDONS_PLUGIN_DIR_CLASSES', TRX_ADDONS_PLUGIN_DIR_INCLUDES . 'classes/' );
 
 // Pluggable components
-if ( ! defined('TRX_ADDONS_PLUGIN_COMPONENTS') )		define('TRX_ADDONS_PLUGIN_COMPONENTS',		'components/');
-if ( ! defined('TRX_ADDONS_PLUGIN_DIR_COMPONENTS') )	define('TRX_ADDONS_PLUGIN_DIR_COMPONENTS', TRX_ADDONS_PLUGIN_DIR . TRX_ADDONS_PLUGIN_COMPONENTS);
+if ( ! defined('TRX_ADDONS_PLUGIN_COMPONENTS') )		define( 'TRX_ADDONS_PLUGIN_COMPONENTS',		'components/' );
+if ( ! defined('TRX_ADDONS_PLUGIN_DIR_COMPONENTS') )	define( 'TRX_ADDONS_PLUGIN_DIR_COMPONENTS', TRX_ADDONS_PLUGIN_DIR . TRX_ADDONS_PLUGIN_COMPONENTS );
 
 // Theme-specific addons
-if ( ! defined('TRX_ADDONS_PLUGIN_ADDONS') )			define('TRX_ADDONS_PLUGIN_ADDONS',		'addons/');
-if ( ! defined('TRX_ADDONS_PLUGIN_DIR_ADDONS') )		define('TRX_ADDONS_PLUGIN_DIR_ADDONS', TRX_ADDONS_PLUGIN_DIR . TRX_ADDONS_PLUGIN_ADDONS);
+if ( ! defined('TRX_ADDONS_PLUGIN_ADDONS') )			define( 'TRX_ADDONS_PLUGIN_ADDONS',		'addons/' );
+if ( ! defined('TRX_ADDONS_PLUGIN_DIR_ADDONS') )		define( 'TRX_ADDONS_PLUGIN_DIR_ADDONS', TRX_ADDONS_PLUGIN_DIR . TRX_ADDONS_PLUGIN_ADDONS );
 
 // Enqueue frontend scripts and styles priority
 if ( ! defined( 'TRX_ADDONS_ENQUEUE_SCRIPTS_PRIORITY' ) ) define( 'TRX_ADDONS_ENQUEUE_SCRIPTS_PRIORITY', 20 );
@@ -411,6 +411,8 @@ if ( !function_exists( 'trx_addons_localize_scripts_front' ) ) {
 			// AJAX parameters
 			'ajax_url'	=> esc_url(admin_url('admin-ajax.php')),
 			'ajax_nonce'=> esc_attr(wp_create_nonce(admin_url('admin-ajax.php'))),
+			// REST API url
+			'rest_url'  => esc_url(get_rest_url()),
 			// Site base url
 			'site_url'	=> esc_url( home_url() ),
 			// Plugin base url
@@ -423,6 +425,8 @@ if ( !function_exists( 'trx_addons_localize_scripts_front' ) ) {
 			'is_preview'	=> trx_addons_is_preview(),
 			'is_preview_gb'	=> trx_addons_is_preview( 'gutenberg' ),
 			'is_preview_elm'=> trx_addons_is_preview( 'elementor' ),
+			// No image placeholder
+			'no_image' => trx_addons_get_no_image(),
 			// Popup engine
 			'popup_engine'=> trx_addons_get_option('popup_engine'),
 			// Show scroll progress

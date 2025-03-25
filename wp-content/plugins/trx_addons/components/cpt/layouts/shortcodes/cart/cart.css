@@ -329,9 +329,13 @@
 .trx_addons_customizable .sc_layouts_cart_icon_custom {
   display: inline-flex;
 }
-.trx_addons_customizable .sc_layouts_cart_icon > svg {
+.trx_addons_customizable .sc_layouts_cart_icon > svg,
+.trx_addons_customizable .widget_shopping_cart a.remove > svg {
   display: inline-block;
   width: 1em;
+  -webkit-transition: fill 0.3s ease;
+  -ms-transition: fill 0.3s ease;
+  transition: fill 0.3s ease;
 }
 .trx_addons_customizable .sc_layouts_cart_icon > svg,
 .trx_addons_customizable .sc_layouts_cart_widget_close svg,
@@ -399,7 +403,7 @@
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 17px);
+  width: 100%;
   max-height: none;
   overflow-y: hidden;
   margin: 0;
@@ -408,8 +412,7 @@
   -webkit-flex-basis: 100%;
   -ms-flex-basis: 100%;
   flex-basis: 100%;
-  overflow: hidden scroll;
-  margin-right: -17px;
+  overflow: hidden auto;
 }
 .trx_addons_customizable.sc_layouts_cart_panel .sc_layouts_panel_inner .sc_layouts_cart_panel_widget .widget_shopping_cart_content .woocommerce-mini-cart__total,
 .trx_addons_customizable.sc_layouts_cart_panel .sc_layouts_panel_inner .sc_layouts_cart_panel_widget .widget_shopping_cart_content .woocommerce-mini-cart__buttons {
@@ -558,7 +561,7 @@
   float: none;
   vertical-align: top;
 }
-.trx_addons_customizable .woocommerce ul.cart_list li img {
+.trx_addons_customizable .woocommerce ul.cart_list li img, .trx_addons_customizable.sc_layouts_cart_panel .sc_layouts_cart_panel_widget .widget_shopping_cart ul.cart_list li img {
   margin: 0;
 }
 .trx_addons_customizable .woocommerce ul.cart_list li .trx_addons_sc_layouts_cart_mini_cart_item_image,
@@ -591,6 +594,9 @@
 }
 .trx_addons_customizable .trx_addons_sc_layouts_cart_mini_cart_item_name {
   display: inline-block;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .trx_addons_customizable .trx_addons_sc_layouts_cart_mini_cart_item_content {
   -webkit-flex-grow: 1;

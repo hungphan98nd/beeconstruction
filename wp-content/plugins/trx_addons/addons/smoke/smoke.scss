@@ -25,10 +25,12 @@ body.trx_addons_smoke_present {
 	}
 }
 
+.e-con,
 .elementor-section,
 .elementor-column {
 	& > .trx_addons_smoke {
 		@include abs-cover(0);
+		@include box(100%, 100%);
 		pointer-events: none;
 		display: none;
 	}
@@ -36,6 +38,7 @@ body.trx_addons_smoke_present {
 		display: block;
 	}
 }
+.e-con[class*="scheme_"],
 .elementor-section[class*="scheme_"] {
 	&.trx_addons_smoke_present,
 	&.trx_addons_smoke_present_in_column {

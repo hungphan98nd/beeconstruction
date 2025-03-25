@@ -39,6 +39,7 @@ if ( is_array( $models ) && is_array( $models['tts'] ) && count( $models['tts'] 
 				data-agenerator-default-model="<?php echo esc_attr( $args['model'] ); ?>"
 				data-agenerator-demo-audio="<?php echo ! empty( $args['demo_audio'] ) && ! empty( $args['demo_audio'][0]['audio']['url'] ) ? '1' : ''; ?>"
 				data-agenerator-limit-exceed="<?php echo esc_attr( trx_addons_get_option( "ai_helper_sc_agenerator_limit_alert" . ( ! empty( $args['premium'] ) ? '_premium' : '' ) ) ); ?>"
+				data-agenerator-download-icon="<?php echo ! empty( $args['button_download_icon'] ) ? esc_attr( $args['button_download_icon'] ) : 'trx_addons_icon-download'; ?>"
 				data-agenerator-settings="<?php
 					echo esc_attr( trx_addons_encode_settings( array(
 						'model' => $args['model'],
@@ -186,7 +187,8 @@ if ( is_array( $models ) && is_array( $models['tts'] ) && count( $models['tts'] 
 										if ( ! empty( $args['show_settings'] ) && (int) $args['show_settings'] > 0 ) {
 
 											// Button "Settings"
-											?><a href="#" class="sc_agenerator_form_settings_button trx_addons_icon-sliders"></a><?php
+											$settings_icon = ! empty( $args['settings_button_icon'] ) && ! trx_addons_is_off( $args['settings_button_icon'] ) ? $args['settings_button_icon'] : 'trx_addons_icon-sliders';
+											?><a href="#" class="sc_agenerator_form_settings_button <?php echo esc_attr( $settings_icon ) ?>"></a><?php
 
 											// Popup with settings
 											?><div class="sc_agenerator_form_settings"><?php
@@ -416,9 +418,10 @@ if ( is_array( $models ) && is_array( $models['tts'] ) && count( $models['tts'] 
 									"type" => "default",
 									"size" => "small",
 									"text_align" => "none",
-									"icon" => "trx_addons_icon-magic",
+									"icon" => ! empty( $args['button_icon'] ) ? $args['button_icon'] : "trx_addons_icon-magic",
+									"image" => ! empty( $args['button_image'] ) ? $args['button_image'] : "",
 									"icon_position" => "left",
-									"title" => ! empty( $args['button_text'] ) ? $args['button_text'] : esc_html__( 'Process', 'trx_addons' ),
+									"title" => ! empty( $args['button_text'] ) ? $args['button_text'] : esc_html__( 'Generate', 'trx_addons' ),
 									"link" => '#',
 									'class' => 'sc_agenerator_form_field_generate_button',
 								) ) ) ) ) );

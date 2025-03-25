@@ -228,7 +228,11 @@ jQuery( document ).ready( function() {
 			function check_fields_visibility() {
 
 				var action = $sc.hasClass( 'sc_igenerator_extended' ) ? $actions.find( '.sc_igenerator_form_actions_item_active a' ).data( 'action' ) : 'generation';
-				var model = ( $model.is('input[type="radio"]') ? $model.filter( ':checked' ).val() : $model.val() ) || '';
+				var model = ( $model.length
+								? ( $model.is('input[type="radio"]') ? $model.filter( ':checked' ).val() : $model.val() )
+								: $form.data( 'igenerator-default-model' )
+							)
+							|| '';
 
 				// Enable/disable the button on change the prompt text
 				var disabled = false;
@@ -464,6 +468,7 @@ jQuery( document ).ready( function() {
 							setTimeout( function() {
 								var currentDate = new Date();
 								var timestamp = currentDate.getTime();
+								var icon = $form.data( 'igenerator-download-icon' ) || 'trx_addons_icon-download';
 								var html = '<div class="sc_igenerator_columns_wrap sc_item_columns '
 												+ TRX_ADDONS_STORAGE['columns_wrap_class']
 												+ ' columns_padding_bottom'
@@ -502,7 +507,7 @@ jQuery( document ).ready( function() {
 															+ ' class="sc_igenerator_image_link sc_button sc_button_default sc_button_size_small sc_button_with_icon sc_button_icon_left"'
 															+ ' data-elementor-open-lightbox="no"'
 															+ '>'
-																+ '<span class="sc_button_icon"><span class="trx_addons_icon-download"></span></span>'
+																+ ( icon && ! trx_addons_is_off( icon ) ? '<span class="sc_button_icon"><span class="' + icon + '"></span></span>' : '' )
 																+ '<span class="sc_button_text"><span class="sc_button_title">' + TRX_ADDONS_STORAGE['msg_ai_helper_download'] + '</span></span>'
 															+ '</a>'
 														: ''
@@ -676,6 +681,9 @@ jQuery( document ).ready( function() {
 
 			// Show message
 			function show_message( msg, type ) {
+				if ( msg.indexOf( '<p>' ) == -1 ) {
+					msg = '<p>' + msg + '</p>';
+				}
 				$form
 					.find( '.sc_igenerator_message_inner' )
 						.html( msg )

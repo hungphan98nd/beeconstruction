@@ -974,7 +974,8 @@ jQuery( document ).ready( function() {
 				nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
 				action: 'trx_addons_ai_helper_fetch_images',
 				fetch_id: data.fetch_id,
-				fetch_model: data.fetch_model
+				fetch_model: data.fetch_model,
+				is_admin_request: 1
 			}, function( response ) {
 				// Prepare response
 				var rez = {};
@@ -1066,7 +1067,8 @@ jQuery( document ).ready( function() {
 				model: model,
 				size: size,
 				number: number,
-				prompt: prompt
+				prompt: prompt,
+				is_admin_request: 1
 			};
 			if ( model.indexOf( 'openai/dall-e-3' ) >= 0 ) {
 				data.style = self.controller.state().get('style');
@@ -1191,7 +1193,8 @@ jQuery( document ).ready( function() {
 				action: 'trx_addons_ai_helper_add_to_uploads',
 				image: url,
 				filename: filename,
-				caption: caption
+				caption: caption,
+				is_admin_request: 1
 			}, function( response ) {
 				// Prepare response
 				var rez = {};
@@ -1270,7 +1273,8 @@ jQuery( document ).ready( function() {
 				size: size,
 				number: number,
 				prompt: prompt,
-				image: url
+				image: url,
+				is_admin_request: 1
 			};
 			if ( model.indexOf( 'stable-diffusion/' ) >= 0 ) {
 				data.guidance_scale = self.controller.state().get('guidance_scale');
@@ -1376,7 +1380,8 @@ jQuery( document ).ready( function() {
 				nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
 				action: 'trx_addons_ai_helper_make_upscale',
 				model: model,
-				image: url
+				image: url,
+				is_admin_request: 1
 			};
 			if ( model.indexOf( 'stable-diffusion/' ) >= 0 ) {
 				data.scale = self.controller.state().get('upscale_factor');

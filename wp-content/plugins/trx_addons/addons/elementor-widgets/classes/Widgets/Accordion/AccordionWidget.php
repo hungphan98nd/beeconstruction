@@ -1812,9 +1812,9 @@ class AccordionWidget extends BaseWidget {
 					<?php $title_tag = $settings['title_html_tag']; ?>
 					<<?php echo esc_html( $title_tag ); ?> <?php $this->print_render_attribute_string( $tab_title_setting_key ); ?>>
 						<?php if ( 'yes' === $settings['show_item_numbers'] ) { ?>
-							<div class="trx-addons-accordion-title-number">
+							<span class="trx-addons-accordion-title-number">
 								<span class="trx-addons-accordion-title-number-text"><?php echo sprintf( $item_number_mask, $item_number_count ); ?></span>
-							</div>
+							</span>
 						<?php } ?>
 						<span class="trx-addons-accordion-title-icon">
 							<?php if ( ! empty( $tab['accordion_tab_title_icon'] ) || ( ! empty( $tab['tab_title_icon']['value'] ) && $is_new_title_icon ) ) { ?>

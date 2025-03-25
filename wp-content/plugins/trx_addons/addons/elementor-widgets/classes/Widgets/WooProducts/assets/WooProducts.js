@@ -21,9 +21,9 @@
         if ("yes" === isQuickView) {
 
             var widgetID = $scope.data("id"),
-                $modal = $elem.siblings(".trx-addons-woo-products-quick-view-" + widgetID),
-                $qvModal = $modal.find('#trx-addons-woo-products-quick-view-modal'),
-                $contentWrap = $qvModal.find('#trx-addons-woo-products-quick-view-content'),
+                $modal = $elem.siblings("#trx-addons-woo-products-quick-view-" + widgetID),
+                $qvModal = $modal.find('.trx-addons-woo-products-quick-view-modal'),
+                $contentWrap = $qvModal.find('.trx-addons-woo-products-quick-view-content'),
                 $wrapper = $qvModal.find('.trx-addons-woo-products-content-main-wrapper'),
                 $backWrap = $modal.find('.trx-addons-woo-products-quick-view-back'),
                 $qvLoader = $modal.find('.trx-addons-woo-products-quick-view-loader');
@@ -290,6 +290,9 @@
                     //Insert the product content in the quick view modal.
                     $contentWrap.html(data);
                     self.handleQuickViewModal();
+
+					// Trigger action after quick view loaded to init scripts on inner content
+					jQuery(document).trigger( 'trx_qv_loaded', [$contentWrap]);
                 },
                 error: function (err) {
                     console.log(err);
@@ -317,6 +320,14 @@
         };
 
         self.handleQuickViewModal = function () {
+			// Init variations form
+			$contentWrap.find( '.variations_form' ).each( function() {
+				var $form = jQuery( this );
+				if ( 'function' === typeof $form.wc_variation_form ) {
+					$form.wc_variation_form();
+				}
+			} );
+			// Init slider
             $contentWrap.imagesLoaded(function () {
                 self.handleQuickViewSlider();
             });
@@ -368,6 +379,11 @@
                     $("html").addClass('trx-addons-woo-products-qv-opened');
                 }, 350);
             }
+			// Trigger the 'resize' event to recalculate the height of the quick view modal.
+			setTimeout(function () {
+				jQuery(window).trigger('resize');
+			}, 380);
+
         };
 
         self.updateQuickViewHeight = function (update_css, isCarousel) {
@@ -385,9 +401,10 @@
             if (true === update_css)
                 $qvModal.css('opacity', 1);
 
-            //Make sure slider images have same height as summary.
-            if (isCarousel)
+            // Make sure slider images have same height as summary.
+            if ( isCarousel ) {
                 $quickView.find('.product .trx-addons-woo-products-qv-image-slider img').height(summary.outerHeight());
+			}
         };
 
         self.closeModal = function () {

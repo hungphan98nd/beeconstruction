@@ -117,7 +117,7 @@
 		@include abs-pos( 4px, 4px, 4px, auto );
 		@include border-box;
 		@include border-radius(var(--trx-addons-ai-helper-vgenerator-button-border-radius));
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 		max-width: 50%;
 		overflow: hidden;
 		padding: 0 2em;
@@ -126,6 +126,34 @@
 
 		&:not(.sc_vgenerator_form_field_prompt_button_disabled):hover {
 			background-color: $success_hover;
+		}
+		&.sc_vgenerator_form_field_prompt_button_with_icon {	// To override the theme rules
+			@include flex;
+		}
+		.sc_vgenerator_form_field_prompt_button_image {
+			max-height: 1.25em;
+			width: auto;
+		}
+		.sc_vgenerator_form_field_prompt_button_svg {
+			@include square(1.25em);
+
+			svg {
+				@include transition-property(fill);
+			}
+		}
+		.sc_vgenerator_form_field_prompt_button_icon {
+			font-size: 1.25em;
+			@include transition-property(color);
+		}
+		.sc_vgenerator_form_field_prompt_button_image,
+		.sc_vgenerator_form_field_prompt_button_svg,
+		.sc_vgenerator_form_field_prompt_button_icon {
+			& + .sc_vgenerator_form_field_prompt_button_text {
+				margin-left: 0.5em;
+			}
+		}
+		.sc_vgenerator_form_field_prompt_button_text {
+			white-space: nowrap;
 		}
 	}
 	.sc_vgenerator_form_field_prompt_button_disabled {
@@ -170,22 +198,9 @@
 	max-width: 20em;
 	min-width: 280px;
 
-	&.sc_vgenerator_form_settings_light {
-		max-height: 18em;
-		overflow-y: auto;
-		overflow-x: hidden;
-		scrollbar-width: thin;
-		&::-webkit-scrollbar-thumb {
-			@include border-radius(var(--trx-addons-ai-helper-vgenerator-fields-border-radius));
-		}
+	.sc_vgenerator_form_settings_field + .sc_vgenerator_form_settings_field {
+		margin-top: 0.5em;
 	}
-
-	&.sc_vgenerator_form_settings_full {
-		.sc_vgenerator_form_settings_field + .sc_vgenerator_form_settings_field {
-			margin-top: 0.5em;
-		}
-	}
-
 	input[type="radio"] {
 		margin-right: 0.3em;
 	}
@@ -261,8 +276,11 @@
 		}
 	}
 }
+.sc_vgenerator_form_settings_field label {
+	display: block;
+}
 
-/* Upload video */
+/* Upload keyframe */
 .sc_vgenerator_form_field_upload_keyframe_wrap {
 	@include flex;
 	@include flex-direction(row);
@@ -288,6 +306,7 @@
 	.theme_form_field_placeholder {
 		text-overflow: ellipsis;
 		color: var(--theme-color-input_light);
+		@include transition-colors;
 	}
 
 	.sc_vgenerator_form_field_upload_keyframe_text {
@@ -302,9 +321,9 @@
 	.sc_vgenerator_form_field_upload_keyframe_button {
 		@include abs-rc( 0.5em );
 		@include border-box;
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 		padding: 0.3em 1em;
-		border: 1px solid var(--theme-color-input_bd_color);
+		// border: 1px solid var(--theme-color-input_bd_color);
 		@include border-radius(var(--trx-addons-ai-helper-vgenerator-fields-border-radius));
 
 		&:before {
@@ -371,7 +390,8 @@
 		text-align: right;
 	}
 	.sc_vgenerator_limits_used {
-		white-space: nowrap;
+		// white-space: nowrap;
+		display: block;
 	}
 }
 
@@ -407,6 +427,8 @@
 		color: $error_dark;
 	}
 	a {
+		display: inline-block;
+		vertical-align: top;
 		font-weight: 500;
 		color: $error_dark;
 		border-bottom: 1px dashed $error_dark;
@@ -611,199 +633,5 @@
 
 	.sc_button_icon {
 		font-size: 1em;
-	}
-}
-
-
-/* Layout Extended */
-
-.sc_vgenerator_extended {
-	.sc_vgenerator_form_actions {
-		width: 100%;
-	}
-	.sc_vgenerator_form_actions_list {
-		@include flex;
-		@include flex-direction(row);
-		@include flex-justify-content(flex-start);
-		@include flex-align-items(flex-start);
-		@include flex-wrap(wrap);
-		@include border-box;
-		gap: 2em;
-		
-		position: relative;
-
-		list-style: none;
-		padding: 0;
-		margin: 0;
-
-		&:after {
-			content: ' ';
-			display: block;
-			width: 100%;
-			height: 2px;
-			background-color: $tab_border_color;
-			@include abs-lb(0, 0, 1);
-		}
-	}
-	.sc_vgenerator_form_actions_item {
-		@include border-box;
-
-		& > a {
-			display: block;
-			padding: 1em 0;
-			@include border-box;
-			position: relative;
-			text-transform: uppercase;
-			font-weight: 500;
-			color: $tab_text_disabled;
-		}
-		&.sc_vgenerator_form_actions_item_active > a,
-		& > a:hover,
-		& > a:focus {
-			color: $tab_text_color;
-		}
-	}
-	.sc_vgenerator_form_actions_slider {
-		@include abs-lb(0, 0, 2);
-		@include border-box;
-		@include transition-properties(left, width, opacity);
-		width: 0;
-		height: 2px;
-		background-color: $tab_text_color;
-		opacity: 0;
-
-		&.sc_vgenerator_form_actions_slider_inited {
-			opacity: 1;
-		}
-	}
-	.sc_vgenerator_form_fields {
-		@include flex;
-		@include flex-direction(row);
-		@include flex-justify-content(space-between);
-		@include flex-align-items(flex-start);
-		@include flex-wrap(nowrap);
-		@include border-box;
-		gap: 2em;
-		width: 100%;
-		padding: 2em 0;
-	}
-	.sc_vgenerator_form_fields_left {
-		@include flex-basis(60%);
-		max-width: 60%;
-	}
-	.sc_vgenerator_form_fields_right {
-		@include flex-basis(40%);
-	}
-
-	.sc_vgenerator_form_field {
-		margin: 0 0 1.5em 0;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-	.sc_vgenerator_form_field_prompt {
-		input[type="text"] {
-			padding-right: 1.4em;
-		}
-	}
-	
-	.sc_vgenerator_form_field_tags {
-		@include flex-justify-content(flex-start);
-	}
-
-	.sc_vgenerator_form_field_description {
-		font-size: 0.8em;
-		line-height: 1.5em;
-		margin-top: 0.25em;
-		color: $text_light;
-	}
-
-	.sc_vgenerator_form_field_model_wrap_with_settings {
-		@include flex;
-		@include flex-direction(row);
-		@include flex-justify-content(space-between);
-		@include flex-align-items(stretch);
-		@include flex-wrap(nowrap);
-		@include border-box;
-		gap: 4px;
-		width: 100%;
-
-		.sc_vgenerator_form_settings_button {
-			margin-left: 0;
-
-			&.trx_addons_hidden {
-				display: none;
-			}
-		}
-		.sc_vgenerator_form_settings {
-			top: 100%;
-			margin-top: 4px;
-		}
-		.sc_vgenerator_form_settings_field + .sc_vgenerator_form_settings_field  {
-			margin-top: 0.5em;
-		}
-		.sc_vgenerator_form_settings_field_description {
-			font-size: 0.8em;
-			line-height: 1.5em;
-			margin-top: 0.25em;
-			color: $text_light;
-		}
-	}
-
-	.sc_vgenerator_form_field_size {
-		@include flex;
-		@include flex-direction(row);
-		@include flex-justify-content(space-between);
-		@include flex-align-items(flex-start);
-		@include flex-wrap(nowrap);
-		@include border-box;
-		gap: 4px;
-		width: 100%;
-	}
-	.sc_vgenerator_form_field_size_wrap,
-	.sc_vgenerator_form_field_scale_wrap {
-		min-width: 50%;
-		@include flex-grow(1);
-	}
-	.sc_vgenerator_form_field_dimensions_wrap {
-		@include flex;
-		@include flex-direction(row);
-		@include flex-justify-content(space-between);
-		@include flex-align-items(flex-start);
-		@include flex-wrap(nowrap);
-		@include border-box;
-		gap: 4px;
-
-		&.trx_addons_hidden {
-			display: none;
-		}
-	}
-	.sc_vgenerator_form_field_width_wrap,
-	.sc_vgenerator_form_field_height_wrap {
-		@include flex-grow(1);
-	}
-
-	.sc_vgenerator_form_field_generate {
-		@include flex;
-		@include flex-direction(row);
-		@include flex-justify-content(flex-end);
-		@include flex-align-items(flex-start);
-		@include flex-wrap(nowrap);
-		@include border-box;
-		width: 100%;
-
-		.sc_vgenerator_form_field_generate_button {
-			&.sc_vgenerator_form_field_disabled {
-				opacity: 0.5;
-				cursor: default;
-				pointer-events: none;
-			}
-		}
-	}
-
-	.sc_vgenerator_limits {
-		padding-top: 1em;
-		border-top: 1px solid $tab_border_color;
 	}
 }

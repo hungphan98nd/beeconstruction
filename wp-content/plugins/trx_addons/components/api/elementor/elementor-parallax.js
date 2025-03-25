@@ -377,7 +377,7 @@
 			target_id     = $target.data( 'id' );
 
 		if ( ! target_id ) {
-			target_id = 'parallax' + ( '' + Math.random() ).replace( '.', '' );
+			target_id = 'parallax' + trx_addons_get_unique_id();
 			$target.data( 'id', target_id );
 		}
 

@@ -1758,6 +1758,9 @@ a.trx_addons_popup_link:before {
   -webkit-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-transition: background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .trx_addons_popup .trx_addons_tabs_titles li.trx_addons_tabs_title > a {
@@ -1774,6 +1777,12 @@ a.trx_addons_popup_link:before {
   display: inline-block;
   line-height: inherit;
   margin-right: 0.3em;
+  font-style: normal;
+}
+.trx_addons_popup .trx_addons_tabs_titles li.trx_addons_tabs_title > a > i i:before {
+  -webkit-transition: color 0.3s ease;
+  -ms-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .trx_addons_popup .trx_addons_tabs_titles li.trx_addons_tabs_title[data-disabled="true"] a,
@@ -2386,6 +2395,9 @@ aside .post_item .post_content {
 aside .post_item .post_title {
   margin: -2px 0 4px 0;
   text-align: left;
+}
+.widget_area .post_item:where(:not(.trx_addons_customizable)) .post_title,
+aside .post_item:where(:not(.trx_addons_customizable)) .post_title {
   line-height: 1.25em;
   font-weight: 400;
 }

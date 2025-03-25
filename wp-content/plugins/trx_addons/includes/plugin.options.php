@@ -321,12 +321,10 @@ if ( ! function_exists( 'trx_addons_init_options' ) ) {
 					"std" => "0",
 					"type" => "switch"
 				),
+			),
 
-				// 'general_section_redirects' => array(
-				// 	"title" => esc_html__('Page Redirects', 'trx_addons'),
-				// 	'icon' => 'trx_addons_icon-menu',
-				// 	"type" => "section"
-				// ),
+			apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'page_404' ) ? array() :
+			array(
 				'redirect_404_info' => array(
 					"title" => esc_html__('404 Page', 'trx_addons'),
 					"desc" => wp_kses_data( __("Settings for 404 error", 'trx_addons') ),
@@ -339,7 +337,9 @@ if ( ! function_exists( 'trx_addons_init_options' ) ) {
 					"options" => array(),
 					"type" => "select"
 				),
+			),
 
+			array(
 				'general_section_preloader' => array(
 					"title" => esc_html__('Preloader', 'trx_addons'),
 					'icon' => 'trx_addons_icon-spin5',

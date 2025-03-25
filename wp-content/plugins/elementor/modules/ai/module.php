@@ -44,6 +44,10 @@ class Module extends BaseModule {
 			add_action( 'elementor/import-export/import-kit/runner/after-run', [ $this, 'handle_kit_install' ] );
 		}
 
+		if ( ! Plugin::$instance->experiments->is_feature_active( 'container' ) ) {
+			return;
+		}
+
 		if ( ! $this->is_ai_enabled() ) {
 			return;
 		}
@@ -167,10 +171,6 @@ class Module extends BaseModule {
 	}
 
 	public function is_ai_enabled() {
-		if ( ! Plugin::$instance->experiments->is_feature_active( 'container' ) ) {
-			return false;
-		}
-
 		return Preferences::is_ai_enabled( get_current_user_id() );
 	}
 
@@ -187,13 +187,13 @@ class Module extends BaseModule {
 			return;
 		}
 
-		if ( ! isset( $imported_data['configData']['lastImportedSession']['instance_data']['site_settings']['settings']['ai'] ) ) {
-			return;
-		}
-
 		$is_connected = $this->get_ai_app()->is_connected() && User::get_introduction_meta( 'ai_get_started' );
 
 		if ( ! $is_connected ) {
+			return;
+		}
+
+		if ( ! isset( $imported_data['configData']['lastImportedSession']['instance_data']['site_settings']['settings']['ai'] ) ) {
 			return;
 		}
 

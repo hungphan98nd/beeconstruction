@@ -37,7 +37,8 @@
 				jQuery.post(
 					TRX_ADDONS_STORAGE['ajax_url'], {
 						'action': 'trx_addons_hide_' + jQuery( this ).parent().data( 'notice' ) + '_notice',
-						'nonce': TRX_ADDONS_STORAGE['ajax_nonce']
+						'nonce': TRX_ADDONS_STORAGE['ajax_nonce'],
+						is_admin_request: 1
 					},
 					function(response){}
 				);

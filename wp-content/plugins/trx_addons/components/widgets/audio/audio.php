@@ -41,6 +41,8 @@ class trx_addons_widget_audio extends TRX_Addons_Widget {
 		$prev_btn     = isset( $instance['prev_btn'] ) ? $instance['prev_btn'] : '1';
 		$next_text    = isset( $instance['next_text'] ) ? $instance['next_text'] : '';
 		$prev_text    = isset( $instance['prev_text'] ) ? $instance['prev_text'] : '';
+		$next_icon    = isset( $instance['next_icon'] ) ? $instance['next_icon'] : '';
+		$prev_icon    = isset( $instance['prev_icon'] ) ? $instance['prev_icon'] : '';
 		$now_text     = isset( $instance['now_text'] ) ? $instance['now_text'] : '';
 		$track_time   = isset( $instance['track_time'] ) ? $instance['track_time'] : '';
 		$track_scroll = isset( $instance['track_scroll'] ) ? $instance['track_scroll'] : '';
@@ -72,7 +74,7 @@ class trx_addons_widget_audio extends TRX_Addons_Widget {
 			'trx_addons_args_widget_audio',
 			apply_filters(
 				'trx_addons_filter_widget_args',
-				array_merge( $args, compact( 'title', 'subtitle', 'next_btn', 'next_text', 'prev_btn', 'prev_text', 'now_text', 'track_time', 'track_scroll', 'track_volume', 'media' ) ),
+				array_merge( $args, compact( 'title', 'subtitle', 'prev_btn', 'next_btn', 'prev_icon', 'next_icon', 'prev_text', 'next_text', 'now_text', 'track_time', 'track_scroll', 'track_volume', 'media' ) ),
 				$instance, 'trx_addons_widget_audio'
 			)
 		);

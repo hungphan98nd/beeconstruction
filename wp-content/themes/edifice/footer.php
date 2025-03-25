@@ -94,5 +94,34 @@
 
 	<?php wp_footer(); ?>
 
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+		    // Bắt sự kiện click vào nút mở popup
+		    document.querySelectorAll(".trx_addons_panel_link.panel_inited").forEach(function (btn) {
+		        btn.addEventListener("click", function (event) {
+		            event.preventDefault(); 
+
+		            // Hiển thị popup bằng cách thêm class
+		            document.querySelector(".sc_layouts_panel_hide_content")?.classList.add("inited", "sc_layouts_panel_opened");
+		            document.getElementById("panel-bar-inverse")?.classList.add("inited", "animate_to_inited", "sc_layouts_panel_opened");
+		            document.getElementById("panel-bar-inverse2")?.classList.add("inited", "animate_to_inited", "sc_layouts_panel_opened");
+		        });
+		    });
+
+		    // Bắt sự kiện click vào nút đóng popup
+		    document.querySelectorAll(".sc_layouts_panel_close.trx_addons_button_close").forEach(function (closeBtn) {
+		        closeBtn.addEventListener("click", function () {
+		            // Ẩn popup bằng cách xóa class
+		            document.querySelector(".sc_layouts_panel_hide_content")?.classList.remove("inited", "sc_layouts_panel_opened");
+		            document.getElementById("panel-bar-inverse")?.classList.remove("inited", "animate_to_inited", "sc_layouts_panel_opened");
+		            document.getElementById("panel-bar-inverse2")?.classList.remove("inited", "animate_to_inited", "sc_layouts_panel_opened");
+		        });
+		    });
+		});
+	</script>
+
+
+
 </body>
 </html>

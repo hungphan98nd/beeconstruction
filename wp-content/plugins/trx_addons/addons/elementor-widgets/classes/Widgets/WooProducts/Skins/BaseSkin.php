@@ -28,6 +28,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class BaseSkin extends Elementor_Skin_Base {
 
+	var $parent = null;
+
 	/**
 	 * Query object
 	 *
@@ -42,14 +44,11 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 	 */
 	public static $query_args;
 
-	/**
-	 * Rendered Settings
-	 *
-	 * @var object $_render_attributes
-	 */
-	public $_render_attributes;
 
 	protected function _register_controls_actions() {
+
+		// Init a property 'parent'
+		add_action( 'elementor/element/trx_elm_woo_products/section_general_section/after_section_end', array( $this, 'init_parent' ), 10, 1 );
 
 		// -- Style Start
 		// Product Title Style.
@@ -68,6 +67,15 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 		add_action( 'elementor/element/trx_elm_woo_products/section_carousel_style/after_section_end', array( $this, 'register_quick_view_modal_style_controls' ), 100 );
 		add_action( 'elementor/element/trx_elm_woo_products/section_carousel_style/after_section_end', array( $this, 'register_quick_view_content_style_controls' ), 100 );
 		add_action( 'elementor/element/trx_elm_woo_products/section_carousel_style/after_section_end', array( $this, 'register_quick_view_slider_style_controls' ), 100 );
+	}
+
+	/**
+	 * Init a property 'parent'
+	 *
+	 * @return void
+	 */
+	public function init_parent( BaseWidget $widget ) {
+		$this->parent = $widget;
 	}
 
 	/**
@@ -474,7 +482,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			array(
 				'name'      => 'qv_container_background',
 				'types'     => array( 'classic', 'gradient' ),
-				'selector'  => '#trx-addons-woo-products-quick-view-{{ID}} #trx-addons-woo-products-quick-view-modal .trx-addons-woo-products-lightbox-content',
+				'selector'  => '#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-woo-products-quick-view-modal .trx-addons-woo-products-lightbox-content',
 			)
 		);
 
@@ -1367,6 +1375,29 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'carousel_dot_size',
+			array(
+				'label'      => __( 'Size', 'trx_addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em', 'rem' ),
+				'selectors'  => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->start_controls_tabs(
+			'qv_dots_tabs'
+		);
+
+		$this->start_controls_tab(
+			'qv_dots_tab_normal',
+			array(
+				'label' => __( 'Normal', 'trx_addons' ),
+			)
+		);
+
 		$this->add_control(
 			'carousel_dot_color',
 			array(
@@ -1381,6 +1412,78 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'carousel_dot_border',
+				'selector' => '#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a'
+			)
+		);
+
+		$this->add_responsive_control(
+			'carousel_dot_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'trx_addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em', 'rem' ),
+				'selectors'  => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		
+		$this->start_controls_tab(
+			'qv_dots_tab_hover',
+			array(
+				'label' => __( 'Hover', 'trx_addons' ),
+			)
+		);
+
+		$this->add_control(
+			'carousel_dot_color_hover',
+			array(
+				'label'     => __( 'Hover Color', 'trx_addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
+				),
+				'selectors' => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a:hover' => 'background-color: {{VALUE}}',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'carousel_dot_border_hover',
+				'selector' => '#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a:hover'
+			)
+		);
+
+		$this->add_responsive_control(
+			'carousel_dot_border_radius_hover',
+			array(
+				'label'      => __( 'Border Radius', 'trx_addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em', 'rem' ),
+				'selectors'  => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		
+		$this->start_controls_tab(
+			'qv_dots_tab_active',
+			array(
+				'label' => __( 'Active', 'trx_addons' ),
+			)
+		);
+
 		$this->add_control(
 			'carousel_dot_active_color',
 			array(
@@ -1390,30 +1493,41 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'#trx-addons-woo-products-quick-view-{{ID}} a.flex-active' => 'background-color: {{VALUE}}',
+					'#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a.flex-active' => 'background-color: {{VALUE}}',
 				),
 			)
 		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'carousel_dot_border_active',
+				'selector' => '#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a.flex-active'
+			)
+		);
+
+		$this->add_responsive_control(
+			'carousel_dot_border_radius_active',
+			array(
+				'label'      => __( 'Border Radius', 'trx_addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em', 'rem' ),
+				'selectors'  => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .flex-control-nav a.flex-active' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->add_control(
 			'qv_arrow_heading',
 			array(
 				'label' => __( 'Arrow', 'trx_addons' ),
 				'type'  => Controls_Manager::HEADING,
-			)
-		);
-
-		$this->add_control(
-			'arrow_color',
-			array(
-				'label'     => __( 'Color', 'trx_addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => Global_Colors::COLOR_PRIMARY,
-				),
-				'selectors' => array(
-					'#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow' => 'color: {{VALUE}} !important',
-				),
+				'separator' => 'before',
 			)
 		);
 
@@ -1452,6 +1566,31 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			)
 		);
 
+		$this->start_controls_tabs(
+			'qv_arrow_tabs'
+		);
+
+		$this->start_controls_tab(
+			'qv_arrow_tab_normal',
+			array(
+				'label' => __( 'Normal', 'trx_addons' ),
+			)
+		);
+
+		$this->add_control(
+			'arrow_color',
+			array(
+				'label'     => __( 'Color', 'trx_addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
+				),
+				'selectors' => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow' => 'color: {{VALUE}} !important',
+				),
+			)
+		);
+
 		$this->add_control(
 			'carousel_arrow_background',
 			array(
@@ -1460,6 +1599,14 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 				'selectors' => array(
 					'#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow' => 'background-color: {{VALUE}};',
 				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'carousel_arrow_border',
+				'selector' => '#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow'
 			)
 		);
 
@@ -1486,6 +1633,64 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 				),
 			)
 		);
+
+		$this->end_controls_tab();
+		
+		$this->start_controls_tab(
+			'qv_arrow_tab_hover',
+			array(
+				'label' => __( 'Hover', 'trx_addons' ),
+			)
+		);
+
+		$this->add_control(
+			'arrow_color_hover',
+			array(
+				'label'     => __( 'Color', 'trx_addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
+				),
+				'selectors' => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow:hover' => 'color: {{VALUE}} !important',
+				),
+			)
+		);
+
+		$this->add_control(
+			'carousel_arrow_background_hover',
+			array(
+				'label'     => __( 'Background Color', 'trx_addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow:hover' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'carousel_arrow_border_hover',
+				'selector' => '#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow:hover'
+			)
+		);
+
+		$this->add_responsive_control(
+			'carousel_border_radius_hover',
+			array(
+				'label'      => __( 'Border Radius', 'trx_addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'#trx-addons-woo-products-quick-view-{{ID}} .trx-addons-slider-arrow:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}
@@ -2058,99 +2263,15 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			$divider = $this->get_instance_value( 'divider' );
 
 			if ( 'yes' === $divider && 'grid' === $settings['layout_type'] ) {
-				$this->add_render_attribute( 'wrapper', 'class', 'trx-addons-woo-products-grid-' . $woocommerce_loop['columns'] );
+				$this->parent->add_render_attribute( 'wrapper', 'class', 'trx-addons-woo-products-grid-' . $woocommerce_loop['columns'] );
 			} elseif ( 'masonry' === $settings['layout_type'] ) {
-				$this->add_render_attribute( 'wrapper', 'class', 'trx-addons-woo-products-masonry-' . $woocommerce_loop['columns'] );
+				$this->parent->add_render_attribute( 'wrapper', 'class', 'trx-addons-woo-products-masonry-' . $woocommerce_loop['columns'] );
 			}
 		}
 	}
 
 	/**
-	 * Add render attribute.
-	 *
-	 * Used to add attributes to a specific HTML element.
-	 *
-	 * The HTML tag is represented by the element parameter, then you need to
-	 * define the attribute key and the attribute key. The final result will be:
-	 * `<element attribute_key="attribute_value">`.
-	 *
-	 * Example usage:
-	 *
-	 * `$this->add_render_attribute( 'wrapper', 'class', 'custom-widget-wrapper-class' );`
-	 * `$this->add_render_attribute( 'widget', 'id', 'custom-widget-id' );`
-	 * `$this->add_render_attribute( 'button', [ 'class' => 'custom-button-class', 'id' => 'custom-button-id' ] );`
-	 *
-	 *
-	 * @param array|string $element   The HTML element.
-	 * @param array|string $key       Optional. Attribute key. Default is null.
-	 * @param array|string $value     Optional. Attribute value. Default is null.
-	 * @param bool         $overwrite Optional. Whether to overwrite existing
-	 *                                attribute. Default is false, not to overwrite.
-	 *
-	 * @return Element_Base Current instance of the element.
-	 */
-	public function add_render_attribute( $element, $key = null, $value = null, $overwrite = false ) {
-		if ( is_array( $element ) ) {
-			foreach ( $element as $element_key => $attributes ) {
-				$this->add_render_attribute( $element_key, $attributes, null, $overwrite );
-			}
-
-			return $this;
-		}
-
-		if ( is_array( $key ) ) {
-			foreach ( $key as $attribute_key => $attributes ) {
-				$this->add_render_attribute( $element, $attribute_key, $attributes, $overwrite );
-			}
-
-			return $this;
-		}
-
-		if ( empty( $this->_render_attributes[ $element ][ $key ] ) ) {
-			$this->_render_attributes[ $element ][ $key ] = array();
-		}
-
-		settype( $value, 'array' );
-
-		if ( $overwrite ) {
-			$this->_render_attributes[ $element ][ $key ] = $value;
-		} else {
-			$this->_render_attributes[ $element ][ $key ] = array_merge( $this->_render_attributes[ $element ][ $key ], $value );
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Get render attribute string.
-	 *
-	 * Used to retrieve the value of the render attribute.
-	 *
-	 * @access public
-	 *
-	 * @param array|string $element The element.
-	 *
-	 * @return string Render attribute string, or an empty string if the attribute
-	 *                is empty or not exist.
-	 */
-	public function get_render_attribute_string( $element ) {
-		if ( empty( $this->_render_attributes[ $element ] ) ) {
-			return '';
-		}
-
-		$render_attributes = $this->_render_attributes[ $element ];
-
-		$attributes = array();
-
-		foreach ( $render_attributes as $attribute_key => $attribute_values ) {
-			$attributes[] = sprintf( '%1$s="%2$s"', $attribute_key, esc_attr( implode( ' ', $attribute_values ) ) );
-		}
-
-		return implode( ' ', $attributes );
-	}
-
-	/**
-	 * Get Wrapper Classes.
+	 * Add slider settings to the render attributes of the wrapper.
 	 *
 	 * @since 4.7.0
 	 * @access public
@@ -2231,7 +2352,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			}
 		}
 
-		$this->add_render_attribute(
+		$this->parent->add_render_attribute(
 			'wrapper',
 			array(
 				// 'class'             => 'premium-carousel-hidden',
@@ -2368,7 +2489,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			}
 		}
 
-		$this->add_render_attribute(
+		$this->parent->add_render_attribute(
 			'wrapper',
 			array(
 				'class'           => $classes,
@@ -2379,7 +2500,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 		);
 
 		?>
-		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'wrapper' ) ); ?> >
+		<div <?php echo wp_kses_post( $this->parent->get_render_attribute_string( 'wrapper' ) ); ?> >
 		<?php
 	}
 
@@ -2402,7 +2523,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 	public function start_loop_inner() {
 		$settings = $this->parent->get_settings_for_display();
 
-		$this->add_render_attribute(
+		$this->parent->add_render_attribute(
 			'inner',
 			array(
 				'class' => array(
@@ -2412,7 +2533,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 		);
 
 		if ( '' !== $settings['hover_style'] ) {
-			$this->add_render_attribute(
+			$this->parent->add_render_attribute(
 				'inner',
 				array(
 					'class' => array(
@@ -2423,7 +2544,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 		}
 
 		if ( 'carousel' === $settings['layout_type'] ) {
-			$this->add_render_attribute(
+			$this->parent->add_render_attribute(
 				'inner',
 				array(
 					'class' => array(
@@ -2434,7 +2555,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 		}
 
 		?>
-		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'inner' ) ); ?> >
+		<div <?php echo wp_kses_post( $this->parent->get_render_attribute_string( 'inner' ) ); ?> >
 		<?php
 	}
 
@@ -2671,18 +2792,18 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 			$widget_id = $this->parent->get_id();
 
 			?>
-			<div id="trx-addons-woo-products-quick-view-<?php esc_attr_e( $widget_id ); ?>" class="trx-addons-woo-products-quick-view-<?php esc_attr_e( $widget_id ); ?>">
+			<div id="trx-addons-woo-products-quick-view-<?php esc_attr_e( $widget_id ); ?>" class="trx-addons-woo-products-quick-view">
 				<div class="trx-addons-woo-products-quick-view-back">
 					<div class="trx-addons-woo-products-quick-view-loader"></div>
 				</div>
-				<div id="trx-addons-woo-products-quick-view-modal">
+				<div class="trx-addons-woo-products-quick-view-modal">
 					<div class="trx-addons-woo-products-content-main-wrapper"><?php /*Don't remove this html comment*/ ?><!--
 					--><div class="trx-addons-woo-products-content-main">
 							<div class="trx-addons-woo-products-lightbox-content">
 
 								<a href="#" class="trx-addons-woo-products-quick-view-close fa fa-close"></a>
 
-								<div id="trx-addons-woo-products-quick-view-content" class="woocommerce single-product"></div>
+								<div class="trx-addons-woo-products-quick-view-content woocommerce single-product"></div>
 							</div>
 						</div>
 					</div>
@@ -3531,8 +3652,8 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 		}
 
 		if ( ! empty( $settings[$skin . '_' . $icon_name] ) ) {
-			$this->add_render_attribute( $icon_slug, 'class', $settings[$skin . '_' . $icon_name] );
-			$this->add_render_attribute( $icon_slug, 'aria-hidden', 'true' );
+			$this->parent->add_render_attribute( $icon_slug, 'class', $settings[$skin . '_' . $icon_name] );
+			$this->parent->add_render_attribute( $icon_slug, 'aria-hidden', 'true' );
 		}
 
 		$migrated = isset( $settings['__fa4_migrated'][ $skin . '_' . $icon_name_select ] );
@@ -3543,7 +3664,7 @@ abstract class BaseSkin extends Elementor_Skin_Base {
 				<?php if ( $is_new || $migrated ) :
 					Icons_Manager::render_icon( $select_icon, [ 'aria-hidden' => 'true', 'fill' => 'currentColor' ] );
 				else : ?>
-					<i <?php echo $this->get_render_attribute_string( $icon_slug ); ?>></i>
+					<i <?php echo $this->parent->get_render_attribute_string( $icon_slug ); ?>></i>
 				<?php endif; ?>
 			</<?php echo $options['tag_name'] ?>>
 		<?php }

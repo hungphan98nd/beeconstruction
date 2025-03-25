@@ -29,7 +29,9 @@ var link_class_over = "<?php echo apply_filters('trx_addons_filter_sc_item_link_
 			print( trx_addons_get_responsive_classes( 'sc_mgenerator_form_align_', settings, 'align', '' ).replace( /flex-start|flex-end/g, function( match ) {
 				return match == 'flex-start' ? 'left' : 'right';
 			} ) );
-		#>">
+			#>"
+			data-mgenerator-download-icon="{{ settings.button_download_icon }}"
+		>
 			<div class="sc_mgenerator_form_inner">
 				<div class="sc_mgenerator_form_field sc_mgenerator_form_field_prompt<#
 					if ( settings.show_settings ) {
@@ -38,11 +40,42 @@ var link_class_over = "<?php echo apply_filters('trx_addons_filter_sc_item_link_
 				#>">
 					<div class="sc_mgenerator_form_field_inner">
 						<input type="text" value="{{ settings.prompt }}" class="sc_mgenerator_form_field_prompt_text" placeholder="{{{ settings.placeholder_text || '<?php esc_attr_e('Describe what you want or hit a tag below', 'trx_addons'); ?>' }}}">
-						<a href="#" class="sc_mgenerator_form_field_prompt_button<# if ( ! settings.prompt ) print( ' sc_mgenerator_form_field_disabled' ); #>">{{{ settings.button_text || '<?php esc_html_e('Generate', 'trx_addons'); ?>' }}}</a>
+						<a href="#" class="sc_mgenerator_form_field_prompt_button<#
+							if ( ! settings.prompt ) {
+								print( ' sc_mgenerator_form_field_disabled' );
+							}
+							print( settings.button_image.url || ( settings.button_icon && ! trx_addons_is_off( settings.button_icon ) )
+									? ' sc_mgenerator_form_field_prompt_button_with_icon'
+									: ' sc_mgenerator_form_field_prompt_button_without_icon'
+							);
+						#>"><#
+							if ( settings.button_image.url ) {
+								image_type = trx_addons_get_file_ext( settings.button_image.url );
+								if ( image_type == 'svg' ) {
+									#><span class="sc_mgenerator_form_field_prompt_button_svg"><#
+										print( trx_addons_get_inline_svg( settings.button_image.url, {
+											render: function( html ) {
+												if ( html ) {
+													elementor.$previewContents.find( '#' + id + ' .sc_mgenerator_form_field_prompt_button_svg' ).html( html );
+												}
+											}
+										} ) );
+									#></span><#
+								} else {
+									#><img src="{{ settings.button_image.url }}" alt="{{ settings.button_image.alt }}" class="sc_mgenerator_form_field_prompt_button_image"><#
+								}
+							} else if ( settings.button_icon && ! trx_addons_is_off( settings.button_icon ) ) {
+								#><span class="sc_mgenerator_form_field_prompt_button_icon {{ settings.button_icon }}"></span><#
+							}
+							if ( settings.button_text !== '#' ) {
+								#><span class="sc_mgenerator_form_field_prompt_button_text">{{{ settings.button_text || '<?php esc_html_e( 'Generate', 'trx_addons' ); ?>' }}}</span><#
+							}
+						#></a>
 					</div><#
 					if ( settings.show_settings ) {
+						var settings_icon = settings.settings_button_icon && ! trx_addons_is_off( settings.settings_button_icon ) ? settings.settings_button_icon : 'trx_addons_icon-sliders';
 						#>
-						<a href="#" class="sc_mgenerator_form_settings_button trx_addons_icon-sliders"></a>
+						<a href="#" class="sc_mgenerator_form_settings_button {{ settings_icon }}"></a>
 						<div class="sc_mgenerator_form_settings"><#
 
 							// Sample Rate (numeric field)
@@ -121,10 +154,10 @@ var link_class_over = "<?php echo apply_filters('trx_addons_filter_sc_item_link_
 			if ( settings.show_limits ) {
 				#><div class="sc_mgenerator_limits">
 					<span class="sc_mgenerator_limits_label"><?php
-						esc_html_e( 'Limits per hour (day/week/month/year): XX music.', 'trx_addons' );
+						echo wp_kses_post( sprintf( __( 'Limits per hour (day/week/month/year): %s audios.', 'trx_addons' ), '<span class="sc_mgenerator_limits_total_value">XX</span>' ) );
 					?></span>
 					<span class="sc_mgenerator_limits_value"><?php
-						esc_html_e( 'Used: YY music.', 'trx_addons' );
+						echo wp_kses_post( sprintf( __( 'Used: %s audios.', 'trx_addons' ), '<span class="sc_mgenerator_limits_used_value">YY</span>' ) );
 					?></span>
 				</div><#
 			}

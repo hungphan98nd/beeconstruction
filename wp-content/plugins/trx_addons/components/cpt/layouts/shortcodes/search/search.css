@@ -430,6 +430,10 @@
   background-color: #fff;
   overflow: hidden;
 }
+.search_style_fullscreen.search_opened .search_form_wrap.animated {
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
 
 .search_style_fullscreen .search_form_overlay {
   position: fixed;

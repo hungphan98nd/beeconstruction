@@ -147,13 +147,25 @@ body.post-type-cpt_layouts .sc_layouts_column_align_center [data-type^="trx-addo
 
 /* Hide on XXX
 ------------------------------------------------- */
-body.frontpage:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.home-page:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.home:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.error404:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.single:not(.elementor-editor-active) .sc_layouts_hide_on_singular,
-body.page:not(.elementor-editor-active) .sc_layouts_hide_on_singular,
-body:not(.single):not(.page):not(.elementor-editor-active) .sc_layouts_hide_on_other {	display: none !important; }
+.hide_on_frontpage, .sc_layouts_hide_on_frontpage {
+	body.frontpage:not(.elementor-editor-active) &,
+	body.home-page:not(.elementor-editor-active) &,
+	body.home:not(.elementor-editor-active) &,
+	body.error404:not(.elementor-editor-active) & {
+		display: none !important;
+	}
+}
+.hide_on_singular, .sc_layouts_hide_on_singular	{
+	body.single:not(.elementor-editor-active) &,
+	body.page:not(.elementor-editor-active) & {
+		display: none !important;
+	}
+}
+.hide_on_other, .sc_layouts_hide_on_other {
+	body:not(.single):not(.page):not(.elementor-editor-active) & {
+		display: none !important;
+	}
+}
 
 @media #{$media_wide} {
 	.hide_on_wide, .sc_layouts_hide_on_wide {			display: none !important; }
@@ -194,6 +206,9 @@ body:not(.single):not(.page):not(.elementor-editor-active) .sc_layouts_hide_on_o
 }
 .sc_layouts_item_icon.sc_icon_type_svg svg,
 .sc_layouts_item_icon.sc_icon_type_svg object {
+	@include box(1em, 1em);
+}
+.sc_layouts_item_icon.sc_icon_type_images img {
 	@include box(1em, 1em);
 }
 .sc_layouts_item_details {

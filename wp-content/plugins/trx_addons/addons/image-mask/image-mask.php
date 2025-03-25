@@ -18,7 +18,7 @@ if (!function_exists('trx_addons_elm_add_params_image_mask')) {
 
 		if ( ! is_object($element) ) return;
 
-		if ( in_array( $element->get_name(), array( 'section', 'column', 'common' ) ) && $section_id == '_section_responsive' ) {
+		if ( in_array( $element->get_name(), array( 'container', 'section', 'column', 'common' ) ) && $section_id == '_section_responsive' ) {
 			
 			$element->start_controls_section( 'section_trx_image_mask', array(
 																		'tab' => !empty($args['tab']) ? $args['tab'] : \Elementor\Controls_Manager::TAB_ADVANCED,

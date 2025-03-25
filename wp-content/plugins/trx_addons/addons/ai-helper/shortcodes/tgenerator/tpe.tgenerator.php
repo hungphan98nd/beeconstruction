@@ -36,9 +36,40 @@ var id = settings._element_id ? settings._element_id + '_sc' : 'sc_tgenerator_' 
 							value="{{ settings.prompt }}"
 							placeholder="{{{ settings.placeholder_text || '<?php esc_attr_e('Describe what you want or select a "Text type" or a "Process text" below', 'trx_addons'); ?>' }}}"
 						>
-						<a href="#" class="sc_tgenerator_form_field_prompt_button<# if ( ! settings.prompt ) print( ' sc_tgenerator_form_field_prompt_button_disabled' ); #>">{{{ settings.button_text || '<?php esc_html_e('Generate', 'trx_addons'); ?>' }}}</a>
+						<a href="#" class="sc_tgenerator_form_field_prompt_button<#
+							if ( ! settings.prompt ) {
+								print( ' sc_tgenerator_form_field_disabled' );
+							}
+							print( settings.button_image.url || ( settings.button_icon && ! trx_addons_is_off( settings.button_icon ) )
+									? ' sc_tgenerator_form_field_prompt_button_with_icon'
+									: ' sc_tgenerator_form_field_prompt_button_without_icon'
+							);
+						#>"><#
+							if ( settings.button_image.url ) {
+								image_type = trx_addons_get_file_ext( settings.button_image.url );
+								if ( image_type == 'svg' ) {
+									#><span class="sc_tgenerator_form_field_prompt_button_svg"><#
+										print( trx_addons_get_inline_svg( settings.button_image.url, {
+											render: function( html ) {
+												if ( html ) {
+													elementor.$previewContents.find( '#' + id + ' .sc_tgenerator_form_field_prompt_button_svg' ).html( html );
+												}
+											}
+										} ) );
+									#></span><#
+								} else {
+									#><img src="{{ settings.button_image.url }}" alt="{{ settings.button_image.alt }}" class="sc_tgenerator_form_field_prompt_button_image"><#
+								}
+							} else if ( settings.button_icon && ! trx_addons_is_off( settings.button_icon ) ) {
+								#><span class="sc_tgenerator_form_field_prompt_button_icon {{ settings.button_icon }}"></span><#
+							}
+							if ( settings.button_text !== '#' ) {
+								#><span class="sc_tgenerator_form_field_prompt_button_text">{{{ settings.button_text || '<?php esc_html_e( 'Generate', 'trx_addons' ); ?>' }}}</span><#
+							}
+						#></a>
 					</div>
 				</div>
+				<textarea class="sc_tgenerator_text sc_tgenerator_form_field_hidden" placeholder="<?php esc_attr_e( 'Text to process...', 'trx_addons' ); ?>"></textarea>
 				<div class="sc_tgenerator_form_field sc_tgenerator_form_field_tags">
 					<span class="sc_tgenerator_form_field_tags_label"><?php esc_html_e( 'Write a', 'trx_addons' ); ?></span>
 					<?php trx_addons_show_layout( trx_addons_sc_tgenerator_get_list_commands( 'write' ) ); ?>
@@ -53,19 +84,34 @@ var id = settings._element_id ? settings._element_id + '_sc' : 'sc_tgenerator_' 
 				if ( settings.show_limits ) {
 					#><div class="sc_tgenerator_limits">
 						<span class="sc_tgenerator_limits_label"><?php
-							esc_html_e( 'Limits per hour (day/week/month/year): XX requests.', 'trx_addons' );
+							echo wp_kses_post( sprintf( __( 'Limits per hour (day/week/month/year): %s requests.', 'trx_addons' ), '<span class="sc_tgenerator_limits_total_requests">XX</span>' ) );
 						?></span>
 						<span class="sc_tgenerator_limits_value"><?php
-							esc_html_e( 'Used: YY requests.', 'trx_addons' );
+							echo wp_kses_post( sprintf( __( 'Used: %s requests.', 'trx_addons' ), '<span class="sc_tgenerator_limits_used_requests">YY</span>' ) );
 						?></span>
 					</div><#
 				}
 			#></div>
 		</div>
-		<textarea class="sc_tgenerator_text sc_tgenerator_form_field_hidden" placeholder="<?php esc_attr_e( 'Text to process...', 'trx_addons' ); ?>"></textarea>
 		<div class="sc_tgenerator_result">
 			<div class="sc_tgenerator_result_label"><?php esc_html_e( 'Result:', 'trx_addons' ); ?></div>
 			<div class="sc_tgenerator_result_content"></div>
+			<div class="sc_tgenerator_result_copy"><#
+				var button_icon = settings.result_copy_icon ? settings.result_copy_icon : "trx_addons_icon-copy";
+					link_class = "<?php echo apply_filters( 'trx_addons_filter_sc_item_link_classes', 'sc_button sc_button_size_small', 'sc_tgenerator' ); ?>"
+								+ ( button_icon
+									? ' sc_tgenerator_form_field_generate_button_with_icon sc_button_icon_left'
+									: ' sc_tgenerator_form_field_generate_button_without_icon'
+									);
+				#><a href="#" class="{{ link_class }}"><#
+					if ( button_icon && ! trx_addons_is_off( button_icon ) ) {
+						#><span class="sc_button_icon"><#
+							#><span class="{{ button_icon }}"></span><#
+						#></span><#
+					}
+					#><span class="sc_button_text"><# print( settings.button_text ? settings.button_text : "<?php esc_html_e( 'Generate', 'trx_addons' ); ?>" ); #></span><#
+				#></a>
+			</div>
 		</div>
 	</div>
 

@@ -26,7 +26,8 @@
 			$fullWidthItems = $scope.find('.trx-addons-nav-menu-container').find('li[data-full-width="true"],li[class*="trx_addons_stretch_"]'),
 			disablePageScroll = $scope.hasClass('trx-addons-disable-scroll-yes') ? true : false,
 			delay = getComputedStyle( $scope[0] ).getPropertyValue( '--trx-addons-mega-menu-delay' ) || 300,
-			hoverTimeout;
+			hoverTimeout,
+			mobileMenuTransitionSpeed = trx_addons_apply_filters( 'trx_addons_filter_nav_menu_mobile_transition_speed' , 'normal' );
 
 		// Get Element On Page Option
 		$scope.find('div[data-mega-content]').each( function( index, elem ) {
@@ -183,46 +184,68 @@
 		$menuToggler.on( 'click', function () {
 			if ('slide' === settings.mobileLayout || 'slide' === settings.mainLayout) {
 				$scope.find('.trx-addons-mobile-menu-outer-container, .trx-addons-nav-slide-overlay').addClass('trx-addons-vertical-toggle-open');
-
-				if (disablePageScroll) {
+				if ( disablePageScroll ) {
 					$('body').addClass('trx-addons-scroll-disabled');
 				}
 			} else {
-				// $menuContainer.toggleClass('trx-addons-active-menu');
-				if ($($menuContainer).hasClass('trx-addons-active-menu')) {
-					$scope.find('.trx-addons-mobile-menu-container').slideUp('slow', function () {
+				var $menuParent = $scope.find('.trx-addons-mobile-menu-container');
+				if ( $menuContainer.hasClass('trx-addons-active-menu') ) {
+					$menuParent.slideUp( mobileMenuTransitionSpeed, function () {
 						$menuContainer.removeClass('trx-addons-active-menu');
-						$scope.find('.trx-addons-mobile-menu-container').show();
-					});
+						$menuParent.show();
+					} );
 				} else {
-
+					$menuParent.hide();
 					$menuContainer.addClass('trx-addons-active-menu');
+					$menuParent.slideDown( mobileMenuTransitionSpeed );
 				}
 			}
-
 			$menuToggler.toggleClass('trx-addons-toggle-opened'); // show/hide close icon/text.
 		} );
 
 		$menuContainer
 			.find('.trx-addons-nav-menu-item.menu-item-has-children a, .trx-addons-mega-nav-item a')
 			.on('click', function (e) {
-				if ( $(this).find(".trx-addons-dropdown-icon").length < 1 ) {
+				var $self = $(this),
+					$parent = $self.parent( '.trx-addons-nav-menu-item' ),
+					$submenu = $self.next( '.trx-addons-submenu, .trx-addons-mega-content-container' );
+				if ( $self.find(".trx-addons-dropdown-icon").length < 1 ) {
 					return;
 				}
-				var $parent = $(this).parent(".trx-addons-nav-menu-item");
 				e.stopPropagation();
 				e.preventDefault();
+				var closeSubmenu = function( $item ) {
+					var $submenu = $item.find(' > .trx-addons-submenu, > .trx-addons-mega-content-container');
+					if ( $submenu.length ) {
+						$submenu.slideUp( mobileMenuTransitionSpeed, function () {
+							$item.removeClass('trx-addons-active-menu trx-addons-active-menu-closing');
+							$submenu.removeAttr('style');
+							// close all inner submenus.
+							$submenu
+								.find('.trx-addons-active-menu').removeClass('trx-addons-active-menu')
+								.find('>.trx-addons-submenu, >.trx-addons-mega-content-container').removeAttr('style');
+						} );
+					}
+				};
 				//If it was opened, then close it.
 				if ( $parent.hasClass('trx-addons-active-menu') ) {
-					$parent.toggleClass('trx-addons-active-menu');
+					closeSubmenu( $parent );
 				} else {
-					//Close any other opened items.
-					$menuContainer.find('.trx-addons-active-menu').toggleClass('trx-addons-active-menu');
-					//Then, open this item.
-					$parent.toggleClass('trx-addons-active-menu');
-					initHiddenElements( $parent );
-					// make sure the parent node is always open whenever the child node is opened.
-					$($parent).parents('.trx-addons-nav-menu-item.menu-item-has-children').toggleClass('trx-addons-active-menu');
+					// Close any other opened items.
+					$parent.parents('.trx-addons-active-menu').addClass('trx-addons-active-menu-fix');
+					$menuContainer.find('.trx-addons-active-menu:not(.trx-addons-active-menu-fix)').each( function() {
+						var $item = $(this);
+						if ( ! $item.parents('.trx-addons-active-menu-closing').length ) {
+							closeSubmenu( $item.addClass('trx-addons-active-menu-closing') );
+						}
+					} );
+					$parent.parents('.trx-addons-active-menu-fix').removeClass('trx-addons-active-menu-fix');
+					// Then, open this item.
+					$submenu.slideDown( mobileMenuTransitionSpeed, function () {
+						$parent.addClass('trx-addons-active-menu');
+						$submenu.removeAttr('style');
+						initHiddenElements( $parent );
+					} );
 				}
 			} );
 

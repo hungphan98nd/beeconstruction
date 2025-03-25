@@ -180,7 +180,7 @@ jQuery(document).on('action.ready_trx_addons', function() {
 				trx_addons_on_end_animation( search_form_wrap.get(0), function() {
 					search_form_wrap
 						.removeClass( animation_exit ? animation_exit + ' animated' + ( animation_duration ? ' animated-' + animation_duration : '' ) : '' );
-						on_end_animation();
+					on_end_animation();
 				}, animation_duration == 'slow' ? 1500 : ( animation_duration == 'fast' ? 750 : 1000 ) );
 				search_form_wrap.addClass( animation_exit ? animation_exit + ' animated' + ( animation_duration ? ' animated-' + animation_duration : '' ) : '' );
 			} else {

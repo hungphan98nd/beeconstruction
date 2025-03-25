@@ -275,13 +275,13 @@
 	$document.on( 'action.trx_addons_bg_canvas', function(e, _bg_canvas) {
 		if ( _bg_canvas !== false ) {
 			for (var i=0; i < _bg_canvas.length; i++ ) {
-				var start = _bg_canvas[i].start.obj.parents( '.elementor-section:not(.elementor-inner-section)' ).eq(0),
-					end   = _bg_canvas[i].end.obj.parents( '.elementor-section:not(.elementor-inner-section)' ).eq(0);
+				var start = _bg_canvas[i].start.obj.parents( '.e-con:not(.e-child),.elementor-section:not(.elementor-inner-section)' ).eq(0),
+					end   = _bg_canvas[i].end.obj.parents( '.e-con:not(.e-child),.elementor-section:not(.elementor-inner-section)' ).eq(0);
 				if ( start.length > 0 && end.length > 0 ) {
 					do {
 						start.addClass( 'bg_canvas_covered' );
 						if ( start.data('id') != end.data('id') ) {
-							start = start.next( '.elementor-section' ).eq(0);
+							start = start.next( '.e-con,.elementor-section' ).eq(0);
 						} else {
 							break;
 						}

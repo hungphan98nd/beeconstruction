@@ -151,6 +151,10 @@ if ( ! function_exists( 'trx_addons_sc_mgenerator' ) ) {
 			"show_upload_audio" => 1,
 			"base64" => 0,
 			"button_text" => "",
+			"button_icon" => "",
+			"button_image" => "",
+			"settings_button_icon" => "",
+			"button_download_icon" => "",
 			"premium" => 0,
 			"show_settings" => 0,
 			"show_limits" => 0,
@@ -477,8 +481,8 @@ if ( ! function_exists( 'trx_addons_sc_mgenerator_generate_music' ) ) {
 			} else {
 				$answer['data']['demo'] = true;
 				// Get demo music from the settings
+				$music = array();
 				if ( ! empty( $settings['demo_music'] ) && ! empty( $settings['demo_music'][0]['music']['url'] ) ) {
-					$music = array();
 					foreach ( $settings['demo_music'] as $file ) {
 						$music[] = $file['music']['url'];
 					}

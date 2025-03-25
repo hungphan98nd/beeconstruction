@@ -265,6 +265,9 @@ jQuery( document ).ready( function() {
 
 			// Show message
 			function showMessage( msg, type ) {
+				if ( msg.indexOf( '<p>' ) == -1 ) {
+					msg = '<p>' + msg + '</p>';
+				}
 				$form
 					.find( '.sc_tgenerator_message_inner' )
 						.html( msg )

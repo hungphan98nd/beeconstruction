@@ -72,7 +72,7 @@ if ( ! function_exists('trx_addons_sc_chat_history_add_in_elementor')) {
 			 * @return array Widget keywords.
 			 */
 			public function get_keywords() {
-				return [ 'ai', 'helper', 'chat', 'conversation', 'messages', 'history', 'topics' ];
+				return [ 'ai', 'helper', 'chat', 'conversation', 'messages', 'history', 'topics', 'ai chat' ];
 			}
 
 			/**
@@ -110,9 +110,19 @@ if ( ! function_exists('trx_addons_sc_chat_history_add_in_elementor')) {
 			 * @access protected
 			 */
 			protected function register_controls() {
+				$this->register_controls_content_general();
+				$this->register_controls_style_history_list();
+				$this->register_controls_style_history_item();
 
-				// Detect edit mode
-				$is_edit_mode = trx_addons_elm_is_edit_mode();
+				if ( apply_filters( 'trx_addons_filter_add_title_param', true, $this->get_name() ) ) {
+					$this->add_title_param();
+				}
+			}
+
+			/**
+			 * Register widget controls: tab 'Content' section 'AI Helper Chat History'
+			 */
+			protected function register_controls_content_general() {
 
 				// Register controls
 				$this->start_controls_section(
@@ -163,10 +173,333 @@ if ( ! function_exists('trx_addons_sc_chat_history_add_in_elementor')) {
 				);
 
 				$this->end_controls_section();
+			}
 
-				if ( apply_filters( 'trx_addons_filter_add_title_param', true, $this->get_name() ) ) {
-					$this->add_title_param();
-				}
+			/**
+			 * Register widget controls: tab 'Style' section 'History List'
+			 */
+			protected function register_controls_style_history_list() {
+
+				$this->start_controls_section(
+					'section_sc_chat_history_list_style',
+					[
+						'label' => __( 'History List', 'trx_addons' ),
+						'tab' => \Elementor\Controls_Manager::TAB_STYLE
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Typography::get_type(),
+					[
+						'name' => 'history_list_typography',
+						'selector' => '{{WRAPPER}} .sc_chat_history_list'
+					]
+				);
+
+				$this->add_control(
+					"history_list_style",
+					[
+						'label' => __( 'List Style', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::SELECT,
+						'options' => trx_addons_get_list_style_types(),
+						'default' => 'none',
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_history_list' => 'list-style-type: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					"history_hide_theme_marker",
+					[
+						'label' => __( 'Theme markers', 'trx_addons' ),
+						'label_on' => __( 'Hide', 'trx_addons' ),
+						'label_off' => __( 'Show', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::SWITCHER,
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_history_list .sc_chat_history_item > a:before' => 'display: none;',
+						],
+						'condition' => [
+							'history_list_style!' => 'none',
+						],
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Background::get_type(),
+					[
+						'name' => 'history_list_background',
+						'selector' => '{{WRAPPER}} .sc_chat_history_list'
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Border::get_type(),
+					array(
+						'name'        => 'history_list_border',
+						'label'       => __( 'Border', 'trx_addons' ),
+						'placeholder' => '1px',
+						'default'     => '1px',
+						'selector'    => '{{WRAPPER}} .sc_chat_history_list',
+					)
+				);
+		
+				$this->add_responsive_control(
+					'history_list_border_radius',
+					array(
+						'label'      => __( 'Border Radius', 'trx_addons' ),
+						'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'  => array(
+										'{{WRAPPER}} .sc_chat_history_list' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						),
+					)
+				);
+		
+				$this->add_responsive_control(
+					'history_list_padding',
+					[
+						'label'                 => esc_html__( 'Padding', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_history_list' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+
+				$this->add_responsive_control(
+					'history_list_margin',
+					[
+						'label'                 => esc_html__( 'Margin', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_history_list' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+		
+				$this->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name'     => 'history_list_box_shadow',
+						'selector' => '{{WRAPPER}} .sc_chat_history_list',
+					]
+				);
+		
+				$this->end_controls_section();
+			}
+
+			/**
+			 * Register widget controls: tab 'Style' section 'History Item'
+			 */
+			protected function register_controls_style_history_item() {
+
+				$this->start_controls_section(
+					'section_sc_chat_history_history_item_style',
+					[
+						'label' => __( 'History Item', 'trx_addons' ),
+						'tab' => \Elementor\Controls_Manager::TAB_STYLE
+					]
+				);
+
+				$this->start_controls_tabs( 'history_item_style_tabs' );
+
+				$this->start_controls_tab(
+					'history_item_style_tab_normal',
+					[
+						'label' => __( 'Normal', 'trx_addons' ),
+					]
+				);
+
+				$this->add_control(
+					'history_item_color',
+					[
+						'label' => esc_html__( 'Color', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_history_item > a' => 'color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					'history_item_marker_color',
+					[
+						'label' => esc_html__( 'Marker Color', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_history_item::marker' => 'color: {{VALUE}};',
+						],
+						'condition' => [
+							'history_list_style!' => 'none',
+						],
+					]
+				);
+		
+				$this->add_group_control(
+					\Elementor\Group_Control_Background::get_type(),
+					[
+						'name' => 'history_item_background',
+						'selector' => '{{WRAPPER}} .sc_chat_history_item'
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Border::get_type(),
+					array(
+						'name'        => 'history_item_border',
+						'label'       => __( 'Border', 'trx_addons' ),
+						'placeholder' => '1px',
+						'default'     => '1px',
+						'selector'    => '{{WRAPPER}} .sc_chat_history_item',
+					)
+				);
+		
+				$this->add_responsive_control(
+					'history_item_border_radius',
+					array(
+						'label'      => __( 'Border Radius', 'trx_addons' ),
+						'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'  => array(
+										'{{WRAPPER}} .sc_chat_history_item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						),
+					)
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Text_Shadow::get_type(),
+					array(
+						'name'      => 'history_item_text_shadow',
+						'label'     => __( 'Text Shadow', 'trx_addons' ),
+						'selector'  => '{{WRAPPER}} .sc_chat_history_item',
+					)
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name'     => 'history_item_box_shadow',
+						'selector' => '{{WRAPPER}} .sc_chat_history_item',
+					]
+				);
+
+				$this->end_controls_tab();
+
+				$this->start_controls_tab(
+					'history_item_style_tab_hover',
+					[
+						'label' => __( 'Hover', 'trx_addons' ),
+					]
+				);
+
+				$this->add_control(
+					'history_item_color_hover',
+					[
+						'label' => esc_html__( 'Color', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_history_item > a:hover' => 'color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					'history_item_marker_color_hover',
+					[
+						'label' => esc_html__( 'Marker Color', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_history_item:hover::marker' => 'color: {{VALUE}};',
+						],
+						'condition' => [
+							'history_list_style!' => 'none',
+						],
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Background::get_type(),
+					[
+						'name' => 'history_item_background_hover',
+						'selector' => '{{WRAPPER}} .sc_chat_history_item:hover'
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Border::get_type(),
+					array(
+						'name'        => 'history_item_border_hover',
+						'label'       => __( 'Border', 'trx_addons' ),
+						'placeholder' => '1px',
+						'default'     => '1px',
+						'selector'    => '{{WRAPPER}} .sc_chat_history_item:hover',
+					)
+				);
+		
+				$this->add_responsive_control(
+					'history_item_border_radius_hover',
+					array(
+						'label'      => __( 'Border Radius', 'trx_addons' ),
+						'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'  => array(
+										'{{WRAPPER}} .sc_chat_history_item:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						),
+					)
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Text_Shadow::get_type(),
+					array(
+						'name'      => 'history_item_text_shadow_hover',
+						'label'     => __( 'Text Shadow', 'trx_addons' ),
+						'selector'  => '{{WRAPPER}} .sc_chat_history_item:hover',
+					)
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name'     => 'history_item_box_shadow_hover',
+						'selector' => '{{WRAPPER}} .sc_chat_history_item:hover',
+					]
+				);
+
+				$this->end_controls_tab();
+
+				$this->end_controls_tabs();
+
+				$this->add_responsive_control(
+					'history_item_padding',
+					[
+						'label'                 => esc_html__( 'Padding', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'separator'             => 'before',
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_history_item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+
+				$this->add_responsive_control(
+					'history_item_margin',
+					[
+						'label'                 => esc_html__( 'Margin', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_history_item' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+		
+				$this->end_controls_section();
 			}
 
 			/**

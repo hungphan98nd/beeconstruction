@@ -89,7 +89,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 			 * @return array Widget keywords.
 			 */
 			public function get_keywords() {
-				return [ 'ai', 'helper', 'chat', 'conversation', 'messages' ];
+				return [ 'ai', 'helper', 'chat', 'conversation', 'messages', 'ai chat' ];
 			}
 
 			/**
@@ -140,6 +140,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 				$this->register_controls_style_attachments_add();
 				$this->register_controls_style_attachments_clear();
 				$this->register_controls_style_attachment_items();
+				$this->register_controls_style_message();
 				$this->register_controls_style_popup_button();
 
 				if ( apply_filters( 'trx_addons_filter_add_title_param', true, $this->get_name() ) ) {
@@ -659,7 +660,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'chat_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_content',
 					]
 				);
@@ -749,7 +750,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 
 				$this->add_control( 'title_image',
 					[
-						'label' => esc_html__( 'Image', 'elementor' ),
+						'label' => esc_html__( 'Image', 'trx_addons' ),
 						'type' => \Elementor\Controls_Manager::MEDIA,
 						'media_types' => [ 'image', 'svg' ],
 					]
@@ -825,7 +826,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 
 				$this->add_control( 'new_chat_image',
 					[
-						'label' => esc_html__( 'Image', 'elementor' ),
+						'label' => esc_html__( 'Image', 'trx_addons' ),
 						'type' => \Elementor\Controls_Manager::MEDIA,
 						'media_types' => [ 'image', 'svg' ],
 					]
@@ -958,7 +959,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'assistant_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_list_item_assistant .sc_chat_list_item_content,'
 									. '{{WRAPPER}} .sc_chat_list_item_assistant .sc_chat_list_item_avatar',
 					]
@@ -1110,7 +1111,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 
 				$this->add_control( 'assistant_image',
 					[
-						'label' => esc_html__( 'Image', 'elementor' ),
+						'label' => esc_html__( 'Image', 'trx_addons' ),
 						'type' => \Elementor\Controls_Manager::MEDIA,
 						'media_types' => [ 'image', 'svg' ],
 					]
@@ -1239,7 +1240,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'user_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_list_item_user .sc_chat_list_item_content,'
 									. '{{WRAPPER}} .sc_chat_list_item_user .sc_chat_list_item_avatar',
 					]
@@ -1391,7 +1392,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 
 				$this->add_control( 'user_image',
 					[
-						'label' => esc_html__( 'Image', 'elementor' ),
+						'label' => esc_html__( 'Image', 'trx_addons' ),
 						'type' => \Elementor\Controls_Manager::MEDIA,
 						'media_types' => [ 'image', 'svg' ],
 					]
@@ -1449,9 +1450,9 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 						// 	'active' => false,
 						// ),
 						'selectors' => [
-							'{{WRAPPER}} .sc_chat_form_field_prompt_text::placeholder' => 'color: {{VALUE}};',
-							'{{WRAPPER}} .sc_chat_form_field_prompt_text::-moz-placeholder' => 'color: {{VALUE}};',
-							'{{WRAPPER}} .sc_chat_form_field_prompt_text::-webkit-input-placeholder' => 'color: {{VALUE}};',
+							'{{WRAPPER}} .sc_chat_form_field_prompt_text[placeholder]::placeholder' => 'color: {{VALUE}};',
+							'{{WRAPPER}} .sc_chat_form_field_prompt_text[placeholder]::-moz-placeholder' => 'color: {{VALUE}};',
+							'{{WRAPPER}} .sc_chat_form_field_prompt_text[placeholder]::-webkit-input-placeholder' => 'color: {{VALUE}};',
 						],
 					]
 				);
@@ -1538,7 +1539,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'prompt_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_form_field_prompt_text',
 					]
 				);
@@ -1666,7 +1667,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'button_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_form_field_prompt_button',
 					]
 				);
@@ -1695,7 +1696,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 
 				$this->add_control( 'button_image',
 					[
-						'label' => esc_html__( 'Image', 'elementor' ),
+						'label' => esc_html__( 'Image', 'trx_addons' ),
 						'type' => \Elementor\Controls_Manager::MEDIA,
 						'media_types' => [ 'image', 'svg' ],
 					]
@@ -1983,7 +1984,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'attachments_add_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_form_field_upload_attachments_label',
 					]
 				);
@@ -2219,7 +2220,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'attachments_clear_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_form_field_upload_attachments_list_clear',
 					]
 				);
@@ -2455,7 +2456,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'attachment_items_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_form_field_upload_attachments_list_item',
 					]
 				);
@@ -2647,7 +2648,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'tags_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_form_field_tags_item',
 					]
 				);
@@ -2706,6 +2707,375 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 						'selectors' => [
 							'{{WRAPPER}} .sc_chat_form_field_tags_item:hover' => 'border-color: {{VALUE}};',
 						],
+					]
+				);
+
+				$this->end_controls_tab();
+
+				$this->end_controls_tabs();
+
+				$this->end_controls_section();
+			}
+
+			/**
+			 * Register widget controls: tab 'Style' section 'Message'
+			 */
+			protected function register_controls_style_message() {
+
+				$this->start_controls_section(
+					'section_sc_chat_message_style',
+					[
+						'label' => __( 'Message', 'trx_addons' ),
+						'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+					]
+				);
+
+				$this->add_control(
+					"message_popup_heading",
+					[
+						'label' => __( 'Message Popup', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::HEADING,
+						'separator' => 'after',
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Background::get_type(),
+					[
+						'name' => 'message_background',
+						'selector' => '{{WRAPPER}} .sc_chat_message'
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Border::get_type(),
+					array(
+						'name'        => 'message_border',
+						'label'       => __( 'Border', 'trx_addons' ),
+						'placeholder' => '1px',
+						'default'     => '1px',
+						'selector'    => '{{WRAPPER}} .sc_chat_message',
+					)
+				);
+		
+				$this->add_responsive_control(
+					'message_border_radius',
+					array(
+						'label'      => __( 'Border Radius', 'trx_addons' ),
+						'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'  => array(
+										'{{WRAPPER}} .sc_chat_message' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						),
+					)
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name' => 'message_shadow',
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
+						'selector' => '{{WRAPPER}} .sc_chat_message',
+					]
+				);
+
+				$this->add_responsive_control(
+					'message_padding',
+					[
+						'label'                 => esc_html__( 'Padding', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_message' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+
+				$this->add_responsive_control(
+					'message_margin',
+					[
+						'label'                 => esc_html__( 'Margin', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_message' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					"message_close_heading",
+					[
+						'label' => __( 'Button "Close"', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::HEADING,
+						'separator' => 'after',
+					]
+				);
+
+				$this->add_control(
+					"message_close_color",
+					[
+						'label' => __( 'Close Color', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'default' => '',
+						'selectors' => [
+							'{{WRAPPER}} .trx_addons_button_close .trx_addons_button_close_icon:before,
+							 {{WRAPPER}} .trx_addons_button_close .trx_addons_button_close_icon:after' => 'border-color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					"message_close_hover",
+					[
+						'label' => __( 'Close Hover', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'default' => '',
+						'selectors' => [
+							'{{WRAPPER}} .trx_addons_button_close:hover .trx_addons_button_close_icon:before,
+							 {{WRAPPER}} .trx_addons_button_close:hover .trx_addons_button_close_icon:after' => 'border-color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					"message_header_heading",
+					[
+						'label' => __( 'Header', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::HEADING,
+						'separator' => 'after',
+					]
+				);
+				
+				$this->add_group_control(
+					\Elementor\Group_Control_Typography::get_type(),
+					[
+						'name' => 'message_header_typography',
+						'label' => __( 'Header Typography', 'trx_addons' ),
+						'selector' => '{{WRAPPER}} .sc_chat_message h5'
+					]
+				);
+
+				$this->add_control(
+					"message_header_color",
+					[
+						'label' => __( 'Header Color', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'default' => '',
+						// 'global' => array(
+						// 	'active' => false,
+						// ),
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_message h5' => 'color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					"message_text_heading",
+					[
+						'label' => __( 'Text', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::HEADING,
+						'separator' => 'after',
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Typography::get_type(),
+					[
+						'name' => 'message_typography',
+						'label' => __( 'Text Typography', 'trx_addons' ),
+						'selector' => '{{WRAPPER}} .sc_chat_message p'
+					]
+				);
+
+				$this->add_control(
+					"message_text_color",
+					[
+						'label' => __( 'Text Color', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'default' => '',
+						// 'global' => array(
+						// 	'active' => false,
+						// ),
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_message p' => 'color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_control(
+					"message_link_heading",
+					[
+						'label' => __( 'Button', 'trx_addons' ),
+						'type' => \Elementor\Controls_Manager::HEADING,
+						'separator' => 'after',
+					]
+				);
+
+				$this->start_controls_tabs( 'tabs_sc_chat_link_style' );
+
+				$this->start_controls_tab(
+					'tab_sc_chat_link_normal',
+					[
+						'label' => __( 'Normal', 'trx_addons' ),
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Typography::get_type(),
+					[
+						'name' => 'message_link_typography',
+						'label' => __( 'Link Typography', 'trx_addons' ),
+						'selector' => '{{WRAPPER}} .sc_chat_message_inner a'
+					]
+				);
+
+				$this->add_control(
+					"message_link_color",
+					[
+						'label' => __( 'Link Color', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'default' => '',
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_message_inner a' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Background::get_type(),
+					[
+						'name' => 'message_link_background',
+						'selector' => '{{WRAPPER}} .sc_chat_message_inner a'
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Border::get_type(),
+					array(
+						'name'        => 'message_link_border',
+						'label'       => __( 'Border', 'trx_addons' ),
+						'placeholder' => '1px',
+						'default'     => '1px',
+						'selector'    => '{{WRAPPER}} .sc_chat_message_inner a',
+					)
+				);
+		
+				$this->add_responsive_control(
+					'message_link_border_radius',
+					array(
+						'label'      => __( 'Border Radius', 'trx_addons' ),
+						'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'  => array(
+										'{{WRAPPER}} .sc_chat_message_inner a' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						),
+					)
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name' => 'message_link_shadow',
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
+						'selector' => '{{WRAPPER}} .sc_chat_message_inner a',
+					]
+				);
+
+				$this->add_responsive_control(
+					'message_link_padding',
+					[
+						'label'                 => esc_html__( 'Padding', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_message_inner a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+
+				$this->add_responsive_control(
+					'message_link_margin',
+					[
+						'label'                 => esc_html__( 'Margin', 'trx_addons' ),
+						'type'                  => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'             => [
+							'{{WRAPPER}} .sc_chat_message_inner a' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
+
+				$this->end_controls_tab();
+
+				$this->start_controls_tab(
+					'tab_sc_chat_link_hover',
+					[
+						'label' => __( 'Hover', 'trx_addons' ),
+					]
+				);
+				
+				$this->add_control(
+					"message_link_hover",
+					[
+						'label' => __( 'Link Hover', 'trx_addons' ),
+						'label_block' => false,
+						'type' => \Elementor\Controls_Manager::COLOR,
+						'default' => '',
+						'selectors' => [
+							'{{WRAPPER}} .sc_chat_message_inner a:hover,
+							 {{WRAPPER}} .sc_chat_message_inner a:focus' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+						],
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Background::get_type(),
+					[
+						'name' => 'message_link_background_hover',
+						'selector' => '{{WRAPPER}} .sc_chat_message_inner a:hover,
+									  {{WRAPPER}} .sc_chat_message_inner a:focus'
+					]
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Border::get_type(),
+					array(
+						'name'        => 'message_link_border_hover_',
+						'label'       => __( 'Border', 'trx_addons' ),
+						'placeholder' => '1px',
+						'default'     => '1px',
+						'selector'    => '{{WRAPPER}} .sc_chat_message_inner a:hover,
+									  {{WRAPPER}} .sc_chat_message_inner a:focus',
+					)
+				);
+		
+				$this->add_responsive_control(
+					'message_link_border_radius_hover',
+					array(
+						'label'      => __( 'Border Radius', 'trx_addons' ),
+						'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+						'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'vh', 'custom' ],
+						'selectors'  => array(
+										'{{WRAPPER}} .sc_chat_message_inner a:hover,
+										 {{WRAPPER}} .sc_chat_message_inner a:focus' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						),
+					)
+				);
+
+				$this->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name' => 'message_link_shadow_hover',
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
+						'selector' => '{{WRAPPER}} .sc_chat_message_inner a:hover,
+									  {{WRAPPER}} .sc_chat_message_inner a:focus',
 					]
 				);
 
@@ -2848,7 +3218,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'popup_button_shadow',
-				 		'label' => esc_html__( 'Shadow', 'elementor' ),
+				 		'label' => esc_html__( 'Shadow', 'trx_addons' ),
 						'selector' => '{{WRAPPER}} .sc_chat_popup_button',
 					]
 				);
@@ -2877,7 +3247,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 
 				$this->add_control( 'popup_button_image',
 					[
-						'label' => esc_html__( 'Image', 'elementor' ),
+						'label' => esc_html__( 'Image', 'trx_addons' ),
 						'type' => \Elementor\Controls_Manager::MEDIA,
 						'media_types' => [ 'image', 'svg' ],
 					]
@@ -2957,7 +3327,7 @@ if ( ! function_exists('trx_addons_sc_chat_add_in_elementor')) {
 
 				$this->add_control( 'popup_button_image_opened',
 					[
-						'label' => esc_html__( 'Image', 'elementor' ),
+						'label' => esc_html__( 'Image', 'trx_addons' ),
 						'type' => \Elementor\Controls_Manager::MEDIA,
 						'media_types' => [ 'image', 'svg' ],
 					]

@@ -41,6 +41,10 @@
 .trx-addons-advanced-title-item + .sc_item_animated_block {
   min-width: 0.3em;
 }
+.trx-addons-advanced-title-item .sc_item_animated_block {
+  background-clip: content-box;
+  -webkit-text-fill-color: initial;
+}
 .trx-addons-advanced-title-item[class*="trx-addons-advanced-title-stroke"] {
   padding-left: 0.1em;
   padding-right: 0.1em;
@@ -102,7 +106,15 @@
 }
 
 .trx-addons-advanced-title-item-icon svg {
-  height: 0.88em;
+  height: calc( 0.88em * var(--trx-addons-base-size, 1) );
+  overflow: visible !important;
+}
+
+.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 0;
+  overflow: hidden;
 }
 
 .trx-addons-advanced-title-item-image img {

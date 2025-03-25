@@ -239,12 +239,15 @@ class AdvancedTitleWidget extends BaseWidget {
 				'default' => false,
 				'render_type' => 'template',
 				'selectors' => [
-					'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
-					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
-					 {{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-					 {{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-					 {{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item' => '-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;',
+					'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
+					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
+					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg' => '-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;',
+					// Next rules move the background of the text to the inner span-elements around words/chars if the text is animated by line/words/chars
+					// Because Chrome can't apply background-clip to the inner elements. In Firefox it works fine.
+					// Add body.ua_webkit before {{WRAPPER}} to apply this rule only for Webkit browsers
+					// '{{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+					//  {{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+					//  {{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item' => '-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;',
 				],
 				'condition' => [
 					'type' => ['icon','text'],
@@ -257,13 +260,14 @@ class AdvancedTitleWidget extends BaseWidget {
 			Group_Control_Background::get_type(),
 			[
 				'name' => 'background',
-				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
-								{{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-								{{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-								{{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item',
+				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg,
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img'
+							// . ',
+							//  {{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+							// 	{{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+							// 	{{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item',
 			]
 		);
 
@@ -282,13 +286,13 @@ class AdvancedTitleWidget extends BaseWidget {
 					'background_background' => ['gradient']
 				],
 				'selectors' => [
-					'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
-					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img,
-					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
-					 {{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-					 {{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-					 {{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item' => 'background-image: {{VALUE}};',
+					'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
+					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
+					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg,
+					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img' => 'background-image: {{VALUE}};',
+					// '{{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+					//  {{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+					//  {{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item' => 'background-image: {{VALUE}};',
 				],
 			]
 		);
@@ -300,12 +304,12 @@ class AdvancedTitleWidget extends BaseWidget {
 				'type' => Controls_Manager::SWITCHER,
 				'default' => false,
 				'selectors' => [
-					'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
-					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
-					 {{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-					 {{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
-					 {{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item' => 'background-size: 200% 100%; animation: trx-addons-advanced-title-animate-gradient 5s ease infinite;',
+					'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
+					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
+					 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon  .trx-addons-advanced-title-item-icon-svg' => 'background-size: 200% 100%; animation: trx-addons-advanced-title-animate-gradient 5s ease infinite;',
+					// '{{WRAPPER}}.animation_type_line {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+					//  {{WRAPPER}}.animation_type_word {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item,
+					//  {{WRAPPER}}.animation_type_char {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text.trx-addons-advanced-title-item-bg-as-text .animated-item' => 'background-size: 200% 100%; animation: trx-addons-advanced-title-animate-gradient 5s ease infinite;',
 				],
 				'condition' => [
 					'type' => ['icon','text'],
@@ -324,7 +328,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'separator' => 'before',
 				'selector'    => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
 								  {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-								  {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
+								  {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg,
 								  {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img',
 			)
 		);
@@ -338,7 +342,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'selectors'  => array(
 								'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
 								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
+								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon  .trx-addons-advanced-title-item-icon-svg,
 								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
@@ -364,7 +368,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'label'     => __( 'Text Shadow', 'trx_addons' ),
 				'selector'  => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg',
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg',
 				'condition' => array(
 					'type' => array( 'text', 'icon' ),
 				),
@@ -377,7 +381,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'name'     => 'box_shadow',
 				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img',
 			]
 		);
@@ -414,7 +418,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'name' => 'background_hover',
 				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text:hover,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover i,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover svg,
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover .trx-addons-advanced-title-item-icon-svg,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image:hover img',
 			]
 		);
@@ -428,7 +432,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text:hover,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover i,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover svg,
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover .trx-addons-advanced-title-item-icon-svg,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image:hover img',
 			)
 		);
@@ -453,7 +457,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'label'     => __( 'Text Shadow', 'trx_addons' ),
 				'selector'  => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text:hover,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover i,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover svg',
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover .trx-addons-advanced-title-item-icon-svg',
 				'condition' => array(
 					'type' => array( 'text', 'icon' ),
 				),
@@ -466,7 +470,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'name'     => 'box_shadow_hover',
 				'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text:hover,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover i,
-								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover svg,
+								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon:hover .trx-addons-advanced-title-item-icon-svg,
 								{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image:hover img',
 			]
 		);
@@ -501,7 +505,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'selectors'  => array(
 								'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
 								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
+								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg,
 								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
@@ -516,7 +520,7 @@ class AdvancedTitleWidget extends BaseWidget {
 				'selectors'   => array(
 								'{{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-text,
 								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon i,
-								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon svg,
+								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-icon .trx-addons-advanced-title-item-icon-svg,
 								 {{WRAPPER}} {{CURRENT_ITEM}}.trx-addons-advanced-title-item-image img' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
@@ -912,11 +916,17 @@ class AdvancedTitleWidget extends BaseWidget {
 					}
 					break;
 				case 'icon':
+					ob_start();
+					Icons_Manager::render_icon( $item['icon'], [ 'aria-hidden' => 'true', 'class' => 'char' ] );
+					$icon = ob_get_clean();
+					if ( strpos( $icon, '<svg' )  !== false ) {
+						$icon = '<span class="trx-addons-advanced-title-item-icon-svg">' . $icon . '</span>';
+					}
 					echo $separator
 						. $start_tag
-							. ' class="trx-addons-advanced-title-item trx-addons-advanced-title-item-icon elementor-repeater-item-' . esc_attr( $item['_id'] ) . ( ! empty( $item['background_as_text'] ) ? ' trx-addons-advanced-title-item-bg-as-text' : '' ) . '">';
-					Icons_Manager::render_icon( $item['icon'], [ 'aria-hidden' => 'true', 'class' => 'char' ] );
-					echo $end_tag;
+							. ' class="trx-addons-advanced-title-item trx-addons-advanced-title-item-icon elementor-repeater-item-' . esc_attr( $item['_id'] ) . ( ! empty( $item['background_as_text'] ) ? ' trx-addons-advanced-title-item-bg-as-text' : '' ) . '">'
+						. $icon
+						. $end_tag;
 					break;
 				case 'image':
 					echo $separator . $start_tag . ' class="trx-addons-advanced-title-item trx-addons-advanced-title-item-image elementor-repeater-item-' . esc_attr( $item['_id'] ) . '">';
@@ -1051,6 +1061,9 @@ class AdvancedTitleWidget extends BaseWidget {
 					var iconHTML = elementor.helpers.renderIcon( view, item.icon, { 'aria-hidden': true, 'class': 'char' }, 'i' , 'value' );
 					if ( typeof iconHTML == 'object' && iconHTML.rendered ) {
 						iconHTML = iconHTML.value;
+					}
+					if ( iconHTML && iconHTML.indexOf( '<svg' ) >= 0 ) {
+						iconHTML = '<span class="trx-addons-advanced-title-item-icon-svg">' + iconHTML + '</span>';
 					}
 					#>{{{ separator }}}{{{ start_tag }}} class="trx-addons-advanced-title-item trx-addons-advanced-title-item-icon elementor-repeater-item-{{{ item._id }}}">{{{ iconHTML }}}{{{ end_tag }}}<#
 					break;

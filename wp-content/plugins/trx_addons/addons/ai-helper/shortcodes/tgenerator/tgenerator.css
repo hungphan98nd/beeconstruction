@@ -119,9 +119,9 @@
   -webkit-border-radius: var(--trx-addons-ai-helper-tgenerator-button-border-radius);
   -ms-border-radius: var(--trx-addons-ai-helper-tgenerator-button-border-radius);
   border-radius: var(--trx-addons-ai-helper-tgenerator-button-border-radius);
-  -webkit-transition: background-color 0.3s ease, color 0.3s ease;
-  -ms-transition: background-color 0.3s ease, color 0.3s ease;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
   max-width: 50%;
   overflow: hidden;
   padding: 0 2em;
@@ -130,6 +130,40 @@
 }
 .sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button:not(.sc_tgenerator_form_field_prompt_button_disabled):hover {
   background-color: #32a86e;
+}
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button.sc_tgenerator_form_field_prompt_button_with_icon {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_image {
+  max-height: 1.25em;
+  width: auto;
+}
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_svg {
+  width: 1.25em;
+  height: 1.25em;
+  line-height: 1.25em;
+  text-align: center;
+}
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_svg svg {
+  -webkit-transition: fill 0.3s ease;
+  -ms-transition: fill 0.3s ease;
+  transition: fill 0.3s ease;
+}
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_icon {
+  font-size: 1.25em;
+  -webkit-transition: color 0.3s ease;
+  -ms-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_image + .sc_tgenerator_form_field_prompt_button_text,
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_svg + .sc_tgenerator_form_field_prompt_button_text,
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_icon + .sc_tgenerator_form_field_prompt_button_text {
+  margin-left: 0.5em;
+}
+.sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button .sc_tgenerator_form_field_prompt_button_text {
+  white-space: nowrap;
 }
 .sc_tgenerator_form_field_prompt .sc_tgenerator_form_field_prompt_button_disabled {
   background-color: #e4f7ed;
@@ -179,6 +213,9 @@
   color: #11a0d2;
   padding: 0 0 0.25em 0;
   border-bottom: 1px solid #11a0d2;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .sc_tgenerator_form_field_select .sc_tgenerator_form_field_select_options {
   display: none;
@@ -208,9 +245,9 @@
   cursor: pointer;
   white-space: nowrap;
   padding: 0.25em 1em;
-  -webkit-transition: background-color 0.3s ease, color 0.3s ease;
-  -ms-transition: background-color 0.3s ease, color 0.3s ease;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .sc_tgenerator_form_field_select .sc_tgenerator_form_field_select_option:hover, .sc_tgenerator_form_field_select .sc_tgenerator_form_field_select_option:focus {
   background-color: #f0f1f2;
@@ -239,7 +276,7 @@
   text-align: right;
 }
 .sc_tgenerator_limits .sc_tgenerator_limits_used {
-  white-space: nowrap;
+  display: block;
 }
 
 .sc_tgenerator_message {
@@ -275,6 +312,8 @@
   color: #99302e;
 }
 .sc_tgenerator_message_inner a {
+  display: inline-block;
+  vertical-align: top;
   font-weight: 500;
   color: #99302e;
   border-bottom: 1px dashed #99302e;
@@ -353,6 +392,9 @@
 }
 .sc_tgenerator_result .sc_tgenerator_result_copy .sc_button .sc_button_icon {
   font-size: 1em;
+  -webkit-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  -ms-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .sc_tgenerator_result .sc_tgenerator_result_copy .sc_button .sc_button_icon [class*="trx_addons_icon-"]:before {
   width: 1em;

@@ -27,6 +27,10 @@
 				padding: 1em 0;
 				font-size: 1.2em;
 			}
+			&::marker,
+			a {
+				@include transition-colors;
+			}
 		}
 	}
 }

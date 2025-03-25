@@ -1141,6 +1141,10 @@ if ( ! function_exists('trx_addons_prepare_macros') ) {
 								'radius' => 'border-radius',
 								'padding' => 'padding',
 								'margin' => 'margin',
+								'top' => 'top',
+								'left' => 'left',
+								'right' => 'right',
+								'bottom' => 'bottom',
 							),
 							'common'
 						);

@@ -472,6 +472,7 @@ if ( ! function_exists( 'trx_addons_elm_localize_script' ) ) {
 			// 'sc_item_descr' => 'line,word,char',
 		) );
 		$vars['elementor_breakpoints'] = trx_addons_elm_get_breakpoints();
+		$vars['elementor_placeholder_image'] = trx_addons_exists_elementor() ? \Elementor\Utils::get_placeholder_image_src() : '';
 		//$vars['msg_change_layout'] = esc_html__( 'After changing the layout, the page will be reloaded! Continue?', 'trx_addons' );
 		//$vars['msg_change_layout_caption'] = esc_html__( 'Change layout', 'trx_addons' );
 		return $vars;

@@ -13,11 +13,13 @@
 }
 
 .animated {
+	visibility:visible;
 	-webkit-animation-duration: 1s;
 			animation-duration: 1s;
+/* Commented out by default to prevent conflicts with masonry, isotope, submenu, etc.
 	-webkit-animation-fill-mode: both;
 			animation-fill-mode: both;
-	visibility:visible;
+*/
 }
 
 .animated.infinite {

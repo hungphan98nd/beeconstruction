@@ -179,18 +179,21 @@ if ( ! function_exists( 'trx_addons_options_show_fields' ) ) {
 					$tabs_content[ $last_section ] .= '</div></div>';
 					$last_batch = '';
 				}
-				$last_section = $k;
 				if ( 'panel' == $v['type'] || $allow_subtabs ) {
 					$last_panel = $k;
 					if ( 'section' == $v['type'] && ! empty( $last_panel_super ) ) {
-						$tabs_titles[ $last_panel_super ][ 'super' ] = true;
-						$tabs_titles[ $k ][ 'sub' ] = true;
+						$tabs_titles[ $last_panel_super ]['super'] = true;
+						$tabs_titles[ $k ]['sub'] = true;
 						$tabs_empty[ $last_panel_super ] = false;
 					}
 				}
 				if ( 'panel' == $v['type'] ) {
 					$last_panel_super = $k;
 				}
+				if ( empty( $tabs_titles[ $k ]['sub'] ) && ! empty( $last_section ) && ! empty( $tabs_titles[ $last_section ]['sub'] ) ) {
+					$tabs_titles[ $last_section ]['sub_last'] = true;
+				}
+				$last_section = $k;
 			} elseif ( 'batch' == $v['type'] || ( 'section' == $v['type'] && ! empty( $last_panel ) ) ) {
 				// New batch
 				if ( empty( $last_batch ) ) {
@@ -293,10 +296,18 @@ if ( ! function_exists( 'trx_addons_options_show_fields' ) ) {
 
 		if ( count( $tabs_content ) > 0 ) {
 			// Remove empty sections
+			$last_section = '';
 			foreach ( $tabs_content as $k => $v ) {
 				if ( ( empty( $v ) && empty( $tabs_titles[ $k ]['super'] ) ) || $tabs_empty[ $k ] ) {
+					if ( ! empty( $tabs_titles[ $k ]['sub_last'] ) && ! empty( $last_section ) ) {
+						$tabs_titles[ $last_section ]['sub_last'] = true;
+					}
 					unset( $tabs_titles[ $k ] );
 					unset( $tabs_content[ $k ] );
+				} else if ( ! empty( $tabs_titles[ $k ]['sub'] ) ) {
+					$last_section = $k;
+				} else {
+					$last_section = '';
 				}
 			}
 			// Display alert if options count greater then PHP setting 'max_input_vars'
@@ -331,6 +342,7 @@ if ( ! function_exists( 'trx_addons_options_show_fields' ) ) {
 							echo '<li class="trx_addons_tabs_title trx_addons_tabs_title_' . esc_attr( $v['type'] )
 									. ( ! empty( $v['super'] ) ? ' trx_addons_tabs_title_super' : '' )
 									. ( ! empty( $v['sub'] ) ? ' trx_addons_tabs_title_sub' : '' )
+									. ( ! empty( $v['sub_last'] ) ? ' trx_addons_tabs_title_sub_last' : '' )
 									. ( $tabs_empty[ $k ] ?' trx_addons_options_item_hidden' : '' )
 								. '"><a href="#trx_addons_tabs_section_' . esc_attr( ! empty( $v['super'] ) ? $cnt + 1 : $cnt ) . '">'
 										. ( ! empty( $v['icon'] )

@@ -33,7 +33,9 @@ if ( typeof models == 'object' ) {
 		<?php $element->sc_show_titles( 'sc_agenerator' ); ?>
 
 		<div class="sc_agenerator_content sc_item_content">
-			<div class="sc_agenerator_form sc_agenerator_form_preview">
+			<div class="sc_agenerator_form sc_agenerator_form_preview"
+				data-agenerator-download-icon="{{ settings.button_download_icon }}"
+			>
 				<div class="sc_agenerator_form_inner">
 					<div class="sc_agenerator_form_actions">
 						<ul class="sc_agenerator_form_actions_list">
@@ -144,7 +146,8 @@ if ( typeof models == 'object' ) {
 										if ( settings.show_settings ) {
 
 											// Button "Settings"
-											#><a href="#" class="sc_agenerator_form_settings_button trx_addons_icon-sliders"></a><#
+											var settings_icon = settings.settings_button_icon && ! trx_addons_is_off( settings.settings_button_icon ) ? settings.settings_button_icon : 'trx_addons_icon-sliders';
+											#><a href="#" class="sc_agenerator_form_settings_button {{ settings_icon }}"></a><#
 
 											// Popup with settings
 											#><div class="sc_agenerator_form_settings"><#
@@ -363,10 +366,36 @@ if ( typeof models == 'object' ) {
 
 							// Button "Generate"
 							#><div class="sc_agenerator_form_field sc_agenerator_form_field_generate"><#
-								var link_class = "<?php echo apply_filters('trx_addons_filter_sc_item_link_classes', 'sc_agenerator_form_field_generate_button sc_button sc_button_size_small', 'sc_agenerator'); ?>";
+								var button_icon = settings.button_icon ? settings.button_icon : "trx_addons_icon-magic";
+								var link_class = "<?php echo apply_filters('trx_addons_filter_sc_item_link_classes', 'sc_agenerator_form_field_generate_button sc_button sc_button_size_small', 'sc_agenerator'); ?>"
+												+ ( button_icon && ! trx_addons_is_off( button_icon ) || settings.button_image && settings.button_image.url
+													? ' sc_agenerator_form_field_generate_button_with_icon sc_button_icon_left'
+													: ' sc_agenerator_form_field_generate_button_without_icon'
+													);
 								#><a href="#" class="{{ link_class }}"><#
-									#><span class="sc_button_icon"><span class="trx_addons_icon-magic"></span></span><#
-									#><span class="sc_button_text"><# print( settings.button_text ? settings.button_text : "<?php esc_html_e( 'Process', 'trx_addons' ); ?>" ); #></span><#
+									if ( button_icon && ! trx_addons_is_off( button_icon ) || settings.button_image && settings.button_image.url ) {
+										#><span class="sc_button_icon"><#
+											if ( settings.button_image.url ) {
+												image_type = trx_addons_get_file_ext( settings.button_image.url );
+												if ( image_type == 'svg' ) {
+													#><span class="sc_button_svg"><#
+														print( trx_addons_get_inline_svg( settings.button_image.url, {
+															render: function( html ) {
+																if ( html ) {
+																	elementor.$previewContents.find( '#' + id + ' .sc_button_svg' ).html( html );
+																}
+															}
+														} ) );
+													#></span><#
+												} else {
+													#><img src="{{ settings.button_image.url }}" alt="{{ settings.button_image.alt }}" class="sc_button_image"><#
+												}
+											} else {
+												#><span class="{{ button_icon }}"></span><#
+											}
+										#></span><#
+									}
+									#><span class="sc_button_text"><# print( settings.button_text ? settings.button_text : "<?php esc_html_e( 'Generate', 'trx_addons' ); ?>" ); #></span><#
 								#></a><#
 							#></div>
 						</div>
@@ -375,10 +404,10 @@ if ( typeof models == 'object' ) {
 				if ( settings.show_limits ) {
 					#><div class="sc_agenerator_limits">
 						<span class="sc_agenerator_limits_label"><?php
-							esc_html_e( 'Limits per hour (day/week/month/year): XX audio.', 'trx_addons' );
+							echo wp_kses_post( sprintf( __( 'Limits per hour (day/week/month/year): %s audios.', 'trx_addons' ), '<span class="sc_agenerator_limits_total_value">XX</span>' ) );
 						?></span>
 						<span class="sc_agenerator_limits_value"><?php
-							esc_html_e( 'Used: YY audio.', 'trx_addons' );
+							echo wp_kses_post( sprintf( __( 'Used: %s audios.', 'trx_addons' ), '<span class="sc_agenerator_limits_used_value">YY</span>' ) );
 						?></span>
 					</div><#
 				}

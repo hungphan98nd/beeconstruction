@@ -73,7 +73,7 @@
 		@include abs-pos( 4px, 4px, 4px, auto );
 		@include border-box;
 		@include border-radius(var(--trx-addons-ai-helper-tgenerator-button-border-radius));
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 		max-width: 50%;
 		overflow: hidden;
 		padding: 0 2em;
@@ -82,6 +82,34 @@
 
 		&:not(.sc_tgenerator_form_field_prompt_button_disabled):hover {
 			background-color: $success_hover;
+		}
+		&.sc_tgenerator_form_field_prompt_button_with_icon {	// To override the theme rules
+			@include flex;
+		}
+		.sc_tgenerator_form_field_prompt_button_image {
+			max-height: 1.25em;
+			width: auto;
+		}
+		.sc_tgenerator_form_field_prompt_button_svg {
+			@include square(1.25em);
+
+			svg {
+				@include transition-property(fill);
+			}
+		}
+		.sc_tgenerator_form_field_prompt_button_icon {
+			font-size: 1.25em;
+			@include transition-property(color);
+		}
+		.sc_tgenerator_form_field_prompt_button_image,
+		.sc_tgenerator_form_field_prompt_button_svg,
+		.sc_tgenerator_form_field_prompt_button_icon {
+			& + .sc_tgenerator_form_field_prompt_button_text {
+				margin-left: 0.5em;
+			}
+		}
+		.sc_tgenerator_form_field_prompt_button_text {
+			white-space: nowrap;
 		}
 	}
 	.sc_tgenerator_form_field_prompt_button_disabled {
@@ -121,6 +149,7 @@
 		color: $accent_color;
 		padding: 0 0 0.25em 0;
 		border-bottom: 1px solid $accent_color;
+		@include transition-colors;
 	}
 	.sc_tgenerator_form_field_select_options {
 		display: none;
@@ -143,7 +172,7 @@
 		cursor: pointer;
 		white-space: nowrap;
 		padding: 0.25em 1em;
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 
 		&:hover,
 		&:focus {
@@ -173,7 +202,8 @@
 		text-align: right;
 	}
 	.sc_tgenerator_limits_used {
-		white-space: nowrap;
+		// white-space: nowrap;
+		display: block;
 	}
 }
 
@@ -210,6 +240,8 @@
 		color: $error_dark;
 	}
 	a {
+		display: inline-block;
+		vertical-align: top;
 		font-weight: 500;
 		color: $error_dark;
 		border-bottom: 1px dashed $error_dark;
@@ -292,6 +324,7 @@
 		.sc_button {
 			.sc_button_icon {
 				font-size: 1em;
+				@include transition-colors;
 
 				[class*="trx_addons_icon-"]:before {
 					width: 1em;

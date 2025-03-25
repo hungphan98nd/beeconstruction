@@ -135,6 +135,9 @@ typeof jQuery != 'undefined' &&	! ( function() {
 								.on( 'change', '.trx_addons_elementor_templates_library_categories_list', function( e ) {
 									e.preventDefault();
 									var $self = jQuery(this);
+									// Mark the selected option with the active class
+									// $self.find('option').removeClass('trx_addons_elementor_templates_library_category_active');
+									// $self.find('option:selected').addClass('trx_addons_elementor_templates_library_category_active');
 									updateItems( $self.parents('.trx_addons_elementor_templates_library_tab_content').data('tab') );
 									return false;
 								} )
@@ -187,7 +190,8 @@ typeof jQuery != 'undefined' &&	! ( function() {
 										action: 'trx_addons_elementor_templates_library_item_favorite',
 										nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
 										template_name: template,
-										favorite: $self.hasClass( 'trx_addons_elementor_templates_library_item_favorite_on' ) ? 1 : 0
+										favorite: $self.hasClass( 'trx_addons_elementor_templates_library_item_favorite_on' ) ? 1 : 0,
+										is_admin_request: 1
 									}, function( response ) {
 										var rez = {};
 										if (response === '' || response === 0) {
@@ -241,7 +245,8 @@ typeof jQuery != 'undefined' &&	! ( function() {
 											action: 'trx_addons_elementor_templates_library_item_import',
 											nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
 											template_name: template,
-											template_type: tab
+											template_type: tab,
+											is_admin_request: 1
 										}, function( response ) {
 											var rez = {};
 											if ( $self ) {
@@ -261,6 +266,7 @@ typeof jQuery != 'undefined' &&	! ( function() {
 											if ( rez.error ) {
 												alert( rez.error );
 											} else {
+												regenerateIds( rez.data.content );
 												insertContent( rez.data.content, tab );
 												window.trx_addons_elementor_templates_library.modal.hide();
 											}
@@ -406,7 +412,8 @@ typeof jQuery != 'undefined' &&	! ( function() {
 			var $icon = $bt.find('.trx_addons_elementor_templates_library_refresh_icon').addClass( 'trx_addons_loading' );
 			jQuery.post( TRX_ADDONS_STORAGE['ajax_url'], {
 				action: 'trx_addons_elementor_templates_library_refresh',
-				nonce: TRX_ADDONS_STORAGE['ajax_nonce']
+				nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
+				is_admin_request: 1
 			}, function( response ) {
 				var rez = {};
 				$icon.removeClass( 'trx_addons_loading' );
@@ -560,6 +567,19 @@ typeof jQuery != 'undefined' &&	! ( function() {
 			}
 		}
 
+		function regenerateIds( content ) {
+			for ( var i = 0; i < content.length; i++ ) {
+				if ( content[ i ].id ) {
+					content[ i ].id = typeof elementorCommon != "undefined" 
+										? elementorCommon.helpers.getUniqueId().toString()
+										: trx_addons_get_unique_id();
+					if ( content[ i ].elements ) {
+						regenerateIds( content[ i ].elements );
+					}
+				}
+			}
+		}
+
 		function insertContent( content ) {
 			var context = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "blocks",
 				contextText = context === "blocks"
@@ -573,9 +593,10 @@ typeof jQuery != 'undefined' &&	! ( function() {
 					type: "add",
 					title: "".concat( TRX_ADDONS_STORAGE['msg_elementor_templates_library_add_template'], " " ).concat( contextText )
 				} );
-				var insertOptions = { clone: true };	// To regenerate unique IDs for the new elements
+				var insertOptions = {
+					// clone: true		// To regenerate unique IDs for the new elements and clear some unique parameters like CSS ID
+				};
 				for ( var i = 0; i < content.length; i++ ) {
-dcl( 'index=' + insertIndex );
 					if ( insertIndex >= 0 ) {
 						insertOptions.at = insertIndex++;
 					}

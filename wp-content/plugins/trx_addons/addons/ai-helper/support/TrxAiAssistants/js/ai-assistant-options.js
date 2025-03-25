@@ -7,7 +7,8 @@ function trx_addons_ai_assistant_add_support() {
 			{
 				action: 'trx_addons_ai_assistant_add_support',
 				nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
-				key: $support_key
+				key: $support_key,
+				is_admin_request: 1
 			},
 			function( response ) {
 				var rez = JSON.parse( response );

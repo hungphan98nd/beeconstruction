@@ -106,6 +106,9 @@ if ( ! function_exists( 'trx_addons_api_load' ) ) {
 			'mailchimp-for-wp' => array(
 							'title' => __('MailChimp for WordPress', 'trx_addons')
 						),
+			'metform' => array(
+							'title' => __('MetForm', 'trx_addons')
+						),
 			'mp-timetable' => array(
 							'title' => __('MP TimeTable', 'trx_addons')
 						),

@@ -385,7 +385,8 @@
 	margin-top: -1em;
 
 	.sc_chat_limits_used {
-		white-space: nowrap;
+		// white-space: nowrap;
+		display: block;
 	}
 }
 
@@ -423,6 +424,8 @@
 		color: $error_dark;
 	}
 	a {
+		display: inline-block;
+		vertical-align: top;
 		font-weight: 500;
 		color: $error_dark;
 		border-bottom: 1px dashed $error_dark;

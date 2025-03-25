@@ -448,7 +448,8 @@
 						// Replace a tab's tag <button> with <div>
 						var $newTab = jQuery( '<div></div>', {
 							html: $tab.html(),
-							tabindex: 0
+							// Don't need to add tabindex for the div, because Elementor adds tabindex for the tab's title tag itself
+							// tabindex: 0
 						} );
 						jQuery.each( $tab.get(0).attributes, function() {
 							$newTab.attr( this.name, this.value );
@@ -1227,7 +1228,10 @@
 			if ( ! row.hasClass( 'trx_addons_has_bg_text' ) ) {
 				row.addClass( 'trx_addons_has_bg_text' );
 			}
+			// Replace all CR LF with spaces
 			data['bg_text'] = data['bg_text'].replace( /\r/g, ' ' ).replace( /\n/g, ' ' );
+			// Replace shortcodes like [icon name="icon-name"] or [image id|url="image-id-or-url"] with the tag <span class="icon-name"></span>
+			data['bg_text'] = trx_addons_prepare_macros( data['bg_text'], { 'class': 'trx_addons_bg_text_item' } );
 			var row_cont = row.addClass('trx_addons_has_bg_text_inited');//.find('.elementor-container').eq(0);
 			var chars = '', in_tag = false, in_amp = false, amp = '', in_divider = false, ch;
 			var delimiter_image = typeof data['bg_text_delimiter_image'] == 'object'

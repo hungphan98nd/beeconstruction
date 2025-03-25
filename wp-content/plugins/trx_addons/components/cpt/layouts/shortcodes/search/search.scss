@@ -343,6 +343,11 @@
 
 	background-color: #fff;
 	overflow: hidden;
+
+	&.animated {
+		-webkit-animation-fill-mode: forwards;
+				animation-fill-mode: forwards;
+	}
 }
 .search_style_fullscreen .search_form_overlay {
 	@include fixed-cover(-1);

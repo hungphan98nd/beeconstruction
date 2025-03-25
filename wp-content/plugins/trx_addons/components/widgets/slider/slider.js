@@ -68,8 +68,7 @@
 
 				var controller_id = controller.attr('id');
 				if (controller_id == undefined) {
-					controller_id = 'sc_slider_controller_'+Math.random();
-					controller_id = controller_id.replace('.', '');
+					controller_id = 'sc_slider_controller_' + trx_addons_get_unique_id();
 					controller.attr('id', controller_id);
 				}
 
@@ -351,8 +350,7 @@
 				// Check attr id for slider. If not exists - generate it
 				var id = slider.attr('id');
 				if (id == undefined) {
-					id = 'swiper_'+Math.random();
-					id = id.replace('.', '');
+					id = 'swiper_' + trx_addons_get_unique_id();
 					slider.attr('id', id);
 				}
 				var cont = slider.parent().hasClass('slider_swiper_outer')
@@ -723,8 +721,7 @@
 				var slider = jQuery(this);
 				var id = slider.attr('id');
 				if (id == undefined) {
-					id = 'elastistack_'+Math.random();
-					id = id.replace('.', '');
+					id = 'elastistack_' + trx_addons_get_unique_id();
 					slider.attr('id', id);
 				}
 				var cont = slider.parent().hasClass('slider_outer') ? slider.parent().attr('id', id+'_outer') : slider;

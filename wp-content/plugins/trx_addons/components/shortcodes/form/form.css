@@ -360,13 +360,13 @@ label.required span.sc_form_field_title:after {
 [class*="sc_input_hover_"] input[type="search"],
 [class*="sc_input_hover_"] select,
 [class*="sc_input_hover_"] textarea {
-  font-size: 1em !important;
+  font-size: 1em;
   line-height: 1.25em;
   font-weight: 400;
   font-style: normal;
   letter-spacing: 1px;
   text-align: left !important;
-  padding: 1.4em !important;
+  padding: 1.4em;
   width: 100%;
 }
 

@@ -168,6 +168,8 @@ class WooProducts extends BaseWidgetModule {
 		// set the main wp query for the product.
 		wp( 'p=' . $product_id . '&post_type=product' );
 
+		$classes = array();
+
 		ob_start();
 
 		while ( have_posts() ) :
@@ -298,7 +300,7 @@ class WooProducts extends BaseWidgetModule {
 		global $post, $product, $woocommerce;
 
 		?>
-		<div class="trx-addons-woo-products-qv-image-slider flexslider">
+		<div class="trx-addons-woo-products-qv-image-slider images flexslider">
 
 			<?php if( $product->is_on_sale() ) : ?>
 				<div class="premium-qv-badge">

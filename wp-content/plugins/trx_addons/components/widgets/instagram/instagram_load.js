@@ -16,8 +16,8 @@
 		jQuery('.widget_instagram_images[data-instagram-load="1"]:not(.widget_instagram_loader_inited)').each( function() {
 
 			var wrap = jQuery(this).addClass('widget_instagram_loader_inited'),
-				hash = wrap.data('instagram-hash'),
-				hashtag = wrap.data('instagram-hashtag');
+				hash = '' + wrap.data('instagram-hash'),		// Make sure that hash is a string
+				hashtag = '' + wrap.data('instagram-hashtag');	// Make sure that hashtag is a string
 			if ( hash && hashtag ) {
 				var url = 'https://www.instagram.com/' + ( hashtag.substring(0, 1) != '#'
 															? hashtag.toLowerCase()

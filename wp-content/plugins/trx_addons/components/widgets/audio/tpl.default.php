@@ -32,7 +32,12 @@ if ( is_array( $media ) && count( $media ) > 0 ) {
 		<div class="trx_addons_audio_list">
 		<?php
 		foreach ( $media as $item ) {
-			$item['url']         = array_key_exists( 'url', $item ) && ! empty( $item['url'] ) ? $item['url'] : '';
+			$item['url']         = array_key_exists( 'audio', $item ) && ! empty( $item['audio']['url'] )
+									? $item['audio']['url']
+									: ( array_key_exists( 'url', $item ) && ! empty( $item['url'] )
+										? $item['url']
+										: ''
+										);
 			$item['embed']       = array_key_exists( 'embed', $item ) && ! empty( $item['embed'] ) ? $item['embed'] : '';
 			$item['caption']     = array_key_exists( 'caption', $item ) && ! empty( $item['caption'] ) ? $item['caption'] : '';
 			$item['author']      = array_key_exists( 'author', $item ) && ! empty( $item['author'] ) ? $item['author'] : '';
@@ -82,9 +87,7 @@ if ( is_array( $media ) && count( $media ) > 0 ) {
 					?>
 					<div class="audio_frame audio_<?php echo esc_attr( $item['embed'] ? 'embed' : 'local' ); ?>">
 					<?php
-					if ( $item['embed'] ) {
-						trx_addons_show_layout( $item['embed'] );
-					} elseif ( $item['url'] ) {
+					if ( ! empty( $item['url'] ) ) {
 						$default_types = wp_get_audio_extensions();
 						$type = wp_check_filetype( $item['url'], wp_get_mime_types() );
 						$need_replace = false;
@@ -113,6 +116,8 @@ if ( is_array( $media ) && count( $media ) > 0 ) {
 							<audio src="<?php echo esc_url( $item['url'] ); ?>"></audio>
 							<?php
 						}
+					} else if ( ! empty( $item['embed'] ) ) {
+						trx_addons_show_layout( $item['embed'] );
 					}
 					?>
 					</div>
@@ -126,8 +131,20 @@ if ( is_array( $media ) && count( $media ) > 0 ) {
 		if ( count( $media ) > 1 ) {
 			if ( '1' === $args['prev_btn'] || '1' === $args['next_btn'] ) {
 				echo '<div class="trx_addons_audio_navigation">'
-						. ( '1' === $args['prev_btn'] ? '<span class="nav_btn prev"><span class="trx_addons_icon-slider-left"></span>' . esc_html( $prev_text ) . '</span>' : '' )
-						. ( '1' === $args['next_btn'] ? '<span class="nav_btn next">' . esc_html( $next_text ) . '<span class="trx_addons_icon-slider-right"></span></span>' : '' )
+						. ( '1' === $args['prev_btn']
+							? '<span class="nav_btn prev">'
+								. '<span class="' . ( ! empty( $args['prev_icon'] ) && ! trx_addons_is_off( $args['prev_icon'] ) ? $args['prev_icon'] : 'trx_addons_icon-slider-left' ) . '"></span>'
+								. esc_html( $prev_text )
+								. '</span>'
+							: ''
+							)
+						. ( '1' === $args['next_btn']
+							? '<span class="nav_btn next">'
+								. esc_html( $next_text )
+								. '<span class="' . ( ! empty( $args['next_icon'] ) && ! trx_addons_is_off( $args['next_icon'] ) ? $args['next_icon'] : 'trx_addons_icon-slider-right' ) . '"></span>'
+								. '</span>'
+							: ''
+							)
 					. '</div>';
 			}
 		}

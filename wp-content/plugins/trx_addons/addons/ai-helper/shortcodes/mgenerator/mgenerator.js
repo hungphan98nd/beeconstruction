@@ -269,6 +269,7 @@ jQuery( document ).ready( function() {
 							setTimeout( function() {
 								var currentDate = new Date();
 								var timestamp = currentDate.getTime();
+								var icon = $form.data( 'mgenerator-download-icon' ) || 'trx_addons_icon-download';
 								var html = '<div class="sc_mgenerator_music_item_wrap">';
 								for ( var i = 0; i < rez.data.music.length; i++ ) {
 									html += '<div class="sc_mgenerator_music_item'
@@ -276,7 +277,7 @@ jQuery( document ).ready( function() {
 												+ ( animation_in ? ' ' + animation_in : '' )
 											+ '">'
 												+ '<div class="sc_mgenerator_music_inner">'
-													+ '<span class="sc_mgenerator_music_wrap">'
+													+ '<div class="sc_mgenerator_music_wrap">'
 														+ '<audio controls="controls" preload="metadata"'	// autoplay="autoplay" loop="loop"
 															+ ( rez.data.fetch_id
 																? ' id="fetch-' + rez.data.fetch_id + '"'
@@ -292,7 +293,7 @@ jQuery( document ).ready( function() {
 																+ '</span>'
 															: ''
 															)
-													+ '</span>'
+													+ '</div>'
 													+ ( ! rez.data.demo && rez.data.show_download
 														? '<a href="' + get_download_link( rez.data.music[i].url ? rez.data.music[i].url : '#' ) + '"'
 															+ ' download="' + prompt.replace( /[\s]+/g, '-' ).toLowerCase() + '"'
@@ -300,7 +301,7 @@ jQuery( document ).ready( function() {
 															//+ ' target="_blank"'
 															+ ' class="sc_mgenerator_music_link sc_button sc_button_default sc_button_size_small sc_button_with_icon sc_button_icon_left"'
 															+ '>'
-																+ '<span class="sc_button_icon"><span class="trx_addons_icon-download"></span></span>'
+																+ ( icon && ! trx_addons_is_off( icon ) ? '<span class="sc_button_icon"><span class="' + icon + '"></span></span>' : '' )
 																+ '<span class="sc_button_text"><span class="sc_button_title">' + TRX_ADDONS_STORAGE['msg_ai_helper_download'] + '</span></span>'
 															+ '</a>'
 														: ''
@@ -319,7 +320,7 @@ jQuery( document ).ready( function() {
 										trx_addons_ai_helper_mgenerator_reload_music( jQuery(this) );
 									} );
 								$preview.css( 'height', 'auto' );
-								$sc.addClass( 'sc_igenerator_music_show' );
+								$sc.addClass( 'sc_mgenerator_music_show' );
 								// Trigger the init event to allow 3rd party script to initialize the music player (for example, MediaElement)
 								if ( ! rez.data.fetch_id ) {
 									$document.trigger( 'action.init_hidden_elements', [ $preview ] );
@@ -443,6 +444,9 @@ jQuery( document ).ready( function() {
 
 			// Show message
 			function show_message( msg, type ) {
+				if ( msg.indexOf( '<p>' ) == -1 ) {
+					msg = '<p>' + msg + '</p>';
+				}
 				$form
 					.find( '.sc_mgenerator_message_inner' )
 						.html( msg )

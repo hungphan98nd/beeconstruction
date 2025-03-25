@@ -87,7 +87,8 @@ if ( ! function_exists( 'trx_addons_cf7_importer_show_params' ) ) {
 			$importer->show_importer_params( array(
 				'slug' => 'contact-form-7',
 				'title' => esc_html__('Import Contact Form 7', 'trx_addons'),
-				'part' => 1
+				'part' => 1,
+				'need_posts' => 1
 			) );
 		}
 	}

@@ -58,15 +58,41 @@ $args = get_query_var('trx_addons_args_sc_tgenerator');
 								}
 							?>"
 						>
-						<a href="#" class="sc_tgenerator_form_field_prompt_button<?php if ( empty( $args['prompt'] ) ) echo ' sc_tgenerator_form_field_prompt_button_disabled'; ?>"><?php
-							if ( ! empty( $args['button_text'] ) ) {
-								echo esc_html( $args['button_text'] );
-							} else {
-								esc_html_e('Generate', 'trx_addons');
+						<a href="#" class="sc_tgenerator_form_field_prompt_button<?php
+							if ( empty( $args['prompt'] ) ) {
+								echo ' sc_tgenerator_form_field_prompt_button_disabled';
+							}
+							echo ! empty( $args['button_image'] ) || ( ! empty( $args['button_icon'] ) && ! trx_addons_is_off( $args['button_icon'] ) )
+								? ' sc_tgenerator_form_field_prompt_button_with_icon'
+								: ' sc_tgenerator_form_field_prompt_button_without_icon';
+						?>"><?php
+							if ( ! empty( $args['button_image'] ) ) {
+								$icon_type = trx_addons_get_file_ext( $args['button_image'] );
+								if ( $icon_type == 'svg' ) {
+									?><span class="sc_tgenerator_form_field_prompt_button_svg"><?php
+										trx_addons_show_layout( trx_addons_get_svg_from_file( $args['button_image'] ) );
+									?></span><?php
+								} else {
+									?><img src="<?php echo esc_url( trx_addons_get_attachment_url( $args['button_image'], apply_filters('trx_addons_filter_thumb_size', trx_addons_get_thumb_size( 'tiny' ), 'sc_tgenerator_field_prompt_button' ) ) ); ?>"
+											alt="<?php esc_attr_e( 'Generate icon', 'trx_addons' ); ?>"
+											class="sc_tgenerator_form_field_prompt_button_image"><?php
+								}
+							} else if ( ! empty( $args['button_icon'] ) && ! trx_addons_is_off( $args['button_icon'] ) ) {
+								?><span class="sc_tgenerator_form_field_prompt_button_icon <?php echo esc_attr( $args['button_icon'] ); ?>"></span><?php
+							}
+							if ( isset( $args['button_text'] ) && $args['button_text'] != '#' ) {
+								?><span class="sc_tgenerator_form_field_prompt_button_text"><?php
+									if ( ! empty( $args['button_text'] ) ) {
+										echo esc_html( $args['button_text'] );
+									} else {
+										esc_html_e('Generate', 'trx_addons');
+									}
+								?></span><?php
 							}
 						?></a>
 					</div>
 				</div>
+				<textarea class="sc_tgenerator_text sc_tgenerator_form_field_hidden" placeholder="<?php esc_attr_e( 'Text to process...', 'trx_addons' ); ?>"></textarea>
 				<div class="sc_tgenerator_form_field sc_tgenerator_form_field_tags">
 					<span class="sc_tgenerator_form_field_tags_label"><?php esc_html_e( 'Write a', 'trx_addons' ); ?></span>
 					<?php trx_addons_show_layout( trx_addons_sc_tgenerator_get_list_commands( 'write' ) ); ?>
@@ -152,7 +178,6 @@ $args = get_query_var('trx_addons_args_sc_tgenerator');
 			<div class="trx_addons_loading">
 			</div>
 		</div>
-		<textarea class="sc_tgenerator_text sc_tgenerator_form_field_hidden" placeholder="<?php esc_attr_e( 'Text to process...', 'trx_addons' ); ?>"></textarea>
 		<div class="sc_tgenerator_result">
 			<div class="sc_tgenerator_result_label"><?php esc_html_e( 'Result:', 'trx_addons' ); ?></div>
 			<div class="sc_tgenerator_result_content"></div>
@@ -161,7 +186,7 @@ $args = get_query_var('trx_addons_args_sc_tgenerator');
 					"type" => "default",
 					"size" => "small",
 					"text_align" => "none",
-					"icon" => "trx_addons_icon-copy",
+					"icon" => ! empty( $args['result_copy_icon'] ) ? $args['result_copy_icon'] : 'trx_addons_icon-copy',
 					"icon_position" => "left",
 					"title" => __( 'Copy', 'trx_addons' ),
 					"link" => '#'

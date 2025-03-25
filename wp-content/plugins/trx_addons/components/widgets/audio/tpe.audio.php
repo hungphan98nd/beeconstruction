@@ -59,12 +59,13 @@ if (settings.media.length > 0) {
 						}
 
 						#><div class="audio_frame audio_<# print(item.embed != '' ? 'embed' : 'local'); #>"><#
-							if (item.embed != '')
-								print(item.embed);
-							else if (item.url != '') {
-								#><audio src="{{ item.url }}">
-									<source type="audio/mpeg" src="{{ item.url }}">
+							var url = item.audio && item.audio.url != '' ? item.audio.url : item.url;
+							if ( url != '' ) {
+								#><audio src="{{ url }}">
+									<source type="audio/mpeg" src="{{ url }}">
 								</audio><#
+							} else if ( item.embed != '' ) {
+								print(item.embed);
 							}
 						#></div>
 					</div>
@@ -74,19 +75,20 @@ if (settings.media.length > 0) {
 			if (settings.media.length > 1) {
 				if (settings.prev_btn == '1' || settings.next_btn == '1'){
 					#><div class="trx_addons_audio_navigation"><#
-						if ( settings.prev_btn == '1')
-						{
-							#><span class="nav_btn prev"><span class="trx_addons_icon-slider-left"></span><#
+						var icon = '';
+						if ( settings.prev_btn == '1') {
+							icon = settings.prev_icon && ! trx_addons_is_off( settings.prev_icon ) ? settings.prev_icon : 'trx_addons_icon-slider-left';
+							#><span class="nav_btn prev"><span class="{{ icon }}"></span><#
 							if ( settings.prev_text != '')
 								print(settings.prev_text);
 							#></span><#
 						}
-						if ( settings.next_btn == '1')
-						{
+						if ( settings.next_btn == '1') {
+							icon = settings.next_icon && ! trx_addons_is_off( settings.next_icon ) ? settings.next_icon : 'trx_addons_icon-slider-right';
 							#><span class="nav_btn next"><#
 							if ( settings.next_text != '')
 								print(settings.next_text);
-							#><span class="trx_addons_icon-slider-right"></span></span><#
+							#><span class="{{ icon }}"></span></span><#
 						}
 					#></div><#
 				}

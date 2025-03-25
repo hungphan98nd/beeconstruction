@@ -422,6 +422,7 @@ jQuery( document ).ready( function() {
 							setTimeout( function() {
 								var currentDate = new Date();
 								var timestamp = currentDate.getTime();
+								var icon = $form.data( 'agenerator-download-icon' ) || 'trx_addons_icon-download';
 								var html = '<div class="sc_agenerator_audio_item_wrap">';
 								for ( var i = 0; i < rez.data.audio.length; i++ ) {
 									html += '<div class="sc_agenerator_audio_item'
@@ -429,23 +430,23 @@ jQuery( document ).ready( function() {
 												+ ( animation_in ? ' ' + animation_in : '' )
 											+ '">'
 												+ '<div class="sc_agenerator_audio_inner">'
-													+ '<span class="sc_agenerator_audio_wrap">'
-													+ '<audio controls="controls" preload="metadata"'	// autoplay="autoplay" loop="loop"
+													+ '<div class="sc_agenerator_audio_wrap">'
+														+ '<audio controls="controls" preload="metadata"'	// autoplay="autoplay" loop="loop"
+															+ ( rez.data.fetch_id
+																? ' id="fetch-' + rez.data.fetch_id + '"'
+																: ' src="' + rez.data.audio[i].url + '"'
+																)
+														+ '></audio>'
 														+ ( rez.data.fetch_id
-															? ' id="fetch-' + rez.data.fetch_id + '"'
-															: ' src="' + rez.data.audio[i].url + '"'
-															)
-													+ '></audio>'
-													+ ( rez.data.fetch_id
-														? '<span class="sc_agenerator_audio_fetch_info">'
-																+ '<span class="sc_agenerator_audio_fetch_progress">'
-																	+ '<span class="sc_agenerator_audio_fetch_progressbar"></span>'
+															? '<span class="sc_agenerator_audio_fetch_info">'
+																	+ '<span class="sc_agenerator_audio_fetch_progress">'
+																		+ '<span class="sc_agenerator_audio_fetch_progressbar"></span>'
+																	+ '</span>'
+																	+ '<span class="sc_agenerator_audio_fetch_msg">' + rez.data.fetch_msg + '</span>'
 																+ '</span>'
-																+ '<span class="sc_agenerator_audio_fetch_msg">' + rez.data.fetch_msg + '</span>'
-															+ '</span>'
-														: ''
-														)
-													+ '</span>'
+															: ''
+															)
+													+ '</div>'
 													+ ( ! rez.data.demo && rez.data.show_download
 														? '<a href="' + get_download_link( rez.data.audio[i].url ? rez.data.audio[i].url : '#' ) + '"'
 															+ ' download="' + prompt.replace( /[\s]+/g, '-' ).toLowerCase() + '"'
@@ -453,7 +454,7 @@ jQuery( document ).ready( function() {
 															//+ ' target="_blank"'
 															+ ' class="sc_agenerator_audio_link sc_button sc_button_default sc_button_size_small sc_button_with_icon sc_button_icon_left"'
 															+ '>'
-																+ '<span class="sc_button_icon"><span class="trx_addons_icon-download"></span></span>'
+																+ ( icon && ! trx_addons_is_off( icon ) ? '<span class="sc_button_icon"><span class="' + icon + '"></span></span>' : '' )
 																+ '<span class="sc_button_text"><span class="sc_button_title">' + TRX_ADDONS_STORAGE['msg_ai_helper_download'] + '</span></span>'
 															+ '</a>'
 														: ''
@@ -666,6 +667,9 @@ jQuery( document ).ready( function() {
 
 			// Show message
 			function show_message( msg, type ) {
+				if ( msg.indexOf( '<p>' ) == -1 ) {
+					msg = '<p>' + msg + '</p>';
+				}
 				$form
 					.find( '.sc_agenerator_message_inner' )
 						.html( msg )

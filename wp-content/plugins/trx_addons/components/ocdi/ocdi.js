@@ -30,7 +30,8 @@ jQuery(document).ready(function() {
 			nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
 			trx_addons_ocdi_demo_type: demo_type,
 			trx_addons_ocdi_import_type: import_type,
-			trx_addons_ocdi_import_elements: import_elements
+			trx_addons_ocdi_import_elements: import_elements,
+			is_admin_request: 1
 		}).done(function(response) {
 			var rez = {};
 			try {

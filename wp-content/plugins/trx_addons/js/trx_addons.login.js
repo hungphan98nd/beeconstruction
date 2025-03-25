@@ -102,7 +102,7 @@ jQuery(document).on('action.ready_trx_addons', function() {
 											: location.href
 											);
 						// Add random string to the URL to prevent caching
-						new_url = trx_addons_add_to_url( new_url, { rnd: ( '' + Math.random() ).replace( '.', '' ) } );
+						new_url = trx_addons_add_to_url( new_url, { rnd: trx_addons_get_unique_id() } );
 						// Redirect to the new URL
 						location.href = trx_addons_apply_filters( 'trx_addons_filter_redirect_url_after_login', new_url, rez );
 					}, result_timeout );

@@ -1227,6 +1227,7 @@ class WooProductsWidget extends BaseWidget {
 				'render_type' => 'template',
 				'selectors'   => array(
 					'{{WRAPPER}} .trx-addons-woo-products li.product' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .trx-addons-woo-products ul.products' => 'margin-bottom: -{{SIZE}}{{UNIT}};',
 				),
 				'condition'   => array(
 					'layout_type' => array( 'grid', 'masonry' ),

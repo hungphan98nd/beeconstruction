@@ -884,6 +884,9 @@ body.body_style_boxed .elementor-element-edit-mode.elementor-section-stretched.e
 body.body_style_boxed .trx_addons_bg_text {
   overflow: hidden;
 }
+.trx_addons_bg_text .trx_addons_image_placeholder {
+  max-width: 1em;
+}
 .trx_addons_bg_text.trx_addons_marquee_reverse {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
@@ -945,6 +948,10 @@ body.rtl .trx_addons_bg_text.trx_addons_marquee_wrap.trx_addons_marquee_reverse 
   vertical-align: top;
   opacity: 0;
   z-index: 0;
+}
+.trx_addons_bg_text .trx_addons_bg_text_inner .trx_addons_bg_text_item .trx_addons_bg_text_item {
+  vertical-align: middle;
+  position: relative;
 }
 .trx_addons_bg_text .trx_addons_bg_text_inner .trx_addons_bg_text_char {
   color: rgba(0, 0, 0, 0.05);

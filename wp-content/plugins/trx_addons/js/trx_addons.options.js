@@ -270,7 +270,7 @@ jQuery(document).ready( function() {
 				if (jQuery.ui.sortable && jQuery(this).hasClass('trx_addons_options_sortable')) {
 					var id = jQuery(this).attr('id');
 					if (id === undefined) {
-						jQuery(this).attr('id', 'trx_addons_options_sortable_'+(''+Math.random()).replace('.', ''));
+						jQuery(this).attr( 'id', 'trx_addons_options_sortable_' + trx_addons_get_unique_id() );
 					}
 					jQuery(this).sortable({
 						items: ".trx_addons_options_item_sortable",
@@ -497,7 +497,8 @@ jQuery(document).ready( function() {
 				if ( action ) {
 					var data = {
 						action: action,
-						nonce: TRX_ADDONS_STORAGE['ajax_nonce']						
+						nonce: TRX_ADDONS_STORAGE['ajax_nonce'],
+						is_admin_request: 1
 					};
 					// Collect data from the fields
 					if ( button.data('fields') ) {
@@ -613,7 +614,7 @@ jQuery(document).ready( function() {
 			if (jQuery.ui.sortable) {
 				var id = jQuery(this).attr('id');
 				if (id === undefined) {
-					jQuery(this).attr('id', 'trx_addons_options_sortable_'+(''+Math.random()).replace('.', ''));
+					jQuery(this).attr( 'id', 'trx_addons_options_sortable_' + trx_addons_get_unique_id() );
 				}
 				jQuery(this)
 					.sortable({

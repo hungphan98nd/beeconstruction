@@ -43,7 +43,27 @@ if ( ! function_exists( 'trx_addons_elm_add_bg_text' ) ) {
 			$element->add_control( 'bg_text', array(
 				'type' => \Elementor\Controls_Manager::TEXTAREA, 	//WYSIWYG
 				'label' => __( "Text", 'trx_addons' ),
-				'description' => __( 'Use [divider] to insert a delimiter into the text.', 'trx_addons' ),
+				'description' => __( 'You can use the following macros to insert additional elements into your text:', 'trx_addons' )
+								. '<br>'
+								. __( '<b>[divider]</b> - adds the divider selected in the fields below', 'trx_addons' )
+								. '<br>'
+								. __( '<b>[icon name=icon-name]</b> - adds an icon with specified class name', 'trx_addons' )
+								. '<br>'
+								. __( '<b>[image id=image-id]</b> - adds an image with specified ID', 'trx_addons' )
+								. '<br>'
+								. __( 'You can specify additional attributes for <b>[image]</b> and <b>[icon]</b>:', 'trx_addons' )
+								. '<br>'
+								. __( '<b>size</b>=NNpx|em|rem|%', 'trx_addons' )
+								. '<br>'
+								. __( '<b>thumb</b>=thumb-name (only for image)', 'trx_addons' )
+								. '<br>'
+								. __( '<b>padding</b>="top right bottom left"', 'trx_addons' )
+								. '<br>'
+								. __( '<b>margin</b>="top right bottom left"', 'trx_addons' )
+								. '<br>'
+								. __( '<b>top | right | bottom | left</b>=NNpx|em|rem|%', 'trx_addons' )
+								. '<br>'
+								. __( '<b>style</b>="any CSS rules"', 'trx_addons' ),
 				'label_block' => true,
 				'default' => ''
 			) );
@@ -59,6 +79,63 @@ if ( ! function_exists( 'trx_addons_elm_add_bg_text' ) ) {
 						'{{WRAPPER}} .trx_addons_bg_text_char' => 'color: {{VALUE}};',
 					)
 				)
+			);
+
+			$element->add_control(
+				'bg_text_clip',
+				[
+					'label' => esc_html__( 'Text as Clipping Mask', 'trx_addons' ),
+					'type' => \Elementor\Controls_Manager::SWITCHER,
+					'default' => '',
+					'return_value' => 'mask',
+					'prefix_class' => 'trx_addons_bg_text_clip_',
+					'render_type' => 'template',
+					'selectors' => [
+						'{{WRAPPER}} .trx_addons_bg_text_char,
+						 {{WRAPPER}} .trx_addons_bg_text_char i,
+						 {{WRAPPER}} .trx_addons_bg_text_char svg,
+						 {{WRAPPER}} .trx_addons_bg_text_char img' => '-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;',
+					],
+					'condition' => [
+						'bg_text_background_background' => ['classic','gradient']
+					],
+				],
+			);
+	
+			$element->add_group_control(
+				\Elementor\Group_Control_Background::get_type(),
+				[
+					'name' => 'bg_text_background',
+					'selector' => '{{WRAPPER}}:not(.trx_addons_bg_text_clip_mask) .trx_addons_bg_text,
+									{{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char,
+									{{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char i,
+									{{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char svg,
+									{{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char img'
+				]
+			);
+	
+			$element->add_control(
+				'bg_text_gradient',
+				[
+					'label' => esc_html__( 'Advanced Gradient', 'trx_addons' ),
+					'label_block' => true,
+					'type' => 'trx_gradient',
+					'default' => '',
+					'render_type' => 'template',
+					'picker_options' => [
+						'modes' => ['linear-gradient', 'radial-gradient'],
+					],
+					'condition' => [
+						'bg_text_background_background' => ['gradient']
+					],
+					'selectors' => [
+						'{{WRAPPER}}:not(.trx_addons_bg_text_clip_mask) .trx_addons_bg_text,
+						 {{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char,
+						 {{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char i,
+						 {{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char svg,
+						 {{WRAPPER}}.trx_addons_bg_text_clip_mask .trx_addons_bg_text_char img' => 'background-image: {{VALUE}};',
+					],
+				]
 			);
 
 			if ( class_exists('\Elementor\Group_Control_Typography') ) {
@@ -289,7 +366,7 @@ if ( ! function_exists( 'trx_addons_elm_add_bg_text' ) ) {
 			$element->add_control(
 				"bg_text_delimiter_separator",
 				[
-					'label' => __( 'Delimiter', 'trx_addons' ),
+					'label' => __( 'Divider', 'trx_addons' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'after',
 				]

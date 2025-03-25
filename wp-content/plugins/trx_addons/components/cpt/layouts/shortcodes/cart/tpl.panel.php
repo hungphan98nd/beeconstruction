@@ -9,7 +9,7 @@
 $args = get_query_var( 'trx_addons_args_sc_layouts_cart' );
 
 $show_cart = trx_addons_is_preview( 'elementor' ) && get_post_type() == TRX_ADDONS_CPT_LAYOUTS_PT ? 'preview' : '';
-$allow_sc_styles_in_elementor = apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'trx_sc_layouts_cart' );
+$allow_sc_styles_in_elementor = apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'sc_layouts_cart' );
 $preview_show_cart = ! empty( $args['cart_preview'] )
 						&& trx_addons_is_preview( 'elementor' )
 						&& $allow_sc_styles_in_elementor
@@ -125,7 +125,7 @@ if ( ! empty( $show_cart ) ) {
 		trx_addons_sc_show_attributes( 'sc_layouts_cart', $args, 'sc_wrapper' );
 	?>>
 		<?php if ( $allow_sc_styles_in_elementor && ! empty( $args['select_cart_icon'] ) && ! empty( $args['select_cart_icon']['value'] ) && class_exists( '\Elementor\Icons_Manager' ) ) { ?>
-			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icons_type_icons sc_layouts_cart_icon_custom<?php echo esc_attr( $panel_link_class ) ?>"<?php
+			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icon_type_icons sc_layouts_cart_icon_custom<?php echo esc_attr( $panel_link_class ) ?>"<?php
 				echo wp_kses( $panel_link_data, 'trx_addons_kses_content' );
 			?>>
 				<?php
@@ -135,7 +135,7 @@ if ( ! empty( $show_cart ) ) {
 				?>
 			</span>
 		<?php } else { ?>
-			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icons_type_icons trx_addons_icon-basket<?php echo esc_attr( $panel_link_class ) ?>"<?php
+			<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icon_type_icons trx_addons_icon-basket<?php echo esc_attr( $panel_link_class ) ?>"<?php
 				echo wp_kses( $panel_link_data, 'trx_addons_kses_content' );
 			?>></span>
 		<?php } ?>

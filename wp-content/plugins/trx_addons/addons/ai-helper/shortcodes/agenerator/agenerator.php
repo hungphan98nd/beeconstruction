@@ -137,6 +137,10 @@ if ( ! function_exists( 'trx_addons_sc_agenerator' ) ) {
 			"prompt_width" => "",
 			"placeholder_text" => "",
 			"button_text" => "",
+			"button_icon" => "",
+			"button_image" => "",
+			"settings_button_icon" => "",
+			"button_download_icon" => "",
 			"language" => "english",
 			"emotion" => "neutral",
 			"voice" => "",
@@ -510,8 +514,8 @@ if ( ! function_exists( 'trx_addons_sc_agenerator_generate_audio' ) ) {
 			} else {
 				$answer['data']['demo'] = true;
 				// Get demo audio from the settings
+				$audio = array();
 				if ( ! empty( $settings['demo_audio'] ) && ! empty( $settings['demo_audio'][0]['audio']['url'] ) ) {
-					$audio = array();
 					foreach ( $settings['demo_audio'] as $file ) {
 						$audio[] = $file['audio']['url'];
 					}

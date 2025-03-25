@@ -9,7 +9,7 @@
  */
 
 extract(get_query_var('trx_addons_args_sc_layouts_cart'));
-$allow_sc_styles_in_elementor = apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'trx_sc_layouts_cart' );
+$allow_sc_styles_in_elementor = apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'sc_layouts_cart' );
 ?><#
 var id = settings._element_id ? settings._element_id + '_sc' : 'sc_layouts_cart_'+(''+Math.random()).replace('.', '');
 
@@ -33,7 +33,7 @@ var iconHTMLAll = '';
 			iconHTML = iconHTML.value;
 		}
 
-		iconHTMLAll += '<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icons_type_icons">' + iconHTML + '</span>';
+		iconHTMLAll += '<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icon_type_icons">' + iconHTML + '</span>';
 	}
 	#>
 <?php } ?>
@@ -41,7 +41,7 @@ var iconHTMLAll = '';
 	<# if ( '' != iconHTMLAll ) { #>
 		{{{ iconHTMLAll }}}
 	<# } else { #>
-		<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icons_type_icons trx_addons_icon-basket"></span>
+		<span class="sc_layouts_item_icon sc_layouts_cart_icon sc_icon_type_icons trx_addons_icon-basket"></span>
 	<# } #>
 	<span class="sc_layouts_item_details sc_layouts_cart_details">
 		<# if (settings.text != '') { #>

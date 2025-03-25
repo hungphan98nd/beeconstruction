@@ -599,7 +599,7 @@ if ( ! function_exists( 'trx_addons_elm_nested_tabs_render_content' ) ) {
 							'~(<button[^>]*class="e-n-tab-title[^>]*data-tab-index="' . ( $k + 1 ) . '"[^>]*>)([\s\S]*)(</button>)~U',
 							function( $matches ) use ( $k, $tab, $icon_placement, $title_tag, $subtitle_tag ) {
 								// Replace a tab's tag <button> with <div>
-								$matches[1] = str_replace( '<button ', '<div tabindex="0" ', $matches[1] );
+								$matches[1] = str_replace( '<button ', '<div ', $matches[1] );	// Don't need to add tabindex for the div, because Elementor adds tabindex for the tab's title tag itself
 								$matches[3] = str_replace( '</button>', '</div>', $matches[3] );
 								// Add a subtitle classes to the title wrapper
 								if ( ! empty( $tab['tab_subtitle'] ) ) {

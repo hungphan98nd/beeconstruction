@@ -130,6 +130,10 @@ if ( ! function_exists( 'trx_addons_sc_vgenerator' ) ) {
 			"placeholder_text" => "",
 			"prompt_width" => "100",
 			"button_text" => "",
+			"button_icon" => "",
+			"button_image" => "",
+			"settings_button_icon" => "",
+			"button_download_icon" => "",
 			"aspect_ratio" => "1:1",
 			"model" => "",
 			"show_settings" => 0,
@@ -524,8 +528,8 @@ if ( ! function_exists( 'trx_addons_sc_vgenerator_generate_video' ) ) {
 
 				$answer['data']['demo'] = true;
 				// Get demo video from the settings
+				$video = array();
 				if ( ! empty( $settings['demo_video'] ) && ! empty( $settings['demo_video'][0]['video']['url'] ) ) {
-					$video = array();
 					foreach ( $settings['demo_video'] as $file ) {
 						$video[] = $file['video']['url'];
 					}

@@ -41,17 +41,18 @@ if ( ! function_exists( 'trx_addons_users_check_role' ) ) {
 -------------------------------------------------------------------------------- */
 
 if ( ! function_exists( 'trx_addons_add_login_link' ) ) {
-	add_action( 'trx_addons_action_login', 'trx_addons_add_login_link', 10, 2 );
+	add_action( 'trx_addons_action_login', 'trx_addons_add_login_link', 10, 1 );
 	/**
 	 * Display login link. If user is logged in - display user menu
 	 * 
 	 * @hooked trx_addons_action_login
 	 * 
-	 * @param array $args  Login link arguments with keys: 'text_login', 'text_logout', 'user_menu'
+	 * @param array $args  Login link arguments with keys: 'text_login', 'text_logout', 'user_menu', etc.
 	 */
 	function trx_addons_add_login_link( $args = array() ) {
 		global $TRX_ADDONS_STORAGE;
 		$TRX_ADDONS_STORAGE['login_popup'] = ! is_user_logged_in();
+		$TRX_ADDONS_STORAGE['login_args'] = $args;
 		if ( isset( $args['text_login'] ) && ( $args['text_login'] === false || $args['text_login'] == '#' ) ) {
 			$args['text_login'] = '';
 		} else if ( empty( $args['text_login'] ) ) {
@@ -75,12 +76,16 @@ if ( ! function_exists( 'trx_addons_add_login_popup' ) ) {
 	 */
 	function trx_addons_add_login_popup() {
 		global $TRX_ADDONS_STORAGE;
-		if ( ! empty( $TRX_ADDONS_STORAGE['login_popup'] ) && ( $fdir = trx_addons_get_file_dir( 'templates/tpl.login-popup.php' ) ) != '' ) {
+		if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false , 'sc_layouts_login' ) && trx_addons_is_preview('elementor') ) {
+			$TRX_ADDONS_STORAGE['login_popup'] = true;
+		}
+		if ( ! empty( $TRX_ADDONS_STORAGE['login_popup'] ) ) {	// && ( $fdir = trx_addons_get_file_dir( 'templates/tpl.login-popup.php' ) ) != '' ) {
 			if ( ! is_customize_preview() ) {
 				wp_enqueue_script( 'jquery-ui-tabs', false, array( 'jquery','jquery-ui-core' ), null, true );
 				wp_enqueue_script( 'jquery-effects-fade', false, array( 'jquery','jquery-effects-core' ), null, true );
 			}
-			include_once $fdir;
+			// include_once $fdir;
+			trx_addons_get_template_part( 'templates/tpl.login-popup.php', 'trx_addons_args_login_popup', ! empty( $TRX_ADDONS_STORAGE['login_args'] ) ? $TRX_ADDONS_STORAGE['login_args'] : array() );
 		}
 	}
 }

@@ -3,7 +3,7 @@
 
 //@mixin sc_vgenerator--lg() {
 @media #{$media_lg} {
-	/* IGenerator */
+	/* VGenerator */
 	.sc_vgenerator_form_field_tags {
 		.sc_vgenerator_form_align_left_tablet & {
 			@include flex-justify-content(flex-start);
@@ -32,7 +32,7 @@
 		
 //@mixin sc_vgenerator--sm() {
 @media #{$media_sm} {
-    /* IGenerator */
+    /* VGenerator */
 	.sc_vgenerator_form_field.sc_vgenerator_form_field_prompt {
 		width: 100%;
 	}
@@ -85,7 +85,7 @@
 
 //@mixin sc_vgenerator--sm_wp() {
 @media #{$media_sm_wp} {
-	/* IGenerator */
+	/* VGenerator */
 	.sc_vgenerator_extended {
 		.sc_vgenerator_form_fields {
 			@include flex-direction(column);
@@ -113,7 +113,7 @@
 	
 //@mixin sc_vgenerator--xs() {
 @media #{$media_xs} {
-	/* IGenerator */
+	/* VGenerator */
 	.sc_vgenerator_form_field_tags {
 		@include flex-direction(column);
 	}

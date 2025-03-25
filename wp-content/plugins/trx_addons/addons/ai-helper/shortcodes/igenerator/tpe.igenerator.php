@@ -44,7 +44,10 @@ if ( typeof models == 'object' ) {
 					print( trx_addons_get_responsive_classes( 'sc_igenerator_form_align_', settings, 'align', '' ).replace( /flex-start|flex-end/g, function( match ) {
 						return match == 'flex-start' ? 'left' : 'right';
 					} ) );
-				#>">
+					#>"
+					data-igenerator-default-model="{{ settings.model }}"
+					data-igenerator-download-icon="{{ settings.button_download_icon }}"
+				>
 					<div class="sc_igenerator_form_inner">
 						<div class="sc_igenerator_form_field sc_igenerator_form_field_prompt<#
 							if ( settings.show_settings ) {
@@ -53,12 +56,43 @@ if ( typeof models == 'object' ) {
 						#>">
 							<div class="sc_igenerator_form_field_inner">
 								<input type="text" value="{{ settings.prompt }}" class="sc_igenerator_form_field_prompt_text" placeholder="{{{ settings.placeholder_text || '<?php esc_attr_e('Describe what you want or hit a tag below', 'trx_addons'); ?>' }}}">
-								<a href="#" class="sc_igenerator_form_field_prompt_button<# if ( ! settings.prompt ) print( ' sc_igenerator_form_field_prompt_button_disabled' ); #>">{{{ settings.button_text || '<?php esc_html_e('Generate', 'trx_addons'); ?>' }}}</a>
+								<a href="#" class="sc_igenerator_form_field_prompt_button<#
+									if ( ! settings.prompt ) {
+										print( ' sc_igenerator_form_field_prompt_button_disabled' );
+									}
+									print( settings.button_image.url || ( settings.button_icon && ! trx_addons_is_off( settings.button_icon ) )
+											? ' sc_igenerator_form_field_prompt_button_with_icon'
+											: ' sc_igenerator_form_field_prompt_button_without_icon'
+									);
+								#>"><#
+									if ( settings.button_image.url ) {
+										image_type = trx_addons_get_file_ext( settings.button_image.url );
+										if ( image_type == 'svg' ) {
+											#><span class="sc_igenerator_form_field_prompt_button_svg"><#
+												print( trx_addons_get_inline_svg( settings.button_image.url, {
+													render: function( html ) {
+														if ( html ) {
+															elementor.$previewContents.find( '#' + id + ' .sc_igenerator_form_field_prompt_button_svg' ).html( html );
+														}
+													}
+												} ) );
+											#></span><#
+										} else {
+											#><img src="{{ settings.button_image.url }}" alt="{{ settings.button_image.alt }}" class="sc_igenerator_form_field_prompt_button_image"><#
+										}
+									} else if ( settings.button_icon && ! trx_addons_is_off( settings.button_icon ) ) {
+										#><span class="sc_igenerator_form_field_prompt_button_icon {{ settings.button_icon }}"></span><#
+									}
+									if ( settings.button_text !== '#' ) {
+										#><span class="sc_igenerator_form_field_prompt_button_text">{{{ settings.button_text || '<?php esc_html_e( 'Generate', 'trx_addons' ); ?>' }}}</span><#
+									}
+								#></a>
 							</div><#
 							if ( settings.show_settings ) {
-								var settings_mode = settings.show_settings_size ? 'full' : 'light';
+								var settings_mode = settings.show_settings_size ? 'full' : 'light',
+									settings_icon = settings.settings_button_icon && ! trx_addons_is_off( settings.settings_button_icon ) ? settings.settings_button_icon : 'trx_addons_icon-sliders';
 								#>
-								<a href="#" class="sc_igenerator_form_settings_button trx_addons_icon-sliders"></a>
+								<a href="#" class="sc_igenerator_form_settings_button {{ settings_icon }}"></a>
 								<div class="sc_igenerator_form_settings sc_igenerator_form_settings_{{ settings_mode }}"><#
 									// Settings mode 'full' - visitors can change settings 'size', 'width' and 'height'
 									if ( settings_mode == 'full' ) {
@@ -213,10 +247,10 @@ if ( typeof models == 'object' ) {
 					if ( settings.show_limits ) {
 						#><div class="sc_igenerator_limits">
 							<span class="sc_igenerator_limits_label"><?php
-								esc_html_e( 'Limits per hour (day/week/month/year): XX images.', 'trx_addons' );
-							?></span>
+								echo wp_kses_post( sprintf( __( 'Limits per hour (day/week/month/year): %s images.', 'trx_addons' ), '<span class="sc_igenerator_limits_total_value">XX</span>' ) );
+								?></span>
 							<span class="sc_igenerator_limits_value"><?php
-								esc_html_e( 'Used: YY images.', 'trx_addons' );
+								echo wp_kses_post( sprintf( __( 'Used: %s images.', 'trx_addons' ), '<span class="sc_igenerator_limits_used_value">YY</span>' ) );
 							?></span>
 						</div><#
 					}
@@ -224,7 +258,10 @@ if ( typeof models == 'object' ) {
 
 			// Layout 'Extended' ---------------------------------------------------------
 			} else if ( settings.type == 'extended' ) {
-				#><div class="sc_igenerator_form sc_igenerator_form_preview">
+				#><div class="sc_igenerator_form sc_igenerator_form_preview"
+					data-igenerator-default-model="{{ settings.model }}"
+					data-igenerator-download-icon="{{ settings.button_download_icon }}"
+				>
 					<div class="sc_igenerator_form_inner">
 						<div class="sc_igenerator_form_actions">
 							<ul class="sc_igenerator_form_actions_list">
@@ -324,7 +361,8 @@ if ( typeof models == 'object' ) {
 
 											// Button "Settings"
 											if ( settings.show_settings ) {
-												#><a href="#" class="sc_igenerator_form_settings_button trx_addons_icon-sliders"></a><#
+												var settings_icon = settings.settings_button_icon && ! trx_addons_is_off( settings.settings_button_icon ) ? settings.settings_button_icon : 'trx_addons_icon-sliders';
+												#><a href="#" class="sc_igenerator_form_settings_button {{ settings_icon }}"></a><#
 
 												// Popup with settings
 												#><div class="sc_igenerator_form_settings"><#
@@ -624,9 +662,35 @@ if ( typeof models == 'object' ) {
 
 								// Button "Generate"
 								#><div class="sc_igenerator_form_field sc_igenerator_form_field_generate" data-actions="generation,variations,upscale"><#
-									var link_class = "<?php echo apply_filters('trx_addons_filter_sc_item_link_classes', 'sc_igenerator_form_field_generate_button sc_button sc_button_size_small', 'sc_igenerator'); ?>";
+									var button_icon = settings.button_icon ? settings.button_icon : "trx_addons_icon-magic";
+										link_class = "<?php echo apply_filters( 'trx_addons_filter_sc_item_link_classes', 'sc_igenerator_form_field_generate_button sc_button sc_button_size_small', 'sc_igenerator' ); ?>"
+													+ ( button_icon && ! trx_addons_is_off( button_icon ) || settings.button_image && settings.button_image.url
+														? ' sc_igenerator_form_field_generate_button_with_icon sc_button_icon_left'
+														: ' sc_igenerator_form_field_generate_button_without_icon'
+														);
 									#><a href="#" class="{{ link_class }}"><#
-										#><span class="sc_button_icon"><span class="trx_addons_icon-magic"></span></span><#
+										if ( button_icon && ! trx_addons_is_off( button_icon ) || settings.button_image && settings.button_image.url ) {
+											#><span class="sc_button_icon"><#
+												if ( settings.button_image.url ) {
+													image_type = trx_addons_get_file_ext( settings.button_image.url );
+													if ( image_type == 'svg' ) {
+														#><span class="sc_button_svg"><#
+															print( trx_addons_get_inline_svg( settings.button_image.url, {
+																render: function( html ) {
+																	if ( html ) {
+																		elementor.$previewContents.find( '#' + id + ' .sc_button_svg' ).html( html );
+																	}
+																}
+															} ) );
+														#></span><#
+													} else {
+														#><img src="{{ settings.button_image.url }}" alt="{{ settings.button_image.alt }}" class="sc_button_image"><#
+													}
+												} else {
+													#><span class="{{ button_icon }}"></span><#
+												}
+											#></span><#
+										}
 										#><span class="sc_button_text"><# print( settings.button_text ? settings.button_text : "<?php esc_html_e( 'Generate', 'trx_addons' ); ?>" ); #></span><#
 									#></a><#
 								#></div>
@@ -636,10 +700,10 @@ if ( typeof models == 'object' ) {
 					if ( settings.show_limits ) {
 						#><div class="sc_igenerator_limits">
 							<span class="sc_igenerator_limits_label"><?php
-								esc_html_e( 'Limits per hour (day/week/month/year): XX images.', 'trx_addons' );
+								echo wp_kses_post( sprintf( __( 'Limits per hour (day/week/month/year): %s images.', 'trx_addons' ), '<span class="sc_igenerator_limits_total_value">XX</span>' ) );
 							?></span>
 							<span class="sc_igenerator_limits_value"><?php
-								esc_html_e( 'Used: YY images.', 'trx_addons' );
+								echo wp_kses_post( sprintf( __( 'Used: %s images.', 'trx_addons' ), '<span class="sc_igenerator_limits_used_value">YY</span>' ) );
 							?></span>
 						</div><#
 					}

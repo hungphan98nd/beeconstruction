@@ -61,11 +61,18 @@ class trx_addons_demo_data_importer {
 			'blogdescription',
 			'site_icon',
 			'posts_per_page',
+			'posts_per_rss',
 			'show_on_front',
 			'page_on_front',
 			'page_for_posts',
 			'sticky_posts',
-			'wp_page_for_privacy_policy'
+			'wp_page_for_privacy_policy',
+			'thread_comments',
+			'thread_comments_depth',
+			'page_comments',
+			'comments_per_page',
+			'default_comments_page',
+			'comment_order'
 		),
 		'skip_options'			=> array()						// Skip options slugs (do not export this)
 																// MUST BE SET OR CHANGED IN THE THEME!
@@ -364,7 +371,7 @@ class trx_addons_demo_data_importer {
 							'checked' => $this->options['demo_set']=='full',
 							'class' => 'trx_importer_separator',
 							'atts' => array(
-								'data-part-title' => __('Import only selected pages', 'trx_addons')
+								'data-part-title' => __( "Import selected pages / plugin's posts", 'trx_addons')
 							)
 						));
 						?>
@@ -621,6 +628,7 @@ class trx_addons_demo_data_importer {
 				'description' => '',
 				'full' => '1',
 				'part' => '0',
+				'need_posts' => '0',
 				'class' => '',
 				'atts'  => ''
 				), $args);
@@ -629,7 +637,8 @@ class trx_addons_demo_data_importer {
 			<input type="checkbox"
 					class="trx_importer_item trx_importer_item_<?php echo esc_attr($args['slug']); ?>"
 					data-set-full="<?php echo esc_attr($args['full']); ?>"
-					data-set-part="<?php echo esc_attr($args['part']); ?>"<?php
+					data-set-part="<?php echo esc_attr($args['part']); ?>"
+					data-need-posts="<?php echo esc_attr($args['need_posts']); ?>"<?php
 					echo (isset($args['checked']) && $args['checked']) || (in_array($args['slug'], $this->options['required_plugins']) && $this->options['plugins_initial_state'])
 								? ' checked="checked"' 
 								: '';

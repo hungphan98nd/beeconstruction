@@ -40,7 +40,7 @@
 				selector = $self.data('trx-bg-colors-selector')
 							|| ( ! smoke_present ? TRX_ADDONS_STORAGE['bg_colors_selector'] : smoke_selector );
 			if ( ! selector ) {
-				var id = ('trx_bg_colors_' + Math.random()).replace('.', '');
+				var id = 'trx_bg_colors_' + trx_addons_get_unique_id();
 				$body.append( '<div id="' + id + '" class="trx_bg_colors"></div>' );
 				TRX_ADDONS_STORAGE['bg_colors_selector'] = selector = 'body > #' + id;
 			}

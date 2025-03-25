@@ -17,8 +17,7 @@ jQuery(document).on( 'action.init_hidden_elements', function(e, container) {
 		var cont = jQuery(this);
 		var id = cont.addClass('inited').attr('id');
 		if (id === undefined) {
-			id = 'sc_icons_'+Math.random();
-			id = id.replace('.', '');
+			id = 'sc_icons_' + trx_addons_get_unique_id();
 		} else {
 			id += '_'+idx;
 		}

@@ -225,7 +225,7 @@ jQuery( document ).ready( function() {
 		
 			jQuery( '[id^="toc_menu_"],.sc_anchor').each(function(idx) {
 				var obj = jQuery(this);
-				var obj_id = obj.attr('id') || ('sc_anchor_'+Math.random()).replace('.', '');
+				var obj_id = obj.attr('id') || ( 'sc_anchor_' + trx_addons_get_unique_id() );
 				var row = obj.closest('.wpb_row,.elementor-row,.elementor-section').eq(0);	// .elementor-row is deprecated from Elementor 3.0+
 				if (row.length == 0) row = !obj.parent().hasClass('entry-content') ? obj.parent() : obj;
 				var row_id = row.length>0 && row.attr('id') !== undefined && row.attr('id') !== '' ? row.attr('id') : '';

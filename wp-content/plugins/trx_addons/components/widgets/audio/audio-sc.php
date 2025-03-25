@@ -30,6 +30,8 @@ if ( ! function_exists( 'trx_addons_sc_widget_audio' ) ) {
 				'prev_btn'     => '1',
 				'next_text'    => '',
 				'prev_text'    => '',
+				'next_icon'    => '',
+				'prev_icon'    => '',
 				'now_text'     => '',
 				'track_time'   => '1',
 				'track_scroll' => '1',

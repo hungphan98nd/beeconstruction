@@ -113,7 +113,8 @@ jQuery( document ).ready( function() {
 				'action': 'trx_addons_'+action+'_addon',
 				'addon': addon,
 				'code': code === undefined ? '' : code,
-				'nonce': TRX_ADDONS_STORAGE['ajax_nonce']
+				'nonce': TRX_ADDONS_STORAGE['ajax_nonce'],
+				is_admin_request: 1
 			},
 			function(response){
 				var rez = {};

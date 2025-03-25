@@ -144,6 +144,10 @@ if ( ! function_exists( 'trx_addons_sc_igenerator' ) ) {
 			"safety_checker" => "none",
 			"show_prompt_translated" => 1,
 			"button_text" => "",
+			"button_icon" => "",
+			"button_image" => "",
+			"settings_button_icon" => "",
+			"button_download_icon" => "",
 			"number" => "3",
 			"columns" => "",
 			"columns_tablet" => "",
@@ -636,8 +640,8 @@ if ( ! function_exists( 'trx_addons_sc_igenerator_generate_images' ) ) {
 			} else {
 				$answer['data']['demo'] = true;
 				// Get demo images from the settings
+				$images = array();
 				if ( ! empty( $settings['demo_images'] ) && ! empty( $settings['demo_images'][0]['url'] ) ) {
-					$images = array();
 					foreach ( $settings['demo_images'] as $img ) {
 						$images[] = trx_addons_add_thumb_size( $img['url'], $settings['demo_thumb_size'] );
 					}

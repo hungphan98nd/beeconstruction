@@ -906,6 +906,10 @@ form input[type="submit"].trx_addons_button_warning:hover {
 	div.trx_addons_tabs_vertical > ul.ui-tabs-nav > li.trx_addons_tabs_title_super + li.trx_addons_tabs_title_sub > a.ui-tabs-anchor {
 		padding-top: 1.2em;
 	}
+	div.trx_addons_tabs_vertical > ul.ui-tabs-nav > li.trx_addons_tabs_title_sub_last > a.ui-tabs-anchor,
+	div.trx_addons_tabs_vertical > ul.ui-tabs-nav > li.trx_addons_tabs_title_sub_last.ui-state-active > a.ui-tabs-anchor {
+			padding-bottom: 1.2em;
+	}
 	div.trx_addons_tabs_vertical > ul.ui-tabs-nav > li.trx_addons_tabs_title_sub.ui-state-active {
 		border-left: 1px solid $tab_border_color !important;
 	}

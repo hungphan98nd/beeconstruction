@@ -8,7 +8,6 @@
 	--trx-addons-ai-helper-agenerator-settings-border-radius: var(--trx-addons-ai-helper-agenerator-fields-border-radius);
 	--trx-addons-ai-helper-agenerator-message-border-radius: var(--trx-addons-ai-helper-agenerator-fields-border-radius);
 	--trx-addons-ai-helper-agenerator-button-border-radius: 6px;
-	--trx-addons-ai-helper-agenerator-tags-border-radius: 3px;
 }
 .sc_agenerator_error {
 	@include flex;
@@ -113,21 +112,49 @@
 		@include abs-pos( 4px, 4px, 4px, auto );
 		@include border-box;
 		@include border-radius(var(--trx-addons-ai-helper-agenerator-button-border-radius));
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 		max-width: 50%;
 		overflow: hidden;
 		padding: 0 2em;
 		background-color: $success_color;
 		color: #fff;
 
-		&:not(.sc_agenerator_form_field_prompt_button_disabled):hover {
+		&:not(.sc_agenerator_form_field_disabled):hover {
 			background-color: $success_hover;
 		}
-	}
-	.sc_agenerator_form_field_prompt_button_disabled {
-		background-color: $success_bg_color;
-		color: #aaa;
-		cursor: default;
+		&.sc_agenerator_form_field_prompt_button_with_icon {	// To override the theme rules
+			@include flex;
+		}
+		.sc_agenerator_form_field_prompt_button_image {
+			max-height: 1.25em;
+			width: auto;
+		}
+		.sc_agenerator_form_field_prompt_button_svg {
+			@include square(1.25em);
+
+			svg {
+				@include transition-property(fill);
+			}
+		}
+		.sc_agenerator_form_field_prompt_button_icon {
+			font-size: 1.25em;
+			@include transition-property(color);
+		}
+		.sc_agenerator_form_field_prompt_button_image,
+		.sc_agenerator_form_field_prompt_button_svg,
+		.sc_agenerator_form_field_prompt_button_icon {
+			& + .sc_agenerator_form_field_prompt_button_text {
+				margin-left: 0.5em;
+			}
+		}
+		.sc_agenerator_form_field_prompt_button_text {
+			white-space: nowrap;
+		}
+		&.sc_agenerator_form_field_disabled {
+			background-color: $success_bg_color;
+			color: #aaa;
+			cursor: default;
+		}
 	}
 }
 
@@ -260,7 +287,7 @@
 /* Upload audio */
 .sc_agenerator_form_field_upload_audio_decorator,
 .sc_agenerator_form_field_upload_voice_modelslab_decorator {
-		position: relative;
+	position: relative;
 	width: 100%;
 //	@include border-radius(var(--trx-addons-ai-helper-agenerator-fields-border-radius));
 //	@include border-box;
@@ -277,6 +304,7 @@
 	.theme_form_field_placeholder {
 		text-overflow: ellipsis;
 		color: var(--theme-color-input_light);
+		@include transition-colors;
 	}
 
 	.sc_agenerator_form_field_upload_audio_text,
@@ -293,9 +321,9 @@
 	.sc_agenerator_form_field_upload_voice_modelslab_button {
 		@include abs-rc( 0.5em );
 		@include border-box;
-		@include transition-properties(background-color, color);
+		@include transition-colors;
 		padding: 0.3em 1em;
-		border: 1px solid var(--theme-color-input_bd_color);
+		// border: 1px solid var(--theme-color-input_bd_color);
 		@include border-radius(var(--trx-addons-ai-helper-agenerator-fields-border-radius));
 
 		&:before {
@@ -324,7 +352,8 @@
 		text-align: right;
 	}
 	.sc_agenerator_limits_used {
-		white-space: nowrap;
+		// white-space: nowrap;
+		display: block;
 	}
 }
 
@@ -360,6 +389,8 @@
 		color: $error_dark;
 	}
 	a {
+		display: inline-block;
+		vertical-align: top;
 		font-weight: 500;
 		color: $error_dark;
 		border-bottom: 1px dashed $error_dark;
@@ -528,6 +559,7 @@
 
 	.sc_button_icon {
 		font-size: 1em;
+		@include transition-property(color);
 	}
 }
 
@@ -659,6 +691,9 @@
 	.sc_agenerator_form_settings_field + .sc_agenerator_form_settings_field  {
 		margin-top: 0.5em;
 	}
+	.sc_agenerator_form_settings_field label {
+		display: block;
+	}
 	.sc_agenerator_form_settings_field_description {
 		font-size: 0.8em;
 		line-height: 1.5em;
@@ -677,10 +712,22 @@
 	width: 100%;
 
 	.sc_agenerator_form_field_generate_button {
+		@include transition-colors;
+
 		&.sc_agenerator_form_field_disabled {
 			opacity: 0.5;
 			cursor: default;
 			pointer-events: none;
+		}
+		&.sc_button_icon_left .sc_button_icon {
+			margin-right: 0.3em;
+		}
+		.sc_button_icon {
+			@include transition-property(color);
+
+			svg {
+				@include transition-property(fill);
+			}
 		}
 	}
 }

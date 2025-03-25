@@ -104,8 +104,15 @@ div.trx-addons-counter-number-wrap {
 .trx-addons-counter-number {
   direction: ltr;
 }
-.trx-addons-counter-number.odometer.odometer-auto-theme .odometer-value, .trx-addons-counter-number.odometer.odometer-theme-default .odometer-value {
-  text-align: unset;
+.trx-addons-counter-number.odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner, .trx-addons-counter-number.odometer.odometer-theme-default .odometer-digit .odometer-digit-inner {
+  text-align: center;
+}
+.trx-addons-counter-number.odometer.odometer-auto-theme .odometer-digit .odometer-ribbon,
+.trx-addons-counter-number.odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner,
+.trx-addons-counter-number.odometer.odometer-auto-theme .odometer-digit .odometer-value, .trx-addons-counter-number.odometer.odometer-theme-default .odometer-digit .odometer-ribbon,
+.trx-addons-counter-number.odometer.odometer-theme-default .odometer-digit .odometer-ribbon-inner,
+.trx-addons-counter-number.odometer.odometer-theme-default .odometer-digit .odometer-value {
+  width: 100%;
 }
 
 .trx-addons-counter-title-wrap {

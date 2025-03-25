@@ -390,7 +390,7 @@ jQuery( document ).ready( function() {
 					use_am = trx_addons_apply_filters( 'trx_addons_filter_sc_chat_time_use_am', true ),
 					hours = use_am && hours > 12 ? hours - 12 : hours;
 				var style = $form.data( 'chat-style' );
-				var id = 'sc_chat_list_item_' + ( '' + Math.random() ).replace( '.', '' ),
+				var id = 'sc_chat_list_item_' + trx_addons_get_unique_id(),
 					name = [ 'assistant', 'loading' ].indexOf( role ) >= 0 && style.assistant_name
 								? style.assistant_name
 								: ( role == 'user' && style.user_name
@@ -514,6 +514,9 @@ jQuery( document ).ready( function() {
 
 			// Show message
 			function showMessage( msg, type ) {
+				if ( msg.indexOf( '<p>' ) == -1 ) {
+					msg = '<p>' + msg + '</p>';
+				}
 				$form
 					.find( '.sc_chat_message_inner' )
 						.html( msg )

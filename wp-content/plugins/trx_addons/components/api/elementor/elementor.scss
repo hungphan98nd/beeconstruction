@@ -737,6 +737,10 @@ body.body_style_boxed .elementor-element-edit-mode.elementor-section-stretched.e
 		overflow: hidden;
 	}
 
+	.trx_addons_image_placeholder {
+		max-width: 1em;
+	}
+
 	&.trx_addons_marquee_reverse {
 		@include flex-justify-content(flex-end);
 	}
@@ -784,6 +788,11 @@ body.body_style_boxed .elementor-element-edit-mode.elementor-section-stretched.e
 			vertical-align: top;
 			opacity: 0;
 			z-index: 0;
+
+			.trx_addons_bg_text_item {
+				vertical-align: middle;
+				position: relative;
+			}
 		}
 		.trx_addons_bg_text_char {
 			color: rgba(0, 0, 0, 0.05);

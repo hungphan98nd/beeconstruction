@@ -119,14 +119,14 @@ if (!function_exists('trx_addons_add_cart')) {
 }
 
 //Add styles for Group_Control_Typography description
-if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'trx_sc_layouts_cart' ) && ! function_exists( 'trx_addons_sc_layouts_cart_elementor_editor_after_enqueue_styles' ) ) {
+if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'sc_layouts_cart' ) && ! function_exists( 'trx_addons_sc_layouts_cart_elementor_editor_after_enqueue_styles' ) ) {
 	add_action( 'elementor/editor/after_enqueue_styles', 'trx_addons_sc_layouts_cart_elementor_editor_after_enqueue_styles' );
 	function trx_addons_sc_layouts_cart_elementor_editor_after_enqueue_styles () {
 		trx_addons_cpt_layouts_cart_load_styles_front();
 	}
 }
 
-if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'trx_sc_layouts_cart' ) && ! class_exists( 'TRX_Addons_Widget_Layouts_Cart_Item_Redesign' ) ) {
+if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'sc_layouts_cart' ) && ! class_exists( 'TRX_Addons_Widget_Layouts_Cart_Item_Redesign' ) ) {
 	class TRX_Addons_Widget_Layouts_Cart_Item_Redesign {
 
 		/**
@@ -255,7 +255,7 @@ if ( !function_exists( 'trx_addons_sc_layouts_cart' ) ) {
 				"market" => "woocommerce",
 				"text" => "",
 			),
-			apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'trx_sc_layouts_cart' )
+			apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'sc_layouts_cart' )
 				? array(
 					// Individual params
 					"product_count" => "text",

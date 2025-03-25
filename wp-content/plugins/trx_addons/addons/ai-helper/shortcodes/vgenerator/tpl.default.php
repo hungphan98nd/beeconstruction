@@ -1,6 +1,6 @@
 <?php
 /**
- * The style "default" of the IGenerator
+ * The style "default" of the VGenerator
  *
  * @package ThemeREX Addons
  * @since v2.20.2
@@ -37,6 +37,7 @@ if ( count( $models ) > 0 ) {
 				data-vgenerator-default-model="<?php echo esc_attr( $args['model'] ); ?>"
 				data-vgenerator-demo-video="<?php echo ! empty( $args['demo_video'] ) && ! empty( $args['demo_video']['url'] ) ? '1' : ''; ?>"
 				data-vgenerator-limit-exceed="<?php echo esc_attr( trx_addons_get_option( "ai_helper_sc_vgenerator_limit_alert" . ( ! empty( $args['premium'] ) ? '_premium' : '' ) ) ); ?>"
+				data-vgenerator-download-icon="<?php echo ! empty( $args['button_download_icon'] ) ? esc_attr( $args['button_download_icon'] ) : 'trx_addons_icon-download'; ?>"
 				data-vgenerator-settings="<?php
 					echo esc_attr( trx_addons_encode_settings( array(
 						'model' => $args['model'],
@@ -83,17 +84,43 @@ if ( count( $models ) > 0 ) {
 									}
 								?>"
 							>
-							<a href="#" class="sc_vgenerator_form_field_prompt_button<?php if ( empty( $args['prompt'] ) ) echo ' sc_vgenerator_form_field_prompt_button_disabled'; ?>"><?php
-								if ( ! empty( $args['button_text'] ) ) {
-									echo esc_html( $args['button_text'] );
-								} else {
-									esc_html_e('Generate', 'trx_addons');
+							<a href="#" class="sc_vgenerator_form_field_prompt_button<?php
+								if ( empty( $args['prompt'] ) ) {
+									echo ' sc_vgenerator_form_field_prompt_button_disabled';
+								}
+								echo ! empty( $args['button_image'] ) || ( ! empty( $args['button_icon'] ) && ! trx_addons_is_off( $args['button_icon'] ) )
+									? ' sc_vgenerator_form_field_prompt_button_with_icon'
+									: ' sc_vgenerator_form_field_prompt_button_without_icon';
+							?>"><?php
+								if ( ! empty( $args['button_image'] ) ) {
+									$icon_type = trx_addons_get_file_ext( $args['button_image'] );
+									if ( $icon_type == 'svg' ) {
+										?><span class="sc_vgenerator_form_field_prompt_button_svg"><?php
+											trx_addons_show_layout( trx_addons_get_svg_from_file( $args['button_image'] ) );
+										?></span><?php
+									} else {
+										?><img src="<?php echo esc_url( trx_addons_get_attachment_url( $args['button_image'], apply_filters('trx_addons_filter_thumb_size', trx_addons_get_thumb_size( 'tiny' ), 'sc_vgenerator_field_prompt_button' ) ) ); ?>"
+												alt="<?php esc_attr_e( 'Generate icon', 'trx_addons' ); ?>"
+												class="sc_vgenerator_form_field_prompt_button_image"><?php
+									}
+								} else if ( ! empty( $args['button_icon'] ) && ! trx_addons_is_off( $args['button_icon'] ) ) {
+									?><span class="sc_vgenerator_form_field_prompt_button_icon <?php echo esc_attr( $args['button_icon'] ); ?>"></span><?php
+								}
+								if ( isset( $args['button_text'] ) && $args['button_text'] != '#' ) {
+									?><span class="sc_vgenerator_form_field_prompt_button_text"><?php
+										if ( ! empty( $args['button_text'] ) ) {
+											echo esc_html( $args['button_text'] );
+										} else {
+											esc_html_e('Generate', 'trx_addons');
+										}
+									?></span><?php
 								}
 							?></a>
 						</div><?php
 						if ( ! empty( $args['show_settings'] ) && (int) $args['show_settings'] > 0 ) {
+							$settings_icon = ! empty( $args['settings_button_icon'] ) && ! trx_addons_is_off( $args['settings_button_icon'] ) ? $args['settings_button_icon'] : 'trx_addons_icon-sliders';
 							?>
-							<a href="#" class="sc_vgenerator_form_settings_button trx_addons_icon-sliders"></a>
+							<a href="#" class="sc_vgenerator_form_settings_button <?php echo esc_attr( $settings_icon ) ?>"></a>
 							<div class="sc_vgenerator_form_settings">
 								<?php
 								// Model

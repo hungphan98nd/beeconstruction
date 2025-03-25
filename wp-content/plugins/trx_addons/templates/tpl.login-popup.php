@@ -6,9 +6,14 @@
  * @since v1.6
  */
 
-// Prepare popup
-$trx_addons_login_via_socials = do_shortcode(apply_filters('trx_addons_filter_login_via_socials', trx_addons_get_option('login_via_socials')));
-$trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'default' );
+$args = get_query_var('trx_addons_args_login_popup');
+
+ // Prepare popup
+$trx_addons_login_via_socials = trx_addons_get_option( 'login_via_socials' );
+if ( ! empty( $trx_addons_login_via_socials ) ) {
+	$trx_addons_login_via_socials = do_shortcode( apply_filters( 'trx_addons_filter_login_via_socials', $trx_addons_login_via_socials ) );
+}
+$trx_addons_form_style = apply_filters( 'trx_addons_filter_login_fields_style', 'iconed' );	//trx_addons_get_option( 'input_hover', 'default' );
 ?>
 <div id="trx_addons_login_popup" class="trx_addons_popup mfp-hide">
 	<div class="trx_addons_tabs">
@@ -16,7 +21,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 			// Login tab
 			?><li class="trx_addons_tabs_title trx_addons_tabs_title_login">
 				<a href="<?php echo esc_url(trx_addons_get_hash_link('#trx_addons_login_content')); ?>">
-					<i class="trx_addons_icon-lock-open"></i>			
+					<i class="<?php echo esc_attr( ! empty( $args['tab_login_icon'] ) && ! trx_addons_is_off( $args['tab_login_icon'] ) ? $args['tab_login_icon'] : 'trx_addons_icon-lock-open' ); ?>"></i>			
 					<?php esc_html_e('Login', 'trx_addons'); ?>
 				</a>
 			</li><?php
@@ -27,7 +32,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 					}
 					?>>
 				<a href="<?php echo esc_url(trx_addons_get_hash_link('#trx_addons_register_content')); ?>">
-					<i class="trx_addons_icon-user-plus"></i>			
+					<i class="<?php echo esc_attr( ! empty( $args['tab_register_icon'] ) && ! trx_addons_is_off( $args['tab_register_icon'] ) ? $args['tab_register_icon'] : 'trx_addons_icon-user-plus' ); ?>"></i>
 					<?php esc_html_e('Register', 'trx_addons'); ?>
 				</a>
 			</li><?php
@@ -51,7 +56,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 																'field_name'  => 'log',
 																'field_type'  => 'text',
 																'field_req'   => true,
-																'field_icon'  => 'trx_addons_icon-user-alt',
+																'field_icon'  => ! empty( $args['field_login_icon'] ) && ! trx_addons_is_off( $args['field_login_icon'] ) ? $args['field_login_icon'] : 'trx_addons_icon-user-alt',
 																'field_title' => esc_html__('Username', 'trx_addons'),
 																'field_placeholder' => esc_html__('Username', 'trx_addons')
 																)
@@ -67,7 +72,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 																'field_name'  => 'pwd',
 																'field_type'  => 'password',
 																'field_req'   => true,
-																'field_icon'  => 'trx_addons_icon-lock',
+																'field_icon'  => ! empty( $args['field_password_icon'] ) && ! trx_addons_is_off( $args['field_password_icon'] ) ? $args['field_password_icon'] : 'trx_addons_icon-lock',
 																'field_title' => esc_html__('Password', 'trx_addons'),
 																'field_placeholder' => esc_html__('Password', 'trx_addons')
 																)
@@ -113,7 +118,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 																'field_name'  => 'log',
 																'field_type'  => 'text',
 																'field_req'   => true,
-																'field_icon'  => 'trx_addons_icon-user-alt',
+																'field_icon'  => ! empty( $args['field_login_icon'] ) && ! trx_addons_is_off( $args['field_login_icon'] ) ? $args['field_login_icon'] : 'trx_addons_icon-user-alt',
 																'field_title' => esc_html__('Username', 'trx_addons'),
 																'field_placeholder' => esc_html__('Username', 'trx_addons')
 																)
@@ -129,7 +134,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 																'field_name'  => 'email',
 																'field_type'  => 'text',
 																'field_req'   => true,
-																'field_icon'  => 'trx_addons_icon-mail',
+																'field_icon'  => ! empty( $args['field_email_icon'] ) && ! trx_addons_is_off( $args['field_email_icon'] ) ? $args['field_email_icon'] : 'trx_addons_icon-mail',
 																'field_title' => esc_html__('E-mail', 'trx_addons'),
 																'field_placeholder' => esc_html__('E-mail', 'trx_addons')
 																)
@@ -145,7 +150,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 																'field_name'  => 'pwd',
 																'field_type'  => 'password',
 																'field_req'   => true,
-																'field_icon'  => 'trx_addons_icon-lock',
+																'field_icon'  => ! empty( $args['field_password_icon'] ) && ! trx_addons_is_off( $args['field_password_icon'] ) ? $args['field_password_icon'] : 'trx_addons_icon-lock',
 																'field_title' => esc_html__('Password', 'trx_addons'),
 																'field_placeholder' => esc_html__('Password', 'trx_addons')
 																)
@@ -161,7 +166,7 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 																'field_name'  => 'pwd2',
 																'field_type'  => 'password',
 																'field_req'   => true,
-																'field_icon'  => 'trx_addons_icon-lock',
+																'field_icon'  => ! empty( $args['field_password_icon'] ) && ! trx_addons_is_off( $args['field_password_icon'] ) ? $args['field_password_icon'] : 'trx_addons_icon-lock',
 																'field_title' => esc_html__('Confirm Password', 'trx_addons'),
 																'field_placeholder' => esc_html__('Confirm Password', 'trx_addons')
 																)
@@ -191,4 +196,11 @@ $trx_addons_form_style = 'iconed';	//trx_addons_get_option( 'input_hover', 'defa
 		}
 		?>
 	</div>
+	<?php
+	if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false , 'sc_layouts_login' ) && trx_addons_is_preview('elementor') ) {
+		?>
+		<button class="mfp-close"><span class="mfp-close-icon"></span></button>
+		<?php
+	}
+	?>
 </div>

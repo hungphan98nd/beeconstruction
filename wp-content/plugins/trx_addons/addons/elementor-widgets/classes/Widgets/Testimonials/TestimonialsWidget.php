@@ -962,6 +962,11 @@ class TestimonialsWidget extends BaseWidget {
 				),
 				'default'   => 'center',
 				'toggle'    => false,
+				// Replace the old Flexbox alignment values (saved in the templates library) with a new ones for the text alignment
+				'selectors_dictionary' => array(
+					'flex-start' => 'left',
+					'flex-end' => 'right',
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .trx-addons-testimonials-author-info > *' => "text-align: {{VALUE}}",
 				),

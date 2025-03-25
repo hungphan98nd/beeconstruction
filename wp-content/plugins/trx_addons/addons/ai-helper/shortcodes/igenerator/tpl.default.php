@@ -39,6 +39,7 @@ if ( count( $models ) > 0 ) {
 				data-igenerator-popup="<?php echo ! empty( $args['show_popup'] ) && (int) $args['show_popup'] > 0 ? '1' : ''; ?>"
 				data-igenerator-demo-images="<?php echo ! empty( $args['demo_images'] ) && ! empty( $args['demo_images'][0]['url'] ) ? '1' : ''; ?>"
 				data-igenerator-limit-exceed="<?php echo esc_attr( trx_addons_get_option( "ai_helper_sc_igenerator_limit_alert" . ( ! empty( $args['premium'] ) ? '_premium' : '' ) ) ); ?>"
+				data-igenerator-download-icon="<?php echo ! empty( $args['button_download_icon'] ) ? esc_attr( $args['button_download_icon'] ) : 'trx_addons_icon-download'; ?>"
 				data-igenerator-settings="<?php
 					echo esc_attr( trx_addons_encode_settings( array(
 						'number' => $args['number'],
@@ -92,18 +93,44 @@ if ( count( $models ) > 0 ) {
 									}
 								?>"
 							>
-							<a href="#" class="sc_igenerator_form_field_prompt_button<?php if ( empty( $args['prompt'] ) ) echo ' sc_igenerator_form_field_prompt_button_disabled'; ?>"><?php
-								if ( ! empty( $args['button_text'] ) ) {
-									echo esc_html( $args['button_text'] );
-								} else {
-									esc_html_e('Generate', 'trx_addons');
+							<a href="#" class="sc_igenerator_form_field_prompt_button<?php
+								if ( empty( $args['prompt'] ) ) {
+									echo ' sc_igenerator_form_field_prompt_button_disabled';
+								}
+								echo ! empty( $args['button_image'] ) || ( ! empty( $args['button_icon'] ) && ! trx_addons_is_off( $args['button_icon'] ) )
+									? ' sc_igenerator_form_field_prompt_button_with_icon'
+									: ' sc_igenerator_form_field_prompt_button_without_icon';
+							?>"><?php
+								if ( ! empty( $args['button_image'] ) ) {
+									$icon_type = trx_addons_get_file_ext( $args['button_image'] );
+									if ( $icon_type == 'svg' ) {
+										?><span class="sc_igenerator_form_field_prompt_button_svg"><?php
+											trx_addons_show_layout( trx_addons_get_svg_from_file( $args['button_image'] ) );
+										?></span><?php
+									} else {
+										?><img src="<?php echo esc_url( trx_addons_get_attachment_url( $args['button_image'], apply_filters('trx_addons_filter_thumb_size', trx_addons_get_thumb_size( 'tiny' ), 'sc_igenerator_field_prompt_button' ) ) ); ?>"
+												alt="<?php esc_attr_e( 'Generate icon', 'trx_addons' ); ?>"
+												class="sc_igenerator_form_field_prompt_button_image"><?php
+									}
+								} else if ( ! empty( $args['button_icon'] ) && ! trx_addons_is_off( $args['button_icon'] ) ) {
+									?><span class="sc_igenerator_form_field_prompt_button_icon <?php echo esc_attr( $args['button_icon'] ); ?>"></span><?php
+								}
+								if ( isset( $args['button_text'] ) && $args['button_text'] != '#' ) {
+									?><span class="sc_igenerator_form_field_prompt_button_text"><?php
+										if ( ! empty( $args['button_text'] ) ) {
+											echo esc_html( $args['button_text'] );
+										} else {
+											esc_html_e( 'Generate', 'trx_addons' );
+										}
+									?></span><?php
 								}
 							?></a>
 						</div><?php
 						if ( ! empty( $args['show_settings'] ) && (int) $args['show_settings'] > 0 ) {
 							$settings_mode = ! empty( $args['show_settings_size'] ) ? 'full' : 'light';
+							$settings_icon = ! empty( $args['settings_button_icon'] ) && ! trx_addons_is_off( $args['settings_button_icon'] ) ? $args['settings_button_icon'] : 'trx_addons_icon-sliders';
 							?>
-							<a href="#" class="sc_igenerator_form_settings_button trx_addons_icon-sliders"></a>
+							<a href="#" class="sc_igenerator_form_settings_button <?php echo esc_attr( $settings_icon ) ?>"></a>
 							<div class="sc_igenerator_form_settings sc_igenerator_form_settings_<?php echo esc_attr( $settings_mode ); ?>"><?php
 								// Settings mode 'full' - visitors can change settings 'size', 'width' and 'height'
 								if ( $settings_mode == 'full' ) {

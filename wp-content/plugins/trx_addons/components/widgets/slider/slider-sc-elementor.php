@@ -5047,7 +5047,7 @@ if (!function_exists('trx_addons_sc_slider_controls_add_in_elementor')) {
 			 */
 			protected function register_controls() {
 				$this->register_content_controls_slider();
-				if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'widget_slider' ) ) {
+				if ( apply_filters( 'trx_addons_filter_allow_sc_styles_in_elementor', false, 'widget_slider_controls' ) ) {
 					$this->register_style_controls_arrows();
 					$this->register_style_controls_pagination();
 				}

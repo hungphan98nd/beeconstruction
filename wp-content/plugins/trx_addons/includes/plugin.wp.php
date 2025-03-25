@@ -3108,6 +3108,37 @@ if ( ! function_exists( 'trx_addons_ajax_response' ) ) {
 	}
 }
 
+if ( ! function_exists( 'trx_addons_ajax_replace_user_locale' ) ) {
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		add_filter( 'determine_locale', 'trx_addons_ajax_replace_user_locale' );
+	}
+	/**
+	 * Replace a user's locale with the site locale in AJAX requests if a visitor is a logged user.
+	 * Bacause, if a site locale is different from the user's locale - in AJAX requests WordPress
+	 * use a user's locale and return all translations in shortcodes from the user's (not from the site) locale.
+	 * As the result, the site can't get a correct translation for the shortcode's output in AJAX requests.
+	 *
+	 * @hooked determine_locale
+	 *
+	 * @param string $locale  Current locale. If a visitor is a logged user - user's locale instead a site locale
+	 *
+	 * @return  Modified locale, id user is logged in and its locale is not equal to the site locale
+	 */
+	function trx_addons_ajax_replace_user_locale( $locale = null ) {
+		if ( function_exists( 'is_user_logged_in' ) && is_user_logged_in() && (int)trx_addons_get_value_gp( 'is_admin_request', 0 ) === 0 ) {
+			$action = trx_addons_get_value_gp( 'action' );
+			$nonce  = trx_addons_get_value_gp( 'nonce' );
+			$slug   = str_replace( '-', '_', get_template() );
+			if ( ! empty( $nonce ) && ! empty( $action ) && ( strpos( $action, 'trx_addons_' ) === 0 || strpos( $action, "{$slug}_" ) === 0 ) ) {
+				$site_locale = get_locale();
+				if ( empty( $locale ) || strpos( $locale, $site_locale ) !== 0 ) {
+					$locale = $site_locale;
+				}
+			}
+		}
+		return $locale;
+	}
+}
 
 	
 /* Other utilities
@@ -3575,8 +3606,8 @@ if ( ! function_exists( 'trx_addons_redirect_404' ) ) {
 	 */
 	function trx_addons_redirect_404() {
 		if ( is_404() ) {
-			$page_id = trx_addons_get_option( 'redirect_404_page' );
-			if ( ! empty( $page_id ) ) {
+			$page_id = trx_addons_get_option( 'redirect_404_page', '' );
+			if ( ! trx_addons_is_off( $page_id ) ) {
 				if ( trx_addons_get_setting( 'redirect_404_way' ) == 'redirect' ) {
 					$redirect = get_permalink( $page_id );
 					if ( ! empty( $redirect ) ) {

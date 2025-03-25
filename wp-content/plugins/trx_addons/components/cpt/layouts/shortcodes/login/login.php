@@ -24,7 +24,17 @@ if ( !function_exists( 'trx_addons_sc_layouts_login' ) ) {
 			"type" => "default",
 			"text_login" => "",
 			"text_logout" => "",
+			"login_icon" => "",
+			"login_image" => "",
+			"logout_icon" => "",
+			"logout_image" => "",
 			"user_menu" => "0",
+			// Popup params
+			'tab_login_icon'      => 'trx_addons_icon-lock-open',
+			'tab_register_icon'   => 'trx_addons_icon-user-plus',
+			'field_login_icon'    => 'trx_addons_icon-user-alt',
+			'field_password_icon' => 'trx_addons_icon-lock',
+			'field_email_icon'    => 'trx_addons_icon-mail',
 		) ) );
 
 		ob_start();

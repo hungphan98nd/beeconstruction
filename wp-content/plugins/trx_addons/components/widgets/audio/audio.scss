@@ -40,7 +40,7 @@
 	@include bg-mask(#000, 0.5, 1);
 }
 .trx_addons_audio_player.with_cover .mejs-controls {
-	background: none !important;
+	background: none;	// !important;
 }
 .trx_addons_audio_player.without_cover {
 	border: 1px solid #f0f0f0;
@@ -105,6 +105,7 @@
 }
 .trx_addons_audio_wrap .trx_addons_audio_navigation > span span {
 	@include font(1.4rem, 1em, 400);
+	@include square(1em);
 	display: inline-block;
 	vertical-align: top;
 	margin-top: -1px;

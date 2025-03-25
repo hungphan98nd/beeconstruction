@@ -169,13 +169,15 @@ body.post-type-cpt_layouts .sc_layouts_column_align_center [data-type^="trx-addo
 
 /* Hide on XXX
 ------------------------------------------------- */
-body.frontpage:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.home-page:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.home:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.error404:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage,
-body.single:not(.elementor-editor-active) .sc_layouts_hide_on_singular,
-body.page:not(.elementor-editor-active) .sc_layouts_hide_on_singular,
-body:not(.single):not(.page):not(.elementor-editor-active) .sc_layouts_hide_on_other {
+body.frontpage:not(.elementor-editor-active) .hide_on_frontpage, body.home-page:not(.elementor-editor-active) .hide_on_frontpage, body.home:not(.elementor-editor-active) .hide_on_frontpage, body.error404:not(.elementor-editor-active) .hide_on_frontpage, body.frontpage:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage, body.home-page:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage, body.home:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage, body.error404:not(.elementor-editor-active) .sc_layouts_hide_on_frontpage {
+  display: none !important;
+}
+
+body.single:not(.elementor-editor-active) .hide_on_singular, body.page:not(.elementor-editor-active) .hide_on_singular, body.single:not(.elementor-editor-active) .sc_layouts_hide_on_singular, body.page:not(.elementor-editor-active) .sc_layouts_hide_on_singular {
+  display: none !important;
+}
+
+body:not(.single):not(.page):not(.elementor-editor-active) .hide_on_other, body:not(.single):not(.page):not(.elementor-editor-active) .sc_layouts_hide_on_other {
   display: none !important;
 }
 
@@ -227,6 +229,11 @@ body:not(.single):not(.page):not(.elementor-editor-active) .sc_layouts_hide_on_o
 
 .sc_layouts_item_icon.sc_icon_type_svg svg,
 .sc_layouts_item_icon.sc_icon_type_svg object {
+  width: 1em;
+  height: 1em;
+}
+
+.sc_layouts_item_icon.sc_icon_type_images img {
   width: 1em;
   height: 1em;
 }

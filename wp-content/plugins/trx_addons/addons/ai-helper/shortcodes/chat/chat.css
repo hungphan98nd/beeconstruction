@@ -565,7 +565,7 @@ body.wp-admin .sc_chat_form_field_prompt input[type="text"] {
   margin-top: -1em;
 }
 .sc_chat_limits .sc_chat_limits_used {
-  white-space: nowrap;
+  display: block;
 }
 
 .sc_chat_message {
@@ -602,6 +602,8 @@ body.wp-admin .sc_chat_form_field_prompt input[type="text"] {
   color: #99302e;
 }
 .sc_chat_message_inner a {
+  display: inline-block;
+  vertical-align: top;
   font-weight: 500;
   color: #99302e;
   border-bottom: 1px dashed #99302e;
