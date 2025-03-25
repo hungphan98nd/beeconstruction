@@ -6,12 +6,12 @@
 <?php if ( $content->show ) : ?>    
   <!--copyscapeskip-->
   <!-- V2 -->
-  <div id="moove_gdpr_cookie_modal" class="gdpr_lightbox-hide" role="complementary" aria-label="<?php esc_html_e('GDPR Settings Screen', 'gdpr-cookie-compliance'); ?>">
+  <dialog id="moove_gdpr_cookie_modal" class="gdpr_lightbox-hide" aria-modal="true" aria-label="<?php esc_html_e('GDPR Settings Screen', 'gdpr-cookie-compliance'); ?>">
     <div class="moove-gdpr-modal-content moove-clearfix logo-position-<?php echo esc_attr( $content->logo_position ); ?> <?php echo esc_attr( $content->theme ); ?>">
       <?php if ( $content->close ) : ?>
-        <button class="moove-gdpr-modal-close" aria-label="<?php esc_html_e( 'Close GDPR Cookie Settings', 'gdpr-cookie-compliance' ); ?>">
+        <button class="moove-gdpr-modal-close" autofocus aria-label="<?php esc_html_e( 'Close GDPR Cookie Settings', 'gdpr-cookie-compliance' ); ?>">
           <span class="gdpr-sr-only"><?php esc_html_e( 'Close GDPR Cookie Settings', 'gdpr-cookie-compliance' ); ?></span>
-          <span class="gdpr-icon moovegdpr-arrow-close"></span>
+          <span class="gdpr-icon moovegdpr-arrow-close"> </span>
         </button>
       <?php endif; ?>
       <div class="moove-gdpr-modal-left-content">
@@ -53,7 +53,7 @@
 
     </div>
     <!--  .moove-gdpr-modal-content -->
-  </div>
+  </dialog>
   <!-- #moove_gdpr_cookie_modal -->
   <!--/copyscapeskip-->
 <?php endif; ?>

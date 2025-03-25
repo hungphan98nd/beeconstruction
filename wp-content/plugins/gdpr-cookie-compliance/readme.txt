@@ -2,7 +2,7 @@
 Contributors: MooveAgency
 Donate link: https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/
 Tags: GDPR, CCPA, DSGVO, CPRA, RGPD
-Stable tag: 4.15.10
+Stable tag: 4.16.1
 Requires at least: 4.5
 Tested up to: 6.7
 Requires PHP: 5.6
@@ -269,6 +269,11 @@ The Brazilian General Data Protection Law (“Lei Geral de Proteção de Dados�
 39. GDPR Cookie Compliance - Front-end - Cookie Shortcode [Premium]
 
 == Changelog ==
+= 4.16.1: 24 March 2025 = 
+* Accessibility improvements
+* Added option to hide banner on mobile
+* Minor fixes
+
 = 4.15.10: 4 February 2025 =
 * GA4 cookie removal script improved
 

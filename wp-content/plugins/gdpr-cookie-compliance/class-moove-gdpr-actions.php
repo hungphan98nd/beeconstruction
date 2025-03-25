@@ -601,7 +601,7 @@ class Moove_GDPR_Actions {
 			$button_order = in_array( 'settings', $buttons_order ) ? array_search( 'settings', $buttons_order ) : 'auto';
 			$button_label = isset( $modal_options[ 'moove_gdpr_infobar_settings_button_label' . $wpml_lang ] ) && $modal_options[ 'moove_gdpr_infobar_settings_button_label' . $wpml_lang ] ? $modal_options[ 'moove_gdpr_infobar_settings_button_label' . $wpml_lang ] : __( 'Settings', 'gdpr-cookie-compliance' );
 			?>
-				<button class="mgbutton moove-gdpr-infobar-settings-btn change-settings-button gdpr-fbo-<?php echo esc_attr( $button_order ); ?>" data-href="#moove_gdpr_cookie_modal"<?php echo apply_filters('gdpr_tabindex_attribute', '', $button_order ); ?> aria-label="<?php echo esc_attr( $button_label ); ?>"><?php echo esc_attr( $button_label ); ?></button>
+				<button class="mgbutton moove-gdpr-infobar-settings-btn change-settings-button gdpr-fbo-<?php echo esc_attr( $button_order ); ?>" aria-haspopup="true" data-href="#moove_gdpr_cookie_modal"<?php echo apply_filters('gdpr_tabindex_attribute', '', $button_order ); ?> aria-label="<?php echo esc_attr( $button_label ); ?>"><?php echo esc_attr( $button_label ); ?></button>
 			<?php
 		endif;
 	}

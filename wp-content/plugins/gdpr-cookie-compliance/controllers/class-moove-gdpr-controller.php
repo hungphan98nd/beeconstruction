@@ -283,6 +283,11 @@ class Moove_GDPR_Controller {
 			color: <?php echo esc_attr( $primary_colour ); ?>;
 		}
 
+		#moove_gdpr_cookie_modal .moove-gdpr-branding.focus-g span,
+		#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-tab-main a.focus-g {
+		  color: <?php echo esc_attr( $primary_colour ); ?>;
+		}
+
 		#moove_gdpr_cookie_modal.gdpr_lightbox-hide {
 			display: none;
 		}

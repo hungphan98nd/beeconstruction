@@ -141,6 +141,13 @@ class GDPR_Modules {
 		endif;
 
 		$data->show 				 = apply_filters( 'gdpr_template_html_load', $data->show );
+
+		$gdpr_cb_show_mobile = isset( $modal_options['gdpr_cb_show_mobile'] ) && intval( $modal_options['gdpr_cb_show_mobile'] ) >= 0 ? intval( $modal_options['gdpr_cb_show_mobile'] ) : apply_filters( 'gdpr_hide_banner_on_mobile', 1 );
+
+		if ( $gdpr_cb_show_mobile === 0 && function_exists( 'wp_is_mobile' ) && wp_is_mobile() ) :
+			$data->show = false;
+		endif;
+
 		$data->class       = implode( ' ', $infobar_classes );
 		$infobar_content   = apply_filters( 'gdpr_info_bar_popup_content', $view_controller->load( 'infobar.infobar-base', $data ) );
 		return $infobar_content;
@@ -162,7 +169,7 @@ class GDPR_Modules {
 		$content 						= wp_kses_post( $content );
 
 		$tabindex 					= apply_filters('gdpr_tabindex_attribute', '', '0' );
-		$content            = str_replace( '[setting]', '<button ' . $tabindex . ' data-href="#moove_gdpr_cookie_modal" class="change-settings-button">', $content );
+		$content            = str_replace( '[setting]', '<button ' . $tabindex . ' aria-haspopup="true" data-href="#moove_gdpr_cookie_modal" class="change-settings-button">', $content );
 		$content            = str_replace( '[/setting]', '</button>', $content );
 		$content            = apply_filters( 'gdpr_info_bar_notice_content', $content );
 		$data               = new stdClass();

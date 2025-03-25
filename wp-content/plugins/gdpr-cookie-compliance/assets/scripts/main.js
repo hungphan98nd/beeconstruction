@@ -131,7 +131,7 @@
             if ( e.keyCode == 9 ) {
               e.preventDefault();
 
-              var items_to_focus = $('#moove_gdpr_cookie_modal .mgbutton, #moove_gdpr_cookie_modal .moove-gdpr-modal-close, #moove_gdpr_cookie_modal #moove-gdpr-menu > li');
+              var items_to_focus = $('#moove_gdpr_cookie_modal .mgbutton, #moove_gdpr_cookie_modal .moove-gdpr-modal-close, #moove_gdpr_cookie_modal #moove-gdpr-menu > li, #moove_gdpr_cookie_modal .moove-gdpr-branding');
 
               if ( items_to_focus.length > 0 ) {
                 var item_to_focus = false;       
@@ -259,7 +259,7 @@
             if ( e.keyCode == 9 ) {
               e.preventDefault();
 
-              var items_to_focus = $('#moove_gdpr_cookie_modal .cookie-switch, #moove_gdpr_cookie_modal .mgbutton, #moove_gdpr_cookie_modal a:not(.moove-gdpr-branding), #moove_gdpr_cookie_modal .moove-gdpr-modal-close');
+              var items_to_focus = $('#moove_gdpr_cookie_modal .cookie-switch, #moove_gdpr_cookie_modal .mgbutton, #moove_gdpr_cookie_modal a:not(.moove-gdpr-branding), #moove_gdpr_cookie_modal .moove-gdpr-modal-close, #moove_gdpr_cookie_modal .moove-gdpr-branding');
 
               if ( items_to_focus.length > 0 ) {
                 var item_to_focus = false;       

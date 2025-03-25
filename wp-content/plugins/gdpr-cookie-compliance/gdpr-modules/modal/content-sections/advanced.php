@@ -15,7 +15,12 @@
             <label class="cookie-switch" for="moove_gdpr_advanced_cookies">    
               <span class="gdpr-sr-only"><?php esc_html_e( 'Enable or Disable Cookies', 'gdpr-cookie-compliance' ); ?></span>
               <input type="checkbox" aria-label="<?php echo esc_attr( $content->tab_title ); ?>" value="check" name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" <?php echo $content->is_checked; ?>>
-              <span class="cookie-slider cookie-round" data-text-enable="<?php echo esc_attr( $content->text_enable ); ?>" data-text-disabled="<?php echo esc_attr( $content->text_disable ); ?>"></span>
+              <span class="cookie-slider cookie-round gdpr-sr" data-text-enable="<?php echo esc_attr( $content->text_enable ); ?>" data-text-disabled="<?php echo esc_attr( $content->text_disable ); ?>">
+                <span class="gdpr-sr-label">
+                  <span class="gdpr-sr-enable"><?php echo esc_attr( $content->text_enable ); ?></span>
+                  <span class="gdpr-sr-disable"><?php echo esc_attr( $content->text_disable ); ?></span>
+                </span>
+              </span>
             </label>
           </div>
           <!-- .gdpr-cc-form-fieldset -->

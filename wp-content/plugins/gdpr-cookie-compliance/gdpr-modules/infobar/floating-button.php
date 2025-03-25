@@ -6,7 +6,7 @@
 
 <?php if ( $content->is_enabled ) : ?>
   <!--copyscapeskip-->
-  <button data-href="#moove_gdpr_cookie_modal" <?php echo apply_filters('gdpr_tabindex_attribute', '', 1 ); ?> id="moove_gdpr_save_popup_settings_button" style='<?php echo $content->styles; ?>' class="<?php echo esc_attr( $content->class ); ?>" aria-label="<?php echo esc_attr( $content->label ); ?>">
+  <button data-href="#moove_gdpr_cookie_modal" aria-haspopup="true" <?php echo apply_filters('gdpr_tabindex_attribute', '', 1 ); ?> id="moove_gdpr_save_popup_settings_button" style='<?php echo $content->styles; ?>' class="<?php echo esc_attr( $content->class ); ?>" aria-label="<?php echo esc_attr( $content->label ); ?>">
     <span class="moove_gdpr_icon">
       <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="max-width: 30px; max-height: 30px;">
         <g data-name="1">

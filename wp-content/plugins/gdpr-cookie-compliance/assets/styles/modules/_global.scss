@@ -18,6 +18,19 @@ body.logged-in.et_divi_builder.et-fb {
     display: none;
   }
 }
+
+.gdpr_lightbox dialog#moove_gdpr_cookie_modal {
+  display: flex;
+  position: relative;
+  padding: 0;
+  background: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 #moove_gdpr_cookie_info_bar .moove-gdpr-cookie-notice {
   button.change-settings-button {
     padding: 0;
@@ -317,7 +330,35 @@ body.gdpr-no-icons {
 					border-radius: 50%;
 				}
 			}
+
+      &.gdpr-sr {
+        &:after {
+          display: none;
+        }
+      }
 		}
+    
+    .gdpr-sr-enable {
+      display: none;
+      color: #2e9935;
+    }
+    .gdpr-sr-disable {
+      display: block;
+      color: #ff0000;
+    }
+
+    .gdpr-sr-label {
+      position: absolute;
+      top: 0;
+      left: 60px;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 30px;
+      color: #ff0000;
+      display: block;
+      white-space: nowrap;
+    }
+    
 		input:checked + .slider,
 		input:checked + .cookie-slider {
 			background-color: #2e9935;
@@ -326,6 +367,14 @@ body.gdpr-no-icons {
 				color: #2e9935;
 				white-space: nowrap;
 			}
+
+      .gdpr-sr-enable {
+        display: block;
+      }
+
+      .gdpr-sr-disable {
+        display: none;
+      }
 		}
 
 		input:focus + .slider,
@@ -461,6 +510,12 @@ body.gdpr-no-icons {
 							left: auto;
 							right: 60px;
 						}
+
+            .gdpr-sr-label {
+              text-align: right;
+              left: auto;
+              right: 60px;
+            }
 					}
 				}
 				h3.tab-title,
@@ -1577,6 +1632,12 @@ body.gdpr-no-icons {
 								text-align: left;
 								top: -3px;
 							}
+
+              .gdpr-sr-label {
+                left: 45px;
+                right: 0;
+                text-align: left;
+              }
 						}
 					}
 				}
@@ -1600,12 +1661,20 @@ body.gdpr-no-icons {
 			max-height: 90vh;
 			min-height: auto;
 			.switch .slider:after,
-			.cookie-switch .cookie-slider:after {
+			.cookie-switch .cookie-slider:after,
+      .switch .gdpr-sr-label,
+      .cookie-switch .gdpr-sr-label {
 				font-weight: 800;
 				font-size: 12px;
 				line-height: 30px;
 				min-width: 130px;
 			}
+
+      .switch .gdpr-sr-label,
+      .cookie-switch .gdpr-sr-label {
+        line-height: 1.8;
+      }
+
 			.moove-gdpr-close-modal-button {
 				a, 
 				button {
